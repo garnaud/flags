@@ -1,0 +1,19 @@
+{
+  "name": "Quiz Drapeaux du Monde",
+  "short_name": "Drapeaux Quiz",
+  "description": "Application PWA moderne de quiz sur les drapeaux du monde",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#0f172a",
+  "theme_color": "#3b82f6",
+  "icons": [
+    {
+      "src": "favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
