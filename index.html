@@ -3,8 +3,8 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Quiz Drapeaux du Monde</title>
-    <meta name="description" content="Application PWA moderne de quiz sur les drapeaux du monde en Vanilla JS." />
+    <title>Quiz Drapeaux du Monde & Mode Avancé</title>
+    <meta name="description" content="Application PWA moderne de quiz sur les drapeaux et la culture géographique mondiale en Vanilla JS." />
     <meta name="theme-color" content="#1e293b" />
     <link rel="icon" type="image/svg+xml" href="favicon.svg" />
     <link rel="manifest" href="manifest.json" />
@@ -12,10 +12,20 @@
   </head>
   <body>
     <div id="app" class="app-container">
+      <!-- Sélecteur de Mode de Jeu -->
+      <nav class="mode-switch-nav" aria-label="Choix du mode de jeu">
+        <button id="mode-classic-btn" class="mode-btn active" type="button">
+          🚩 Mode Drapeaux
+        </button>
+        <button id="mode-advanced-btn" class="mode-btn" type="button">
+          ⚡ Mode Avancé (Survie)
+        </button>
+      </nav>
+
       <header class="quiz-header">
         <div class="brand">
-          <span class="brand-icon" aria-hidden="true">🚩</span>
-          <h1 class="brand-title">Drapeaux du Monde</h1>
+          <span id="brand-icon" class="brand-icon" aria-hidden="true">🚩</span>
+          <h1 id="brand-title" class="brand-title">Drapeaux du Monde</h1>
         </div>
 
         <!-- Podium rapide Top 3 -->
@@ -24,8 +34,8 @@
           <span id="header-top-streaks-list" class="top-streaks-list">-</span>
         </div>
 
-        <!-- Sélecteur de nombre de questions -->
-        <div class="config-bar">
+        <!-- Configuration Mode Classique (Sélecteur de nombre de questions) -->
+        <div id="classic-config-bar" class="config-bar">
           <label for="question-count-select" class="config-label">Questions :</label>
           <div class="select-wrapper">
             <select id="question-count-select" class="select-input" aria-label="Sélectionner le nombre de questions">
@@ -38,13 +48,19 @@
           </div>
         </div>
 
+        <!-- Information Mode Avancé (Survie & Difficulté) -->
+        <div id="advanced-config-bar" class="config-bar hidden">
+          <span class="config-label">Survie infinie :</span>
+          <span id="advanced-difficulty-badge" class="difficulty-badge">Difficulté : ⭐ Nv. 1</span>
+        </div>
+
         <div class="stats-bar" aria-live="polite">
           <div class="stat-badge">
-            <span class="stat-label">Question</span>
+            <span id="stat-progress-label" class="stat-label">Question</span>
             <span id="question-progress" class="stat-value">1 / 10</span>
           </div>
           <div class="stat-badge stat-score">
-            <span class="stat-label">Score</span>
+            <span id="stat-score-label" class="stat-label">Score</span>
             <span id="current-score" class="stat-value">0</span>
           </div>
           <div class="stat-badge stat-streak">
@@ -60,6 +76,9 @@
 
       <main class="quiz-main">
         <section class="card question-card" aria-labelledby="question-instruction">
+          <!-- Badge de catégorie pour le mode avancé -->
+          <div id="category-badge" class="category-badge hidden">🏛️ Capitale</div>
+
           <p id="question-instruction" class="instruction-text">
             À quel pays appartient ce drapeau ?
           </p>
@@ -74,13 +93,19 @@
             />
           </div>
 
+          <!-- Section d'indices et de références pour le mode avancé -->
+          <div id="hints-card" class="hints-card hidden" aria-live="polite">
+            <div id="reference-france" class="hint-item hint-ref"></div>
+            <div id="clues-list" class="clues-list"></div>
+          </div>
+
           <div
             id="options-container"
             class="options-grid"
             role="group"
             aria-label="Options de réponse"
           >
-            <!-- 4 boutons de réponse générés dynamiquement -->
+            <!-- Boutons de réponse générés dynamiquement -->
           </div>
         </section>
       </main>
@@ -98,7 +123,7 @@
 
           <div class="modal-summary-grid">
             <div class="modal-score-card">
-              <span class="modal-score-label">Score Final</span>
+              <span id="modal-score-label" class="modal-score-label">Score Final</span>
               <span id="final-score" class="modal-score-number">0 / 10</span>
             </div>
             <div class="modal-score-card">
@@ -114,7 +139,7 @@
 
           <!-- Podium Top 3 des séries -->
           <div class="podium-card">
-            <h3 class="podium-title">🏆 Top 3 des séries d'affilée</h3>
+            <h3 id="modal-podium-title" class="podium-title">🏆 Top 3 des séries d'affilée</h3>
             <ol id="modal-podium-list" class="podium-list">
               <!-- Rempli dynamiquement -->
             </ol>

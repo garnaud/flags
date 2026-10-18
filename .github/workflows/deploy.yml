@@ -37,6 +37,9 @@ jobs:
       - name: Exécution des tests unitaires (Vitest)
         run: npm test
 
+      - name: Configuration de GitHub Pages
+        uses: actions/configure-pages@v5
+
       - name: Build de l'application (Vite)
         run: npm run build
 

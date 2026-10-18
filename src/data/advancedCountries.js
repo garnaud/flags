@@ -1,0 +1,4042 @@
+/**
+ * Données enrichies des 195 pays pour le Mode Avancé (Survie & Culture).
+ * tier : 1 (Frontaliers), 2 (Europe), 3 (Occidentaux/Grands), 4 (Autres continentaux), 5 (Îles)
+ */
+export const advancedCountries = [
+  {
+    "code": "al",
+    "name": "Albanie",
+    "capital": "Tirana",
+    "population": 2800000,
+    "area": 28748,
+    "gdp": 23,
+    "gdpPerCapita": 8214,
+    "currency": "Lek",
+    "tier": 2,
+    "continent": "Europe",
+    "cities": [],
+    "borders": [
+      "me",
+      "rs",
+      "mk",
+      "gr"
+    ],
+    "isIsland": false
+  },
+  {
+    "code": "de",
+    "name": "Allemagne",
+    "capital": "Berlin",
+    "population": 84000000,
+    "area": 357022,
+    "gdp": 4400,
+    "gdpPerCapita": 52381,
+    "currency": "Euro",
+    "tier": 1,
+    "continent": "Europe",
+    "cities": [
+      "Munich",
+      "Francfort",
+      "Hambourg"
+    ],
+    "borders": [
+      "dk",
+      "pl",
+      "cz",
+      "at",
+      "ch",
+      "fr",
+      "lu",
+      "be",
+      "nl"
+    ],
+    "isIsland": false
+  },
+  {
+    "code": "ad",
+    "name": "Andorre",
+    "capital": "Andorre-la-Vieille",
+    "population": 80000,
+    "area": 468,
+    "gdp": 3,
+    "gdpPerCapita": 37500,
+    "currency": "Euro",
+    "tier": 1,
+    "continent": "Europe",
+    "cities": [],
+    "borders": [
+      "fr",
+      "es"
+    ],
+    "isIsland": false
+  },
+  {
+    "code": "at",
+    "name": "Autriche",
+    "capital": "Vienne",
+    "population": 9100000,
+    "area": 83871,
+    "gdp": 520,
+    "gdpPerCapita": 57143,
+    "currency": "Euro",
+    "tier": 2,
+    "continent": "Europe",
+    "cities": [],
+    "borders": [
+      "de",
+      "cz",
+      "sk",
+      "hu",
+      "si",
+      "it",
+      "ch",
+      "li"
+    ],
+    "isIsland": false
+  },
+  {
+    "code": "be",
+    "name": "Belgique",
+    "capital": "Bruxelles",
+    "population": 11800000,
+    "area": 30528,
+    "gdp": 630,
+    "gdpPerCapita": 53390,
+    "currency": "Euro",
+    "tier": 1,
+    "continent": "Europe",
+    "cities": [
+      "Anvers",
+      "Gand",
+      "Liège"
+    ],
+    "borders": [
+      "fr",
+      "lu",
+      "de",
+      "nl"
+    ],
+    "isIsland": false
+  },
+  {
+    "code": "by",
+    "name": "Biélorussie",
+    "capital": "Minsk",
+    "population": 9200000,
+    "area": 207600,
+    "gdp": 70,
+    "gdpPerCapita": 7609,
+    "currency": "Rouble biélorusse",
+    "tier": 2,
+    "continent": "Europe",
+    "cities": [],
+    "borders": [
+      "pl",
+      "lt",
+      "lv",
+      "ru",
+      "ua"
+    ],
+    "isIsland": false
+  },
+  {
+    "code": "ba",
+    "name": "Bosnie-Herzégovine",
+    "capital": "Sarajevo",
+    "population": 3200000,
+    "area": 51209,
+    "gdp": 26,
+    "gdpPerCapita": 8125,
+    "currency": "Mark convertible",
+    "tier": 2,
+    "continent": "Europe",
+    "cities": [],
+    "borders": [
+      "hr",
+      "rs",
+      "me"
+    ],
+    "isIsland": false
+  },
+  {
+    "code": "bg",
+    "name": "Bulgarie",
+    "capital": "Sofia",
+    "population": 6400000,
+    "area": 110879,
+    "gdp": 100,
+    "gdpPerCapita": 15625,
+    "currency": "Lev bulgare",
+    "tier": 2,
+    "continent": "Europe",
+    "cities": [],
+    "borders": [
+      "ro",
+      "rs",
+      "mk",
+      "gr",
+      "tr"
+    ],
+    "isIsland": false
+  },
+  {
+    "code": "cy",
+    "name": "Chypre",
+    "capital": "Nicosie",
+    "population": 1250000,
+    "area": 9251,
+    "gdp": 32,
+    "gdpPerCapita": 25600,
+    "currency": "Euro",
+    "tier": 5,
+    "continent": "Europe",
+    "cities": [],
+    "borders": [],
+    "isIsland": true
+  },
+  {
+    "code": "hr",
+    "name": "Croatie",
+    "capital": "Zagreb",
+    "population": 4000000,
+    "area": 56594,
+    "gdp": 80,
+    "gdpPerCapita": 20000,
+    "currency": "Euro",
+    "tier": 2,
+    "continent": "Europe",
+    "cities": [],
+    "borders": [
+      "si",
+      "hu",
+      "rs",
+      "ba",
+      "me"
+    ],
+    "isIsland": false
+  },
+  {
+    "code": "dk",
+    "name": "Danemark",
+    "capital": "Copenhague",
+    "population": 5900000,
+    "area": 42933,
+    "gdp": 400,
+    "gdpPerCapita": 67797,
+    "currency": "Couronne danoise",
+    "tier": 2,
+    "continent": "Europe",
+    "cities": [],
+    "borders": [
+      "de"
+    ],
+    "isIsland": false
+  },
+  {
+    "code": "es",
+    "name": "Espagne",
+    "capital": "Madrid",
+    "population": 48000000,
+    "area": 505990,
+    "gdp": 1600,
+    "gdpPerCapita": 33333,
+    "currency": "Euro",
+    "tier": 1,
+    "continent": "Europe",
+    "cities": [
+      "Barcelone",
+      "Séville",
+      "Valence"
+    ],
+    "borders": [
+      "fr",
+      "ad",
+      "pt",
+      "ma"
+    ],
+    "isIsland": false
+  },
+  {
+    "code": "ee",
+    "name": "Estonie",
+    "capital": "Tallinn",
+    "population": 1300000,
+    "area": 45228,
+    "gdp": 41,
+    "gdpPerCapita": 31538,
+    "currency": "Euro",
+    "tier": 2,
+    "continent": "Europe",
+    "cities": [],
+    "borders": [
+      "ru",
+      "lv"
+    ],
+    "isIsland": false
+  },
+  {
+    "code": "fi",
+    "name": "Finlande",
+    "capital": "Helsinki",
+    "population": 5600000,
+    "area": 338424,
+    "gdp": 300,
+    "gdpPerCapita": 53571,
+    "currency": "Euro",
+    "tier": 2,
+    "continent": "Europe",
+    "cities": [],
+    "borders": [
+      "se",
+      "no",
+      "ru"
+    ],
+    "isIsland": false
+  },
+  {
+    "code": "fr",
+    "name": "France",
+    "capital": "Paris",
+    "population": 68000000,
+    "area": 551695,
+    "gdp": 3000,
+    "gdpPerCapita": 44118,
+    "currency": "Euro",
+    "tier": 1,
+    "continent": "Europe",
+    "cities": [
+      "Lyon",
+      "Marseille",
+      "Bordeaux"
+    ],
+    "borders": [
+      "es",
+      "ad",
+      "mc",
+      "it",
+      "ch",
+      "de",
+      "lu",
+      "be"
+    ],
+    "isIsland": false
+  },
+  {
+    "code": "gr",
+    "name": "Grèce",
+    "capital": "Athènes",
+    "population": 10400000,
+    "area": 131957,
+    "gdp": 240,
+    "gdpPerCapita": 23077,
+    "currency": "Euro",
+    "tier": 2,
+    "continent": "Europe",
+    "cities": [
+      "Thessalonique",
+      "Patras"
+    ],
+    "borders": [
+      "al",
+      "mk",
+      "bg",
+      "tr"
+    ],
+    "isIsland": false
+  },
+  {
+    "code": "hu",
+    "name": "Hongrie",
+    "capital": "Budapest",
+    "population": 9600000,
+    "area": 93028,
+    "gdp": 210,
+    "gdpPerCapita": 21875,
+    "currency": "Forint",
+    "tier": 2,
+    "continent": "Europe",
+    "cities": [],
+    "borders": [
+      "at",
+      "sk",
+      "ua",
+      "ro",
+      "rs",
+      "hr",
+      "si"
+    ],
+    "isIsland": false
+  },
+  {
+    "code": "ie",
+    "name": "Irlande",
+    "capital": "Dublin",
+    "population": 5200000,
+    "area": 70273,
+    "gdp": 540,
+    "gdpPerCapita": 103846,
+    "currency": "Euro",
+    "tier": 2,
+    "continent": "Europe",
+    "cities": [],
+    "borders": [
+      "gb"
+    ],
+    "isIsland": false
+  },
+  {
+    "code": "is",
+    "name": "Islande",
+    "capital": "Reykjavik",
+    "population": 380000,
+    "area": 103000,
+    "gdp": 30,
+    "gdpPerCapita": 78947,
+    "currency": "Couronne islandaise",
+    "tier": 5,
+    "continent": "Europe",
+    "cities": [],
+    "borders": [],
+    "isIsland": true
+  },
+  {
+    "code": "it",
+    "name": "Italie",
+    "capital": "Rome",
+    "population": 59000000,
+    "area": 301340,
+    "gdp": 2200,
+    "gdpPerCapita": 37288,
+    "currency": "Euro",
+    "tier": 1,
+    "continent": "Europe",
+    "cities": [
+      "Milan",
+      "Naples",
+      "Turin"
+    ],
+    "borders": [
+      "fr",
+      "ch",
+      "at",
+      "si",
+      "sm",
+      "va"
+    ],
+    "isIsland": false
+  },
+  {
+    "code": "li",
+    "name": "Liechtenstein",
+    "capital": "Vaduz",
+    "population": 40000,
+    "area": 160,
+    "gdp": 7,
+    "gdpPerCapita": 175000,
+    "currency": "Franc suisse",
+    "tier": 2,
+    "continent": "Europe",
+    "cities": [],
+    "borders": [
+      "ch",
+      "at"
+    ],
+    "isIsland": false
+  },
+  {
+    "code": "lv",
+    "name": "Lettonie",
+    "capital": "Riga",
+    "population": 1900000,
+    "area": 64589,
+    "gdp": 44,
+    "gdpPerCapita": 23158,
+    "currency": "Euro",
+    "tier": 2,
+    "continent": "Europe",
+    "cities": [],
+    "borders": [
+      "ee",
+      "ru",
+      "by",
+      "lt"
+    ],
+    "isIsland": false
+  },
+  {
+    "code": "lt",
+    "name": "Lituanie",
+    "capital": "Vilnius",
+    "population": 2800000,
+    "area": 65300,
+    "gdp": 78,
+    "gdpPerCapita": 27857,
+    "currency": "Euro",
+    "tier": 2,
+    "continent": "Europe",
+    "cities": [],
+    "borders": [
+      "lv",
+      "by",
+      "pl",
+      "ru"
+    ],
+    "isIsland": false
+  },
+  {
+    "code": "lu",
+    "name": "Luxembourg",
+    "capital": "Luxembourg",
+    "population": 660000,
+    "area": 2586,
+    "gdp": 85,
+    "gdpPerCapita": 128788,
+    "currency": "Euro",
+    "tier": 1,
+    "continent": "Europe",
+    "cities": [],
+    "borders": [
+      "be",
+      "fr",
+      "de"
+    ],
+    "isIsland": false
+  },
+  {
+    "code": "mk",
+    "name": "Macédoine du Nord",
+    "capital": "Skopje",
+    "population": 1800000,
+    "area": 25713,
+    "gdp": 15,
+    "gdpPerCapita": 8333,
+    "currency": "Denar",
+    "tier": 2,
+    "continent": "Europe",
+    "cities": [],
+    "borders": [
+      "rs",
+      "bg",
+      "gr",
+      "al"
+    ],
+    "isIsland": false
+  },
+  {
+    "code": "mt",
+    "name": "Malte",
+    "capital": "La Valette",
+    "population": 530000,
+    "area": 316,
+    "gdp": 20,
+    "gdpPerCapita": 37736,
+    "currency": "Euro",
+    "tier": 5,
+    "continent": "Europe",
+    "cities": [],
+    "borders": [],
+    "isIsland": true
+  },
+  {
+    "code": "md",
+    "name": "Moldavie",
+    "capital": "Chișinău",
+    "population": 2500000,
+    "area": 33846,
+    "gdp": 16,
+    "gdpPerCapita": 6400,
+    "currency": "Leu moldave",
+    "tier": 2,
+    "continent": "Europe",
+    "cities": [],
+    "borders": [
+      "ro",
+      "ua"
+    ],
+    "isIsland": false
+  },
+  {
+    "code": "mc",
+    "name": "Monaco",
+    "capital": "Monaco",
+    "population": 39000,
+    "area": 2,
+    "gdp": 8,
+    "gdpPerCapita": 205128,
+    "currency": "Euro",
+    "tier": 1,
+    "continent": "Europe",
+    "cities": [],
+    "borders": [
+      "fr"
+    ],
+    "isIsland": false
+  },
+  {
+    "code": "me",
+    "name": "Monténégro",
+    "capital": "Podgorica",
+    "population": 620000,
+    "area": 13812,
+    "gdp": 7,
+    "gdpPerCapita": 11290,
+    "currency": "Euro",
+    "tier": 2,
+    "continent": "Europe",
+    "cities": [],
+    "borders": [
+      "ba",
+      "rs",
+      "al",
+      "hr"
+    ],
+    "isIsland": false
+  },
+  {
+    "code": "no",
+    "name": "Norvège",
+    "capital": "Oslo",
+    "population": 5500000,
+    "area": 385207,
+    "gdp": 500,
+    "gdpPerCapita": 90909,
+    "currency": "Couronne norvégienne",
+    "tier": 2,
+    "continent": "Europe",
+    "cities": [],
+    "borders": [
+      "se",
+      "fi",
+      "ru"
+    ],
+    "isIsland": false
+  },
+  {
+    "code": "nl",
+    "name": "Pays-Bas",
+    "capital": "Amsterdam",
+    "population": 17900000,
+    "area": 41543,
+    "gdp": 1100,
+    "gdpPerCapita": 61453,
+    "currency": "Euro",
+    "tier": 2,
+    "continent": "Europe",
+    "cities": [
+      "Rotterdam",
+      "La Haye",
+      "Utrecht"
+    ],
+    "borders": [
+      "be",
+      "de"
+    ],
+    "isIsland": false
+  },
+  {
+    "code": "pl",
+    "name": "Pologne",
+    "capital": "Varsovie",
+    "population": 38000000,
+    "area": 312696,
+    "gdp": 840,
+    "gdpPerCapita": 22105,
+    "currency": "Złoty",
+    "tier": 2,
+    "continent": "Europe",
+    "cities": [
+      "Cracovie",
+      "Wrocław",
+      "Gdańsk"
+    ],
+    "borders": [
+      "de",
+      "cz",
+      "sk",
+      "ua",
+      "by",
+      "lt",
+      "ru"
+    ],
+    "isIsland": false
+  },
+  {
+    "code": "pt",
+    "name": "Portugal",
+    "capital": "Lisbonne",
+    "population": 10400000,
+    "area": 92212,
+    "gdp": 280,
+    "gdpPerCapita": 26923,
+    "currency": "Euro",
+    "tier": 2,
+    "continent": "Europe",
+    "cities": [
+      "Porto",
+      "Braga"
+    ],
+    "borders": [
+      "es"
+    ],
+    "isIsland": false
+  },
+  {
+    "code": "cz",
+    "name": "République Tchèque",
+    "capital": "Prague",
+    "population": 10900000,
+    "area": 78866,
+    "gdp": 330,
+    "gdpPerCapita": 30275,
+    "currency": "Couronne tchèque",
+    "tier": 2,
+    "continent": "Europe",
+    "cities": [
+      "Brno",
+      "Ostrava"
+    ],
+    "borders": [
+      "de",
+      "pl",
+      "sk",
+      "at"
+    ],
+    "isIsland": false
+  },
+  {
+    "code": "ro",
+    "name": "Roumanie",
+    "capital": "Bucarest",
+    "population": 19000000,
+    "area": 238391,
+    "gdp": 350,
+    "gdpPerCapita": 18421,
+    "currency": "Leu roumain",
+    "tier": 2,
+    "continent": "Europe",
+    "cities": [
+      "Cluj-Napoca",
+      "Timișoara"
+    ],
+    "borders": [
+      "ua",
+      "md",
+      "bg",
+      "rs",
+      "hu"
+    ],
+    "isIsland": false
+  },
+  {
+    "code": "gb",
+    "name": "Royaume-Uni",
+    "capital": "Londres",
+    "population": 67000000,
+    "area": 242495,
+    "gdp": 3300,
+    "gdpPerCapita": 49254,
+    "currency": "Livre sterling",
+    "tier": 2,
+    "continent": "Europe",
+    "cities": [
+      "Manchester",
+      "Birmingham",
+      "Édimbourg"
+    ],
+    "borders": [
+      "ie"
+    ],
+    "isIsland": false
+  },
+  {
+    "code": "ru",
+    "name": "Russie",
+    "capital": "Moscou",
+    "population": 144000000,
+    "area": 17098242,
+    "gdp": 2000,
+    "gdpPerCapita": 13889,
+    "currency": "Rouble",
+    "tier": 3,
+    "continent": "Europe",
+    "cities": [
+      "Saint-Pétersbourg",
+      "Novossibirsk",
+      "Kazan"
+    ],
+    "borders": [
+      "no",
+      "fi",
+      "ee",
+      "lv",
+      "by",
+      "ua",
+      "ge",
+      "az",
+      "kz",
+      "cn",
+      "mn",
+      "kp"
+    ],
+    "isIsland": false
+  },
+  {
+    "code": "sm",
+    "name": "Saint-Marin",
+    "capital": "Saint-Marin",
+    "population": 34000,
+    "area": 61,
+    "gdp": 2,
+    "gdpPerCapita": 58824,
+    "currency": "Euro",
+    "tier": 2,
+    "continent": "Europe",
+    "cities": [],
+    "borders": [
+      "it"
+    ],
+    "isIsland": false
+  },
+  {
+    "code": "rs",
+    "name": "Serbie",
+    "capital": "Belgrade",
+    "population": 6600000,
+    "area": 77474,
+    "gdp": 75,
+    "gdpPerCapita": 11364,
+    "currency": "Dinar serbe",
+    "tier": 2,
+    "continent": "Europe",
+    "cities": [],
+    "borders": [
+      "hu",
+      "ro",
+      "bg",
+      "mk",
+      "me",
+      "ba",
+      "hr"
+    ],
+    "isIsland": false
+  },
+  {
+    "code": "sk",
+    "name": "Slovaquie",
+    "capital": "Bratislava",
+    "population": 5400000,
+    "area": 49035,
+    "gdp": 130,
+    "gdpPerCapita": 24074,
+    "currency": "Euro",
+    "tier": 2,
+    "continent": "Europe",
+    "cities": [],
+    "borders": [
+      "cz",
+      "pl",
+      "ua",
+      "hu",
+      "at"
+    ],
+    "isIsland": false
+  },
+  {
+    "code": "si",
+    "name": "Slovénie",
+    "capital": "Ljubljana",
+    "population": 2100000,
+    "area": 20273,
+    "gdp": 68,
+    "gdpPerCapita": 32381,
+    "currency": "Euro",
+    "tier": 2,
+    "continent": "Europe",
+    "cities": [],
+    "borders": [
+      "it",
+      "at",
+      "hu",
+      "hr"
+    ],
+    "isIsland": false
+  },
+  {
+    "code": "se",
+    "name": "Suède",
+    "capital": "Stockholm",
+    "population": 10500000,
+    "area": 450295,
+    "gdp": 600,
+    "gdpPerCapita": 57143,
+    "currency": "Couronne suédoise",
+    "tier": 2,
+    "continent": "Europe",
+    "cities": [
+      "Göteborg",
+      "Malmö"
+    ],
+    "borders": [
+      "no",
+      "fi"
+    ],
+    "isIsland": false
+  },
+  {
+    "code": "ch",
+    "name": "Suisse",
+    "capital": "Berne",
+    "population": 8900000,
+    "area": 41285,
+    "gdp": 900,
+    "gdpPerCapita": 101124,
+    "currency": "Franc suisse",
+    "tier": 1,
+    "continent": "Europe",
+    "cities": [],
+    "borders": [
+      "fr",
+      "de",
+      "it",
+      "at",
+      "li"
+    ],
+    "isIsland": false
+  },
+  {
+    "code": "ua",
+    "name": "Ukraine",
+    "capital": "Kiev",
+    "population": 38000000,
+    "area": 603550,
+    "gdp": 180,
+    "gdpPerCapita": 4737,
+    "currency": "Hryvnia",
+    "tier": 2,
+    "continent": "Europe",
+    "cities": [
+      "Kharkiv",
+      "Odessa",
+      "Lviv"
+    ],
+    "borders": [
+      "ru",
+      "by",
+      "pl",
+      "sk",
+      "hu",
+      "ro",
+      "md"
+    ],
+    "isIsland": false
+  },
+  {
+    "code": "va",
+    "name": "Vatican",
+    "capital": "Vatican",
+    "population": 800,
+    "area": 0.49,
+    "gdp": 0.1,
+    "gdpPerCapita": 125000,
+    "currency": "Euro",
+    "tier": 2,
+    "continent": "Europe",
+    "cities": [],
+    "borders": [
+      "it"
+    ],
+    "isIsland": false
+  },
+  {
+    "code": "ag",
+    "name": "Antigua-et-Barbuda",
+    "capital": "Saint John's",
+    "population": 94000,
+    "area": 442,
+    "gdp": 1.8,
+    "gdpPerCapita": 19149,
+    "currency": "Dollar des Caraïbes orientales",
+    "tier": 5,
+    "continent": "Amériques",
+    "cities": [],
+    "borders": [],
+    "isIsland": true
+  },
+  {
+    "code": "ar",
+    "name": "Argentine",
+    "capital": "Buenos Aires",
+    "population": 46000000,
+    "area": 2780400,
+    "gdp": 640,
+    "gdpPerCapita": 13913,
+    "currency": "Peso argentin",
+    "tier": 3,
+    "continent": "Amériques",
+    "cities": [
+      "Córdoba",
+      "Rosario",
+      "Mendoza"
+    ],
+    "borders": [
+      "cl",
+      "bo",
+      "py",
+      "br",
+      "uy"
+    ],
+    "isIsland": false
+  },
+  {
+    "code": "bs",
+    "name": "Bahamas",
+    "capital": "Nassau",
+    "population": 410000,
+    "area": 13943,
+    "gdp": 13,
+    "gdpPerCapita": 31707,
+    "currency": "Dollar bahaméen",
+    "tier": 5,
+    "continent": "Amériques",
+    "cities": [],
+    "borders": [],
+    "isIsland": true
+  },
+  {
+    "code": "bb",
+    "name": "Barbade",
+    "capital": "Bridgetown",
+    "population": 280000,
+    "area": 430,
+    "gdp": 6,
+    "gdpPerCapita": 21429,
+    "currency": "Dollar barbadien",
+    "tier": 5,
+    "continent": "Amériques",
+    "cities": [],
+    "borders": [],
+    "isIsland": true
+  },
+  {
+    "code": "bz",
+    "name": "Belize",
+    "capital": "Belmopan",
+    "population": 400000,
+    "area": 22966,
+    "gdp": 3,
+    "gdpPerCapita": 7500,
+    "currency": "Dollar bélizien",
+    "tier": 4,
+    "continent": "Amériques",
+    "cities": [],
+    "borders": [
+      "mx",
+      "gt"
+    ],
+    "isIsland": false
+  },
+  {
+    "code": "bo",
+    "name": "Bolivie",
+    "capital": "Sucre",
+    "population": 12000000,
+    "area": 1098581,
+    "gdp": 45,
+    "gdpPerCapita": 3750,
+    "currency": "Boliviano",
+    "tier": 4,
+    "continent": "Amériques",
+    "cities": [
+      "La Paz",
+      "Santa Cruz"
+    ],
+    "borders": [
+      "pe",
+      "br",
+      "py",
+      "ar",
+      "cl"
+    ],
+    "isIsland": false
+  },
+  {
+    "code": "br",
+    "name": "Brésil",
+    "capital": "Brasília",
+    "population": 215000000,
+    "area": 8515767,
+    "gdp": 2100,
+    "gdpPerCapita": 9767,
+    "currency": "Real",
+    "tier": 3,
+    "continent": "Amériques",
+    "cities": [
+      "São Paulo",
+      "Rio de Janeiro",
+      "Salvador"
+    ],
+    "borders": [
+      "uy",
+      "ar",
+      "py",
+      "bo",
+      "pe",
+      "co",
+      "ve",
+      "gy",
+      "sr"
+    ],
+    "isIsland": false
+  },
+  {
+    "code": "ca",
+    "name": "Canada",
+    "capital": "Ottawa",
+    "population": 40000000,
+    "area": 9984670,
+    "gdp": 2100,
+    "gdpPerCapita": 52500,
+    "currency": "Dollar canadien",
+    "tier": 3,
+    "continent": "Amériques",
+    "cities": [
+      "Toronto",
+      "Montréal",
+      "Vancouver"
+    ],
+    "borders": [
+      "us"
+    ],
+    "isIsland": false
+  },
+  {
+    "code": "cl",
+    "name": "Chili",
+    "capital": "Santiago",
+    "population": 19500000,
+    "area": 756102,
+    "gdp": 340,
+    "gdpPerCapita": 17436,
+    "currency": "Peso chilien",
+    "tier": 4,
+    "continent": "Amériques",
+    "cities": [
+      "Valparaíso",
+      "Concepción"
+    ],
+    "borders": [
+      "pe",
+      "bo",
+      "ar"
+    ],
+    "isIsland": false
+  },
+  {
+    "code": "co",
+    "name": "Colombie",
+    "capital": "Bogota",
+    "population": 52000000,
+    "area": 1141748,
+    "gdp": 360,
+    "gdpPerCapita": 6923,
+    "currency": "Peso colombien",
+    "tier": 4,
+    "continent": "Amériques",
+    "cities": [
+      "Medellín",
+      "Cali",
+      "Barranquilla"
+    ],
+    "borders": [
+      "pa",
+      "ve",
+      "br",
+      "pe",
+      "ec"
+    ],
+    "isIsland": false
+  },
+  {
+    "code": "cr",
+    "name": "Costa Rica",
+    "capital": "San José",
+    "population": 5200000,
+    "area": 51100,
+    "gdp": 85,
+    "gdpPerCapita": 16346,
+    "currency": "Colón",
+    "tier": 4,
+    "continent": "Amériques",
+    "cities": [],
+    "borders": [
+      "ni",
+      "pa"
+    ],
+    "isIsland": false
+  },
+  {
+    "code": "cu",
+    "name": "Cuba",
+    "capital": "La Havane",
+    "population": 11000000,
+    "area": 109884,
+    "gdp": 107,
+    "gdpPerCapita": 9727,
+    "currency": "Peso cubain",
+    "tier": 5,
+    "continent": "Amériques",
+    "cities": [
+      "Santiago de Cuba",
+      "Camagüey"
+    ],
+    "borders": [],
+    "isIsland": true
+  },
+  {
+    "code": "dm",
+    "name": "Dominique",
+    "capital": "Roseau",
+    "population": 72000,
+    "area": 751,
+    "gdp": 0.6,
+    "gdpPerCapita": 8333,
+    "currency": "Dollar des Caraïbes orientales",
+    "tier": 5,
+    "continent": "Amériques",
+    "cities": [],
+    "borders": [],
+    "isIsland": true
+  },
+  {
+    "code": "ec",
+    "name": "Équateur",
+    "capital": "Quito",
+    "population": 18000000,
+    "area": 283561,
+    "gdp": 120,
+    "gdpPerCapita": 6667,
+    "currency": "Dollar américain",
+    "tier": 4,
+    "continent": "Amériques",
+    "cities": [
+      "Guayaquil",
+      "Cuenca"
+    ],
+    "borders": [
+      "co",
+      "pe"
+    ],
+    "isIsland": false
+  },
+  {
+    "code": "us",
+    "name": "États-Unis",
+    "capital": "Washington D.C.",
+    "population": 335000000,
+    "area": 9833517,
+    "gdp": 27000,
+    "gdpPerCapita": 80597,
+    "currency": "Dollar américain",
+    "tier": 3,
+    "continent": "Amériques",
+    "cities": [
+      "New York",
+      "Los Angeles",
+      "Chicago"
+    ],
+    "borders": [
+      "ca",
+      "mx"
+    ],
+    "isIsland": false
+  },
+  {
+    "code": "gd",
+    "name": "Grenade",
+    "capital": "Saint-Georges",
+    "population": 125000,
+    "area": 344,
+    "gdp": 1.3,
+    "gdpPerCapita": 10400,
+    "currency": "Dollar des Caraïbes orientales",
+    "tier": 5,
+    "continent": "Amériques",
+    "cities": [],
+    "borders": [],
+    "isIsland": true
+  },
+  {
+    "code": "gt",
+    "name": "Guatemala",
+    "capital": "Guatemala",
+    "population": 18000000,
+    "area": 108889,
+    "gdp": 100,
+    "gdpPerCapita": 5556,
+    "currency": "Quetzal",
+    "tier": 4,
+    "continent": "Amériques",
+    "cities": [
+      "Antigua",
+      "Quetzaltenango"
+    ],
+    "borders": [
+      "mx",
+      "bz",
+      "hn",
+      "sv"
+    ],
+    "isIsland": false
+  },
+  {
+    "code": "gy",
+    "name": "Guyana",
+    "capital": "Georgetown",
+    "population": 800000,
+    "area": 214969,
+    "gdp": 16,
+    "gdpPerCapita": 20000,
+    "currency": "Dollar guyanien",
+    "tier": 4,
+    "continent": "Amériques",
+    "cities": [],
+    "borders": [
+      "ve",
+      "br",
+      "sr"
+    ],
+    "isIsland": false
+  },
+  {
+    "code": "ht",
+    "name": "Haïti",
+    "capital": "Port-au-Prince",
+    "population": 11500000,
+    "area": 27750,
+    "gdp": 21,
+    "gdpPerCapita": 1826,
+    "currency": "Gourde",
+    "tier": 5,
+    "continent": "Amériques",
+    "cities": [
+      "Cap-Haïtien",
+      "Gonaïves"
+    ],
+    "borders": [
+      "do"
+    ],
+    "isIsland": true
+  },
+  {
+    "code": "hn",
+    "name": "Honduras",
+    "capital": "Tegucigalpa",
+    "population": 10400000,
+    "area": 112492,
+    "gdp": 34,
+    "gdpPerCapita": 3269,
+    "currency": "Lempira",
+    "tier": 4,
+    "continent": "Amériques",
+    "cities": [
+      "San Pedro Sula"
+    ],
+    "borders": [
+      "gt",
+      "sv",
+      "ni"
+    ],
+    "isIsland": false
+  },
+  {
+    "code": "jm",
+    "name": "Jamaïque",
+    "capital": "Kingston",
+    "population": 2800000,
+    "area": 10991,
+    "gdp": 17,
+    "gdpPerCapita": 6071,
+    "currency": "Dollar jamaïcain",
+    "tier": 5,
+    "continent": "Amériques",
+    "cities": [],
+    "borders": [],
+    "isIsland": true
+  },
+  {
+    "code": "mx",
+    "name": "Mexique",
+    "capital": "Mexico",
+    "population": 128000000,
+    "area": 1964375,
+    "gdp": 1800,
+    "gdpPerCapita": 14063,
+    "currency": "Peso mexicain",
+    "tier": 3,
+    "continent": "Amériques",
+    "cities": [
+      "Guadalajara",
+      "Monterrey",
+      "Cancún"
+    ],
+    "borders": [
+      "us",
+      "gt",
+      "bz"
+    ],
+    "isIsland": false
+  },
+  {
+    "code": "ni",
+    "name": "Nicaragua",
+    "capital": "Managua",
+    "population": 7000000,
+    "area": 130373,
+    "gdp": 17,
+    "gdpPerCapita": 2429,
+    "currency": "Córdoba",
+    "tier": 4,
+    "continent": "Amériques",
+    "cities": [],
+    "borders": [
+      "hn",
+      "cr"
+    ],
+    "isIsland": false
+  },
+  {
+    "code": "pa",
+    "name": "Panama",
+    "capital": "Panama",
+    "population": 4400000,
+    "area": 75417,
+    "gdp": 83,
+    "gdpPerCapita": 18864,
+    "currency": "Balboa",
+    "tier": 4,
+    "continent": "Amériques",
+    "cities": [],
+    "borders": [
+      "cr",
+      "co"
+    ],
+    "isIsland": false
+  },
+  {
+    "code": "py",
+    "name": "Paraguay",
+    "capital": "Asuncion",
+    "population": 7400000,
+    "area": 406752,
+    "gdp": 44,
+    "gdpPerCapita": 5946,
+    "currency": "Guaraní",
+    "tier": 4,
+    "continent": "Amériques",
+    "cities": [],
+    "borders": [
+      "bo",
+      "br",
+      "ar"
+    ],
+    "isIsland": false
+  },
+  {
+    "code": "pe",
+    "name": "Pérou",
+    "capital": "Lima",
+    "population": 34000000,
+    "area": 1285216,
+    "gdp": 260,
+    "gdpPerCapita": 7647,
+    "currency": "Sol",
+    "tier": 4,
+    "continent": "Amériques",
+    "cities": [
+      "Arequipa",
+      "Trujillo",
+      "Cusco"
+    ],
+    "borders": [
+      "ec",
+      "co",
+      "br",
+      "bo",
+      "cl"
+    ],
+    "isIsland": false
+  },
+  {
+    "code": "do",
+    "name": "République Dominicaine",
+    "capital": "Saint-Domingue",
+    "population": 11200000,
+    "area": 48670,
+    "gdp": 113,
+    "gdpPerCapita": 10089,
+    "currency": "Peso dominicain",
+    "tier": 5,
+    "continent": "Amériques",
+    "cities": [
+      "Santiago de los Caballeros"
+    ],
+    "borders": [
+      "ht"
+    ],
+    "isIsland": true
+  },
+  {
+    "code": "kn",
+    "name": "Saint-Christophe-et-Niévès",
+    "capital": "Basseterre",
+    "population": 48000,
+    "area": 261,
+    "gdp": 1,
+    "gdpPerCapita": 20833,
+    "currency": "Dollar des Caraïbes orientales",
+    "tier": 5,
+    "continent": "Amériques",
+    "cities": [],
+    "borders": [],
+    "isIsland": true
+  },
+  {
+    "code": "lc",
+    "name": "Sainte-Lucie",
+    "capital": "Castries",
+    "population": 180000,
+    "area": 616,
+    "gdp": 2.3,
+    "gdpPerCapita": 12778,
+    "currency": "Dollar des Caraïbes orientales",
+    "tier": 5,
+    "continent": "Amériques",
+    "cities": [],
+    "borders": [],
+    "isIsland": true
+  },
+  {
+    "code": "vc",
+    "name": "Saint-Vincent-et-les-Grenadines",
+    "capital": "Kingstown",
+    "population": 104000,
+    "area": 389,
+    "gdp": 1,
+    "gdpPerCapita": 9615,
+    "currency": "Dollar des Caraïbes orientales",
+    "tier": 5,
+    "continent": "Amériques",
+    "cities": [],
+    "borders": [],
+    "isIsland": true
+  },
+  {
+    "code": "sv",
+    "name": "Salvador",
+    "capital": "San Salvador",
+    "population": 6300000,
+    "area": 21041,
+    "gdp": 35,
+    "gdpPerCapita": 5556,
+    "currency": "Dollar américain",
+    "tier": 4,
+    "continent": "Amériques",
+    "cities": [],
+    "borders": [
+      "gt",
+      "hn"
+    ],
+    "isIsland": false
+  },
+  {
+    "code": "sr",
+    "name": "Suriname",
+    "capital": "Paramaribo",
+    "population": 620000,
+    "area": 163820,
+    "gdp": 3.6,
+    "gdpPerCapita": 5806,
+    "currency": "Dollar surinamais",
+    "tier": 4,
+    "continent": "Amériques",
+    "cities": [],
+    "borders": [
+      "gy",
+      "br"
+    ],
+    "isIsland": false
+  },
+  {
+    "code": "tt",
+    "name": "Trinité-et-Tobago",
+    "capital": "Port-d'Espagne",
+    "population": 1500000,
+    "area": 5130,
+    "gdp": 28,
+    "gdpPerCapita": 18667,
+    "currency": "Dollar de Trinité-et-Tobago",
+    "tier": 5,
+    "continent": "Amériques",
+    "cities": [],
+    "borders": [],
+    "isIsland": true
+  },
+  {
+    "code": "uy",
+    "name": "Uruguay",
+    "capital": "Montevideo",
+    "population": 3400000,
+    "area": 176215,
+    "gdp": 77,
+    "gdpPerCapita": 22647,
+    "currency": "Peso uruguayen",
+    "tier": 4,
+    "continent": "Amériques",
+    "cities": [],
+    "borders": [
+      "br",
+      "ar"
+    ],
+    "isIsland": false
+  },
+  {
+    "code": "ve",
+    "name": "Venezuela",
+    "capital": "Caracas",
+    "population": 29000000,
+    "area": 916445,
+    "gdp": 100,
+    "gdpPerCapita": 3448,
+    "currency": "Bolívar",
+    "tier": 4,
+    "continent": "Amériques",
+    "cities": [
+      "Maracaibo",
+      "Valencia"
+    ],
+    "borders": [
+      "co",
+      "br",
+      "gy"
+    ],
+    "isIsland": false
+  },
+  {
+    "code": "af",
+    "name": "Afghanistan",
+    "capital": "Kaboul",
+    "population": 41000000,
+    "area": 652230,
+    "gdp": 14,
+    "gdpPerCapita": 341,
+    "currency": "Afghani",
+    "tier": 4,
+    "continent": "Asie",
+    "cities": [
+      "Kandahar",
+      "Hérat"
+    ],
+    "borders": [
+      "ir",
+      "tm",
+      "uz",
+      "tj",
+      "cn",
+      "pk"
+    ],
+    "isIsland": false
+  },
+  {
+    "code": "sa",
+    "name": "Arabie Saoudite",
+    "capital": "Riyad",
+    "population": 36000000,
+    "area": 2149690,
+    "gdp": 1100,
+    "gdpPerCapita": 30556,
+    "currency": "Riyal saoudien",
+    "tier": 4,
+    "continent": "Asie",
+    "cities": [
+      "Djeddah",
+      "La Mecque",
+      "Médine"
+    ],
+    "borders": [
+      "jo",
+      "iq",
+      "kw",
+      "ae",
+      "om",
+      "ye",
+      "qa"
+    ],
+    "isIsland": false
+  },
+  {
+    "code": "am",
+    "name": "Arménie",
+    "capital": "Erevan",
+    "population": 2800000,
+    "area": 29743,
+    "gdp": 24,
+    "gdpPerCapita": 8571,
+    "currency": "Dram",
+    "tier": 4,
+    "continent": "Asie",
+    "cities": [],
+    "borders": [
+      "ge",
+      "az",
+      "ir",
+      "tr"
+    ],
+    "isIsland": false
+  },
+  {
+    "code": "az",
+    "name": "Azerbaïdjan",
+    "capital": "Bakou",
+    "population": 10300000,
+    "area": 86600,
+    "gdp": 72,
+    "gdpPerCapita": 6990,
+    "currency": "Manat azerbaïdjanais",
+    "tier": 4,
+    "continent": "Asie",
+    "cities": [
+      "Gandja",
+      "Sumqayit"
+    ],
+    "borders": [
+      "ru",
+      "ge",
+      "am",
+      "ir"
+    ],
+    "isIsland": false
+  },
+  {
+    "code": "bh",
+    "name": "Bahreïn",
+    "capital": "Manama",
+    "population": 1500000,
+    "area": 765,
+    "gdp": 45,
+    "gdpPerCapita": 30000,
+    "currency": "Dinar bahreïni",
+    "tier": 4,
+    "continent": "Asie",
+    "cities": [],
+    "borders": [],
+    "isIsland": true
+  },
+  {
+    "code": "bd",
+    "name": "Bangladesh",
+    "capital": "Dacca",
+    "population": 170000000,
+    "area": 147570,
+    "gdp": 460,
+    "gdpPerCapita": 2706,
+    "currency": "Taka",
+    "tier": 4,
+    "continent": "Asie",
+    "cities": [
+      "Chittagong",
+      "Khulna"
+    ],
+    "borders": [
+      "in",
+      "mm"
+    ],
+    "isIsland": false
+  },
+  {
+    "code": "bt",
+    "name": "Bhoutan",
+    "capital": "Thimphou",
+    "population": 780000,
+    "area": 38394,
+    "gdp": 3,
+    "gdpPerCapita": 3846,
+    "currency": "Ngultrum",
+    "tier": 4,
+    "continent": "Asie",
+    "cities": [],
+    "borders": [
+      "cn",
+      "in"
+    ],
+    "isIsland": false
+  },
+  {
+    "code": "mm",
+    "name": "Birmanie",
+    "capital": "Naypyidaw",
+    "population": 54000000,
+    "area": 676578,
+    "gdp": 65,
+    "gdpPerCapita": 1204,
+    "currency": "Kyat",
+    "tier": 4,
+    "continent": "Asie",
+    "cities": [
+      "Rangoun",
+      "Mandalay"
+    ],
+    "borders": [
+      "bd",
+      "in",
+      "cn",
+      "la",
+      "th"
+    ],
+    "isIsland": false
+  },
+  {
+    "code": "bn",
+    "name": "Brunei",
+    "capital": "Bandar Seri Begawan",
+    "population": 450000,
+    "area": 5765,
+    "gdp": 16,
+    "gdpPerCapita": 35556,
+    "currency": "Dollar de Brunei",
+    "tier": 5,
+    "continent": "Asie",
+    "cities": [],
+    "borders": [
+      "my"
+    ],
+    "isIsland": true
+  },
+  {
+    "code": "kh",
+    "name": "Cambodge",
+    "capital": "Phnom Penh",
+    "population": 17000000,
+    "area": 181035,
+    "gdp": 30,
+    "gdpPerCapita": 1765,
+    "currency": "Riel",
+    "tier": 4,
+    "continent": "Asie",
+    "cities": [
+      "Siem Reap",
+      "Battambang"
+    ],
+    "borders": [
+      "th",
+      "la",
+      "vn"
+    ],
+    "isIsland": false
+  },
+  {
+    "code": "cn",
+    "name": "Chine",
+    "capital": "Pékin",
+    "population": 1410000000,
+    "area": 9596961,
+    "gdp": 17700,
+    "gdpPerCapita": 12553,
+    "currency": "Yuan",
+    "tier": 3,
+    "continent": "Asie",
+    "cities": [
+      "Shanghai",
+      "Canton",
+      "Shenzhen"
+    ],
+    "borders": [
+      "ru",
+      "mn",
+      "kp",
+      "vn",
+      "la",
+      "mm",
+      "in",
+      "bt",
+      "np",
+      "pk",
+      "af",
+      "tj",
+      "kg",
+      "kz"
+    ],
+    "isIsland": false
+  },
+  {
+    "code": "kp",
+    "name": "Corée du Nord",
+    "capital": "Pyongyang",
+    "population": 26000000,
+    "area": 120538,
+    "gdp": 18,
+    "gdpPerCapita": 692,
+    "currency": "Won nord-coréen",
+    "tier": 4,
+    "continent": "Asie",
+    "cities": [
+      "Hamhung",
+      "Chongjin"
+    ],
+    "borders": [
+      "cn",
+      "ru",
+      "kr"
+    ],
+    "isIsland": false
+  },
+  {
+    "code": "kr",
+    "name": "Corée du Sud",
+    "capital": "Séoul",
+    "population": 51700000,
+    "area": 100210,
+    "gdp": 1700,
+    "gdpPerCapita": 32882,
+    "currency": "Won",
+    "tier": 3,
+    "continent": "Asie",
+    "cities": [
+      "Busan",
+      "Incheon",
+      "Daegu"
+    ],
+    "borders": [
+      "kp"
+    ],
+    "isIsland": false
+  },
+  {
+    "code": "ae",
+    "name": "Émirats Arabes Unis",
+    "capital": "Abou Dabi",
+    "population": 9500000,
+    "area": 83600,
+    "gdp": 500,
+    "gdpPerCapita": 52632,
+    "currency": "Dirham des EAU",
+    "tier": 4,
+    "continent": "Asie",
+    "cities": [
+      "Dubaï",
+      "Sharjah"
+    ],
+    "borders": [
+      "sa",
+      "om"
+    ],
+    "isIsland": false
+  },
+  {
+    "code": "ge",
+    "name": "Géorgie",
+    "capital": "Tbilissi",
+    "population": 3700000,
+    "area": 69700,
+    "gdp": 30,
+    "gdpPerCapita": 8108,
+    "currency": "Lari",
+    "tier": 4,
+    "continent": "Asie",
+    "cities": [],
+    "borders": [
+      "ru",
+      "az",
+      "am",
+      "tr"
+    ],
+    "isIsland": false
+  },
+  {
+    "code": "in",
+    "name": "Inde",
+    "capital": "New Delhi",
+    "population": 1430000000,
+    "area": 3287263,
+    "gdp": 3700,
+    "gdpPerCapita": 2587,
+    "currency": "Roupie indienne",
+    "tier": 3,
+    "continent": "Asie",
+    "cities": [
+      "Bombay",
+      "Bangalore",
+      "Calcutta"
+    ],
+    "borders": [
+      "pk",
+      "cn",
+      "np",
+      "bt",
+      "bd",
+      "mm"
+    ],
+    "isIsland": false
+  },
+  {
+    "code": "id",
+    "name": "Indonésie",
+    "capital": "Jakarta",
+    "population": 278000000,
+    "area": 1904569,
+    "gdp": 1370,
+    "gdpPerCapita": 4928,
+    "currency": "Roupie indonésienne",
+    "tier": 5,
+    "continent": "Asie",
+    "cities": [
+      "Surabaya",
+      "Bandung",
+      "Medan"
+    ],
+    "borders": [
+      "my",
+      "tl",
+      "pg"
+    ],
+    "isIsland": true
+  },
+  {
+    "code": "iq",
+    "name": "Irak",
+    "capital": "Bagdad",
+    "population": 44000000,
+    "area": 438317,
+    "gdp": 260,
+    "gdpPerCapita": 5909,
+    "currency": "Dinar irakien",
+    "tier": 4,
+    "continent": "Asie",
+    "cities": [
+      "Bassora",
+      "Erbil",
+      "Mossoul"
+    ],
+    "borders": [
+      "tr",
+      "ir",
+      "kw",
+      "sa",
+      "jo",
+      "sy"
+    ],
+    "isIsland": false
+  },
+  {
+    "code": "ir",
+    "name": "Iran",
+    "capital": "Téhéran",
+    "population": 89000000,
+    "area": 1648195,
+    "gdp": 400,
+    "gdpPerCapita": 4494,
+    "currency": "Rial iranien",
+    "tier": 4,
+    "continent": "Asie",
+    "cities": [
+      "Ispahan",
+      "Mashhad",
+      "Chiraz"
+    ],
+    "borders": [
+      "am",
+      "az",
+      "tm",
+      "af",
+      "pk",
+      "iq",
+      "tr"
+    ],
+    "isIsland": false
+  },
+  {
+    "code": "il",
+    "name": "Israël",
+    "capital": "Jérusalem",
+    "population": 9800000,
+    "area": 20770,
+    "gdp": 530,
+    "gdpPerCapita": 54082,
+    "currency": "Shekel",
+    "tier": 4,
+    "continent": "Asie",
+    "cities": [
+      "Tel Aviv",
+      "Haïfa"
+    ],
+    "borders": [
+      "lb",
+      "sy",
+      "jo",
+      "eg",
+      "ps"
+    ],
+    "isIsland": false
+  },
+  {
+    "code": "jp",
+    "name": "Japon",
+    "capital": "Tokyo",
+    "population": 124000000,
+    "area": 377975,
+    "gdp": 4200,
+    "gdpPerCapita": 33871,
+    "currency": "Yen",
+    "tier": 3,
+    "continent": "Asie",
+    "cities": [
+      "Osaka",
+      "Kyoto",
+      "Yokohama"
+    ],
+    "borders": [],
+    "isIsland": true
+  },
+  {
+    "code": "jo",
+    "name": "Jordanie",
+    "capital": "Amman",
+    "population": 11300000,
+    "area": 89342,
+    "gdp": 50,
+    "gdpPerCapita": 4425,
+    "currency": "Dinar jordanien",
+    "tier": 4,
+    "continent": "Asie",
+    "cities": [
+      "Zarqa",
+      "Irbid"
+    ],
+    "borders": [
+      "sy",
+      "iq",
+      "sa",
+      "il",
+      "ps"
+    ],
+    "isIsland": false
+  },
+  {
+    "code": "kz",
+    "name": "Kazakhstan",
+    "capital": "Astana",
+    "population": 20000000,
+    "area": 2724900,
+    "gdp": 260,
+    "gdpPerCapita": 13000,
+    "currency": "Tenge",
+    "tier": 4,
+    "continent": "Asie",
+    "cities": [
+      "Almaty",
+      "Chymkent"
+    ],
+    "borders": [
+      "ru",
+      "cn",
+      "kg",
+      "uz",
+      "tm"
+    ],
+    "isIsland": false
+  },
+  {
+    "code": "kg",
+    "name": "Kirghizistan",
+    "capital": "Bichkek",
+    "population": 7000000,
+    "area": 199951,
+    "gdp": 12,
+    "gdpPerCapita": 1714,
+    "currency": "Som",
+    "tier": 4,
+    "continent": "Asie",
+    "cities": [],
+    "borders": [
+      "kz",
+      "cn",
+      "tj",
+      "uz"
+    ],
+    "isIsland": false
+  },
+  {
+    "code": "kw",
+    "name": "Koweït",
+    "capital": "Koweït",
+    "population": 4300000,
+    "area": 17818,
+    "gdp": 160,
+    "gdpPerCapita": 37209,
+    "currency": "Dinar koweïtien",
+    "tier": 4,
+    "continent": "Asie",
+    "cities": [],
+    "borders": [
+      "iq",
+      "sa"
+    ],
+    "isIsland": false
+  },
+  {
+    "code": "la",
+    "name": "Laos",
+    "capital": "Vientiane",
+    "population": 7500000,
+    "area": 236800,
+    "gdp": 15,
+    "gdpPerCapita": 2000,
+    "currency": "Kip",
+    "tier": 4,
+    "continent": "Asie",
+    "cities": [],
+    "borders": [
+      "cn",
+      "vn",
+      "kh",
+      "th",
+      "mm"
+    ],
+    "isIsland": false
+  },
+  {
+    "code": "lb",
+    "name": "Liban",
+    "capital": "Beyrouth",
+    "population": 5400000,
+    "area": 10452,
+    "gdp": 23,
+    "gdpPerCapita": 4259,
+    "currency": "Livre libanaise",
+    "tier": 4,
+    "continent": "Asie",
+    "cities": [],
+    "borders": [
+      "sy",
+      "il"
+    ],
+    "isIsland": false
+  },
+  {
+    "code": "my",
+    "name": "Malaisie",
+    "capital": "Kuala Lumpur",
+    "population": 34000000,
+    "area": 329847,
+    "gdp": 430,
+    "gdpPerCapita": 12647,
+    "currency": "Ringgit",
+    "tier": 4,
+    "continent": "Asie",
+    "cities": [
+      "George Town",
+      "Johor Bahru"
+    ],
+    "borders": [
+      "th",
+      "bn",
+      "id"
+    ],
+    "isIsland": false
+  },
+  {
+    "code": "mv",
+    "name": "Maldives",
+    "capital": "Malé",
+    "population": 520000,
+    "area": 298,
+    "gdp": 6,
+    "gdpPerCapita": 11538,
+    "currency": "Rufiyaa",
+    "tier": 5,
+    "continent": "Asie",
+    "cities": [],
+    "borders": [],
+    "isIsland": true
+  },
+  {
+    "code": "mn",
+    "name": "Mongolie",
+    "capital": "Oulan-Bator",
+    "population": 3400000,
+    "area": 1564116,
+    "gdp": 20,
+    "gdpPerCapita": 5882,
+    "currency": "Tugrik",
+    "tier": 4,
+    "continent": "Asie",
+    "cities": [],
+    "borders": [
+      "ru",
+      "cn"
+    ],
+    "isIsland": false
+  },
+  {
+    "code": "np",
+    "name": "Népal",
+    "capital": "Katmandou",
+    "population": 30000000,
+    "area": 147181,
+    "gdp": 41,
+    "gdpPerCapita": 1367,
+    "currency": "Roupie népalaise",
+    "tier": 4,
+    "continent": "Asie",
+    "cities": [
+      "Pokhara",
+      "Lalitpur"
+    ],
+    "borders": [
+      "cn",
+      "in"
+    ],
+    "isIsland": false
+  },
+  {
+    "code": "om",
+    "name": "Oman",
+    "capital": "Mascate",
+    "population": 4600000,
+    "area": 309500,
+    "gdp": 110,
+    "gdpPerCapita": 23913,
+    "currency": "Rial omanais",
+    "tier": 4,
+    "continent": "Asie",
+    "cities": [],
+    "borders": [
+      "ae",
+      "sa",
+      "ye"
+    ],
+    "isIsland": false
+  },
+  {
+    "code": "uz",
+    "name": "Ouzbékistan",
+    "capital": "Tachkent",
+    "population": 36000000,
+    "area": 447400,
+    "gdp": 90,
+    "gdpPerCapita": 2500,
+    "currency": "Sum",
+    "tier": 4,
+    "continent": "Asie",
+    "cities": [
+      "Samarcande",
+      "Boukhara"
+    ],
+    "borders": [
+      "kz",
+      "kg",
+      "tj",
+      "af",
+      "tm"
+    ],
+    "isIsland": false
+  },
+  {
+    "code": "pk",
+    "name": "Pakistan",
+    "capital": "Islamabad",
+    "population": 240000000,
+    "area": 881912,
+    "gdp": 340,
+    "gdpPerCapita": 1417,
+    "currency": "Roupie pakistanaise",
+    "tier": 4,
+    "continent": "Asie",
+    "cities": [
+      "Karachi",
+      "Lahore",
+      "Faisalabad"
+    ],
+    "borders": [
+      "ir",
+      "af",
+      "cn",
+      "in"
+    ],
+    "isIsland": false
+  },
+  {
+    "code": "ps",
+    "name": "Palestine",
+    "capital": "Ramallah",
+    "population": 5300000,
+    "area": 6020,
+    "gdp": 19,
+    "gdpPerCapita": 3585,
+    "currency": "Shekel",
+    "tier": 4,
+    "continent": "Asie",
+    "cities": [],
+    "borders": [
+      "il",
+      "eg",
+      "jo"
+    ],
+    "isIsland": false
+  },
+  {
+    "code": "ph",
+    "name": "Philippines",
+    "capital": "Manille",
+    "population": 115000000,
+    "area": 300000,
+    "gdp": 440,
+    "gdpPerCapita": 3826,
+    "currency": "Peso philippin",
+    "tier": 5,
+    "continent": "Asie",
+    "cities": [
+      "Cebu",
+      "Davao",
+      "Quezon City"
+    ],
+    "borders": [],
+    "isIsland": true
+  },
+  {
+    "code": "qa",
+    "name": "Qatar",
+    "capital": "Doha",
+    "population": 2700000,
+    "area": 11586,
+    "gdp": 230,
+    "gdpPerCapita": 85185,
+    "currency": "Riyal qatari",
+    "tier": 4,
+    "continent": "Asie",
+    "cities": [],
+    "borders": [
+      "sa"
+    ],
+    "isIsland": false
+  },
+  {
+    "code": "sg",
+    "name": "Singapour",
+    "capital": "Singapour",
+    "population": 5900000,
+    "area": 728,
+    "gdp": 500,
+    "gdpPerCapita": 84746,
+    "currency": "Dollar de Singapour",
+    "tier": 5,
+    "continent": "Asie",
+    "cities": [],
+    "borders": [],
+    "isIsland": true
+  },
+  {
+    "code": "lk",
+    "name": "Sri Lanka",
+    "capital": "Sri Jayawardenepura Kotte",
+    "population": 22000000,
+    "area": 65610,
+    "gdp": 84,
+    "gdpPerCapita": 3818,
+    "currency": "Roupie srilankaise",
+    "tier": 4,
+    "continent": "Asie",
+    "cities": [
+      "Colombo",
+      "Kandy"
+    ],
+    "borders": [],
+    "isIsland": true
+  },
+  {
+    "code": "sy",
+    "name": "Syrie",
+    "capital": "Damas",
+    "population": 22000000,
+    "area": 185180,
+    "gdp": 20,
+    "gdpPerCapita": 909,
+    "currency": "Livre syrienne",
+    "tier": 4,
+    "continent": "Asie",
+    "cities": [
+      "Alep",
+      "Homs"
+    ],
+    "borders": [
+      "tr",
+      "iq",
+      "jo",
+      "il",
+      "lb"
+    ],
+    "isIsland": false
+  },
+  {
+    "code": "tj",
+    "name": "Tadjikistan",
+    "capital": "Douchanbé",
+    "population": 10000000,
+    "area": 143100,
+    "gdp": 12,
+    "gdpPerCapita": 1200,
+    "currency": "Somoni",
+    "tier": 4,
+    "continent": "Asie",
+    "cities": [],
+    "borders": [
+      "kg",
+      "cn",
+      "af",
+      "uz"
+    ],
+    "isIsland": false
+  },
+  {
+    "code": "th",
+    "name": "Thaïlande",
+    "capital": "Bangkok",
+    "population": 71000000,
+    "area": 513120,
+    "gdp": 510,
+    "gdpPerCapita": 7183,
+    "currency": "Baht",
+    "tier": 4,
+    "continent": "Asie",
+    "cities": [
+      "Chiang Mai",
+      "Phuket",
+      "Pattaya"
+    ],
+    "borders": [
+      "mm",
+      "la",
+      "kh",
+      "my"
+    ],
+    "isIsland": false
+  },
+  {
+    "code": "tl",
+    "name": "Timor oriental",
+    "capital": "Dili",
+    "population": 1340000,
+    "area": 14874,
+    "gdp": 3,
+    "gdpPerCapita": 2239,
+    "currency": "Dollar américain",
+    "tier": 5,
+    "continent": "Asie",
+    "cities": [],
+    "borders": [
+      "id"
+    ],
+    "isIsland": true
+  },
+  {
+    "code": "tm",
+    "name": "Turkménistan",
+    "capital": "Achgabat",
+    "population": 6500000,
+    "area": 488100,
+    "gdp": 60,
+    "gdpPerCapita": 9231,
+    "currency": "Manat turkmène",
+    "tier": 4,
+    "continent": "Asie",
+    "cities": [],
+    "borders": [
+      "kz",
+      "uz",
+      "af",
+      "ir"
+    ],
+    "isIsland": false
+  },
+  {
+    "code": "tr",
+    "name": "Turquie",
+    "capital": "Ankara",
+    "population": 85000000,
+    "area": 783562,
+    "gdp": 1100,
+    "gdpPerCapita": 12941,
+    "currency": "Livre turque",
+    "tier": 4,
+    "continent": "Asie",
+    "cities": [
+      "Istanbul",
+      "Izmir",
+      "Antalya"
+    ],
+    "borders": [
+      "gr",
+      "bg",
+      "ge",
+      "am",
+      "az",
+      "ir",
+      "iq",
+      "sy"
+    ],
+    "isIsland": false
+  },
+  {
+    "code": "vn",
+    "name": "Viêt Nam",
+    "capital": "Hanoï",
+    "population": 98000000,
+    "area": 331212,
+    "gdp": 430,
+    "gdpPerCapita": 4388,
+    "currency": "Đồng",
+    "tier": 4,
+    "continent": "Asie",
+    "cities": [
+      "Hô Chi Minh-Ville",
+      "Da Nang",
+      "Haïphong"
+    ],
+    "borders": [
+      "cn",
+      "la",
+      "kh"
+    ],
+    "isIsland": false
+  },
+  {
+    "code": "ye",
+    "name": "Yémen",
+    "capital": "Sanaa",
+    "population": 34000000,
+    "area": 527968,
+    "gdp": 21,
+    "gdpPerCapita": 618,
+    "currency": "Rial yéménite",
+    "tier": 4,
+    "continent": "Asie",
+    "cities": [
+      "Aden",
+      "Taëz"
+    ],
+    "borders": [
+      "sa",
+      "om"
+    ],
+    "isIsland": false
+  },
+  {
+    "code": "za",
+    "name": "Afrique du Sud",
+    "capital": "Pretoria",
+    "population": 60000000,
+    "area": 1221037,
+    "gdp": 380,
+    "gdpPerCapita": 6333,
+    "currency": "Rand",
+    "tier": 4,
+    "continent": "Afrique",
+    "cities": [
+      "Johannesbourg",
+      "Le Cap",
+      "Durban"
+    ],
+    "borders": [
+      "na",
+      "bw",
+      "zw",
+      "mz",
+      "sz",
+      "ls"
+    ],
+    "isIsland": false
+  },
+  {
+    "code": "dz",
+    "name": "Algérie",
+    "capital": "Alger",
+    "population": 45000000,
+    "area": 2381741,
+    "gdp": 240,
+    "gdpPerCapita": 5333,
+    "currency": "Dinar algérien",
+    "tier": 4,
+    "continent": "Afrique",
+    "cities": [
+      "Oran",
+      "Constantine",
+      "Annaba"
+    ],
+    "borders": [
+      "ma",
+      "tn",
+      "ly",
+      "ne",
+      "ml",
+      "mr"
+    ],
+    "isIsland": false
+  },
+  {
+    "code": "ao",
+    "name": "Angola",
+    "capital": "Luanda",
+    "population": 36000000,
+    "area": 1246700,
+    "gdp": 93,
+    "gdpPerCapita": 2583,
+    "currency": "Kwanza",
+    "tier": 4,
+    "continent": "Afrique",
+    "cities": [
+      "Huambo",
+      "Lobito"
+    ],
+    "borders": [
+      "cg",
+      "cd",
+      "zm",
+      "na"
+    ],
+    "isIsland": false
+  },
+  {
+    "code": "bj",
+    "name": "Bénin",
+    "capital": "Porto-Novo",
+    "population": 13000000,
+    "area": 112622,
+    "gdp": 19,
+    "gdpPerCapita": 1462,
+    "currency": "Franc CFA",
+    "tier": 4,
+    "continent": "Afrique",
+    "cities": [
+      "Cotonou",
+      "Parakou"
+    ],
+    "borders": [
+      "tg",
+      "bf",
+      "ne",
+      "ng"
+    ],
+    "isIsland": false
+  },
+  {
+    "code": "bw",
+    "name": "Botswana",
+    "capital": "Gaborone",
+    "population": 2600000,
+    "area": 581730,
+    "gdp": 20,
+    "gdpPerCapita": 7692,
+    "currency": "Pula",
+    "tier": 4,
+    "continent": "Afrique",
+    "cities": [],
+    "borders": [
+      "na",
+      "zm",
+      "zw",
+      "za"
+    ],
+    "isIsland": false
+  },
+  {
+    "code": "bf",
+    "name": "Burkina Faso",
+    "capital": "Ouagadougou",
+    "population": 23000000,
+    "area": 274200,
+    "gdp": 20,
+    "gdpPerCapita": 870,
+    "currency": "Franc CFA",
+    "tier": 4,
+    "continent": "Afrique",
+    "cities": [
+      "Bobo-Dioulasso"
+    ],
+    "borders": [
+      "ml",
+      "ne",
+      "bj",
+      "tg",
+      "gh",
+      "ci"
+    ],
+    "isIsland": false
+  },
+  {
+    "code": "bi",
+    "name": "Burundi",
+    "capital": "Gitega",
+    "population": 13000000,
+    "area": 27830,
+    "gdp": 3.5,
+    "gdpPerCapita": 269,
+    "currency": "Franc burundais",
+    "tier": 4,
+    "continent": "Afrique",
+    "cities": [
+      "Bujumbura"
+    ],
+    "borders": [
+      "rw",
+      "tz",
+      "cd"
+    ],
+    "isIsland": false
+  },
+  {
+    "code": "cm",
+    "name": "Cameroun",
+    "capital": "Yaoundé",
+    "population": 28000000,
+    "area": 475442,
+    "gdp": 48,
+    "gdpPerCapita": 1714,
+    "currency": "Franc CFA",
+    "tier": 4,
+    "continent": "Afrique",
+    "cities": [
+      "Douala",
+      "Garoua",
+      "Bafoussam"
+    ],
+    "borders": [
+      "ng",
+      "td",
+      "cf",
+      "cg",
+      "ga",
+      "gq"
+    ],
+    "isIsland": false
+  },
+  {
+    "code": "cv",
+    "name": "Cap-Vert",
+    "capital": "Praia",
+    "population": 590000,
+    "area": 4033,
+    "gdp": 2.5,
+    "gdpPerCapita": 4237,
+    "currency": "Escudo cap-verdien",
+    "tier": 5,
+    "continent": "Afrique",
+    "cities": [],
+    "borders": [],
+    "isIsland": true
+  },
+  {
+    "code": "cf",
+    "name": "République Centrafricaine",
+    "capital": "Bangui",
+    "population": 5500000,
+    "area": 622984,
+    "gdp": 2.7,
+    "gdpPerCapita": 491,
+    "currency": "Franc CFA",
+    "tier": 4,
+    "continent": "Afrique",
+    "cities": [],
+    "borders": [
+      "td",
+      "sd",
+      "ss",
+      "cd",
+      "cg",
+      "cm"
+    ],
+    "isIsland": false
+  },
+  {
+    "code": "km",
+    "name": "Comores",
+    "capital": "Moroni",
+    "population": 850000,
+    "area": 2235,
+    "gdp": 1.3,
+    "gdpPerCapita": 1529,
+    "currency": "Franc comorien",
+    "tier": 5,
+    "continent": "Afrique",
+    "cities": [],
+    "borders": [],
+    "isIsland": true
+  },
+  {
+    "code": "cg",
+    "name": "Congo",
+    "capital": "Brazzaville",
+    "population": 6000000,
+    "area": 342000,
+    "gdp": 15,
+    "gdpPerCapita": 2500,
+    "currency": "Franc CFA",
+    "tier": 4,
+    "continent": "Afrique",
+    "cities": [
+      "Pointe-Noire"
+    ],
+    "borders": [
+      "cm",
+      "cf",
+      "cd",
+      "ao",
+      "ga"
+    ],
+    "isIsland": false
+  },
+  {
+    "code": "cd",
+    "name": "République Démocratique du Congo",
+    "capital": "Kinshasa",
+    "population": 100000000,
+    "area": 2344858,
+    "gdp": 67,
+    "gdpPerCapita": 670,
+    "currency": "Franc congolais",
+    "tier": 4,
+    "continent": "Afrique",
+    "cities": [
+      "Lubumbashi",
+      "Goma",
+      "Mbuji-Mayi"
+    ],
+    "borders": [
+      "cf",
+      "ss",
+      "ug",
+      "rw",
+      "bi",
+      "tz",
+      "zm",
+      "ao",
+      "cg"
+    ],
+    "isIsland": false
+  },
+  {
+    "code": "ci",
+    "name": "Côte d'Ivoire",
+    "capital": "Yamoussoukro",
+    "population": 29000000,
+    "area": 322463,
+    "gdp": 78,
+    "gdpPerCapita": 2690,
+    "currency": "Franc CFA",
+    "tier": 4,
+    "continent": "Afrique",
+    "cities": [
+      "Abidjan",
+      "Bouaké",
+      "San-Pédro"
+    ],
+    "borders": [
+      "lr",
+      "gn",
+      "ml",
+      "bf",
+      "gh"
+    ],
+    "isIsland": false
+  },
+  {
+    "code": "dj",
+    "name": "Djibouti",
+    "capital": "Djibouti",
+    "population": 1100000,
+    "area": 23200,
+    "gdp": 4,
+    "gdpPerCapita": 3636,
+    "currency": "Franc Djibouti",
+    "tier": 4,
+    "continent": "Afrique",
+    "cities": [],
+    "borders": [
+      "er",
+      "et",
+      "so"
+    ],
+    "isIsland": false
+  },
+  {
+    "code": "eg",
+    "name": "Égypte",
+    "capital": "Le Caire",
+    "population": 110000000,
+    "area": 1002450,
+    "gdp": 400,
+    "gdpPerCapita": 3636,
+    "currency": "Livre égyptienne",
+    "tier": 4,
+    "continent": "Afrique",
+    "cities": [
+      "Alexandrie",
+      "Gizeh",
+      "Louxor"
+    ],
+    "borders": [
+      "ly",
+      "sd",
+      "il",
+      "ps"
+    ],
+    "isIsland": false
+  },
+  {
+    "code": "er",
+    "name": "Érythrée",
+    "capital": "Asmara",
+    "population": 3700000,
+    "area": 117600,
+    "gdp": 2.5,
+    "gdpPerCapita": 676,
+    "currency": "Nakfa",
+    "tier": 4,
+    "continent": "Afrique",
+    "cities": [],
+    "borders": [
+      "sd",
+      "et",
+      "dj"
+    ],
+    "isIsland": false
+  },
+  {
+    "code": "sz",
+    "name": "Eswatini",
+    "capital": "Mbabane",
+    "population": 1200000,
+    "area": 17364,
+    "gdp": 5,
+    "gdpPerCapita": 4167,
+    "currency": "Lilangeni",
+    "tier": 4,
+    "continent": "Afrique",
+    "cities": [],
+    "borders": [
+      "za",
+      "mz"
+    ],
+    "isIsland": false
+  },
+  {
+    "code": "et",
+    "name": "Éthiopie",
+    "capital": "Addis-Abeba",
+    "population": 126000000,
+    "area": 1104300,
+    "gdp": 155,
+    "gdpPerCapita": 1230,
+    "currency": "Birr",
+    "tier": 4,
+    "continent": "Afrique",
+    "cities": [
+      "Dire Dawa",
+      "Gondar"
+    ],
+    "borders": [
+      "er",
+      "dj",
+      "so",
+      "ke",
+      "ss",
+      "sd"
+    ],
+    "isIsland": false
+  },
+  {
+    "code": "ga",
+    "name": "Gabon",
+    "capital": "Libreville",
+    "population": 2400000,
+    "area": 267667,
+    "gdp": 21,
+    "gdpPerCapita": 8750,
+    "currency": "Franc CFA",
+    "tier": 4,
+    "continent": "Afrique",
+    "cities": [
+      "Port-Gentil"
+    ],
+    "borders": [
+      "cm",
+      "gq",
+      "cg"
+    ],
+    "isIsland": false
+  },
+  {
+    "code": "gm",
+    "name": "Gambie",
+    "capital": "Banjul",
+    "population": 2700000,
+    "area": 10689,
+    "gdp": 2.3,
+    "gdpPerCapita": 852,
+    "currency": "Dalasi",
+    "tier": 4,
+    "continent": "Afrique",
+    "cities": [
+      "Serekunda"
+    ],
+    "borders": [
+      "sn"
+    ],
+    "isIsland": false
+  },
+  {
+    "code": "gh",
+    "name": "Ghana",
+    "capital": "Accra",
+    "population": 33000000,
+    "area": 238533,
+    "gdp": 76,
+    "gdpPerCapita": 2303,
+    "currency": "Cedi",
+    "tier": 4,
+    "continent": "Afrique",
+    "cities": [
+      "Kumasi",
+      "Tamale"
+    ],
+    "borders": [
+      "ci",
+      "bf",
+      "tg"
+    ],
+    "isIsland": false
+  },
+  {
+    "code": "gn",
+    "name": "Guinée",
+    "capital": "Conakry",
+    "population": 14000000,
+    "area": 245857,
+    "gdp": 23,
+    "gdpPerCapita": 1643,
+    "currency": "Franc guinéen",
+    "tier": 4,
+    "continent": "Afrique",
+    "cities": [
+      "Nzérékoré"
+    ],
+    "borders": [
+      "gw",
+      "sn",
+      "ml",
+      "ci",
+      "lr",
+      "sl"
+    ],
+    "isIsland": false
+  },
+  {
+    "code": "gw",
+    "name": "Guinée-Bissau",
+    "capital": "Bissau",
+    "population": 2100000,
+    "area": 36125,
+    "gdp": 2,
+    "gdpPerCapita": 952,
+    "currency": "Franc CFA",
+    "tier": 4,
+    "continent": "Afrique",
+    "cities": [],
+    "borders": [
+      "sn",
+      "gn"
+    ],
+    "isIsland": false
+  },
+  {
+    "code": "gq",
+    "name": "Guinée Équatoriale",
+    "capital": "Malabo",
+    "population": 1600000,
+    "area": 28051,
+    "gdp": 12,
+    "gdpPerCapita": 7500,
+    "currency": "Franc CFA",
+    "tier": 4,
+    "continent": "Afrique",
+    "cities": [
+      "Bata"
+    ],
+    "borders": [
+      "cm",
+      "ga"
+    ],
+    "isIsland": false
+  },
+  {
+    "code": "ke",
+    "name": "Kenya",
+    "capital": "Nairobi",
+    "population": 54000000,
+    "area": 580367,
+    "gdp": 115,
+    "gdpPerCapita": 2130,
+    "currency": "Shilling kényan",
+    "tier": 4,
+    "continent": "Afrique",
+    "cities": [
+      "Mombasa",
+      "Kisumu"
+    ],
+    "borders": [
+      "et",
+      "so",
+      "tz",
+      "ug",
+      "ss"
+    ],
+    "isIsland": false
+  },
+  {
+    "code": "ls",
+    "name": "Lesotho",
+    "capital": "Maseru",
+    "population": 2300000,
+    "area": 30355,
+    "gdp": 2.5,
+    "gdpPerCapita": 1087,
+    "currency": "Loti",
+    "tier": 4,
+    "continent": "Afrique",
+    "cities": [],
+    "borders": [
+      "za"
+    ],
+    "isIsland": false
+  },
+  {
+    "code": "lr",
+    "name": "Libéria",
+    "capital": "Monrovia",
+    "population": 5300000,
+    "area": 111369,
+    "gdp": 4.3,
+    "gdpPerCapita": 811,
+    "currency": "Dollar libérien",
+    "tier": 4,
+    "continent": "Afrique",
+    "cities": [],
+    "borders": [
+      "sl",
+      "gn",
+      "ci"
+    ],
+    "isIsland": false
+  },
+  {
+    "code": "ly",
+    "name": "Libye",
+    "capital": "Tripoli",
+    "population": 7000000,
+    "area": 1759540,
+    "gdp": 45,
+    "gdpPerCapita": 6429,
+    "currency": "Dinar libyen",
+    "tier": 4,
+    "continent": "Afrique",
+    "cities": [],
+    "borders": [
+      "tn",
+      "dz",
+      "ne",
+      "td",
+      "sd",
+      "eg"
+    ],
+    "isIsland": false
+  },
+  {
+    "code": "mg",
+    "name": "Madagascar",
+    "capital": "Antananarivo",
+    "population": 29000000,
+    "area": 587041,
+    "gdp": 16,
+    "gdpPerCapita": 552,
+    "currency": "Ariary",
+    "tier": 5,
+    "continent": "Afrique",
+    "cities": [
+      "Toamasina",
+      "Antsirabe"
+    ],
+    "borders": [],
+    "isIsland": true
+  },
+  {
+    "code": "mw",
+    "name": "Malawi",
+    "capital": "Lilongwe",
+    "population": 20000000,
+    "area": 118484,
+    "gdp": 13,
+    "gdpPerCapita": 650,
+    "currency": "Kwacha malawite",
+    "tier": 4,
+    "continent": "Afrique",
+    "cities": [
+      "Blantyre"
+    ],
+    "borders": [
+      "tz",
+      "mz",
+      "zm"
+    ],
+    "isIsland": false
+  },
+  {
+    "code": "ml",
+    "name": "Mali",
+    "capital": "Bamako",
+    "population": 23000000,
+    "area": 1240192,
+    "gdp": 20,
+    "gdpPerCapita": 870,
+    "currency": "Franc CFA",
+    "tier": 4,
+    "continent": "Afrique",
+    "cities": [
+      "Sikasso",
+      "Mopti"
+    ],
+    "borders": [
+      "dz",
+      "ne",
+      "bf",
+      "ci",
+      "gn",
+      "sn",
+      "mr"
+    ],
+    "isIsland": false
+  },
+  {
+    "code": "ma",
+    "name": "Maroc",
+    "capital": "Rabat",
+    "population": 37000000,
+    "area": 446550,
+    "gdp": 140,
+    "gdpPerCapita": 3784,
+    "currency": "Dirham marocain",
+    "tier": 4,
+    "continent": "Afrique",
+    "cities": [
+      "Casablanca",
+      "Marrakech",
+      "Fès"
+    ],
+    "borders": [
+      "dz",
+      "mr",
+      "es"
+    ],
+    "isIsland": false
+  },
+  {
+    "code": "mu",
+    "name": "Maurice",
+    "capital": "Port-Louis",
+    "population": 1260000,
+    "area": 2040,
+    "gdp": 14,
+    "gdpPerCapita": 11111,
+    "currency": "Roupie mauricienne",
+    "tier": 5,
+    "continent": "Afrique",
+    "cities": [],
+    "borders": [],
+    "isIsland": true
+  },
+  {
+    "code": "mr",
+    "name": "Mauritanie",
+    "capital": "Nouakchott",
+    "population": 4900000,
+    "area": 1030700,
+    "gdp": 10,
+    "gdpPerCapita": 2041,
+    "currency": "Ouguiya",
+    "tier": 4,
+    "continent": "Afrique",
+    "cities": [],
+    "borders": [
+      "dz",
+      "ml",
+      "sn",
+      "ma"
+    ],
+    "isIsland": false
+  },
+  {
+    "code": "mz",
+    "name": "Mozambique",
+    "capital": "Maputo",
+    "population": 33000000,
+    "area": 801590,
+    "gdp": 20,
+    "gdpPerCapita": 606,
+    "currency": "Metical",
+    "tier": 4,
+    "continent": "Afrique",
+    "cities": [
+      "Matola",
+      "Beira"
+    ],
+    "borders": [
+      "tz",
+      "mw",
+      "zm",
+      "zw",
+      "za",
+      "sz"
+    ],
+    "isIsland": false
+  },
+  {
+    "code": "na",
+    "name": "Namibie",
+    "capital": "Windhoek",
+    "population": 2600000,
+    "area": 825615,
+    "gdp": 13,
+    "gdpPerCapita": 5000,
+    "currency": "Dollar namibien",
+    "tier": 4,
+    "continent": "Afrique",
+    "cities": [],
+    "borders": [
+      "ao",
+      "zm",
+      "bw",
+      "za"
+    ],
+    "isIsland": false
+  },
+  {
+    "code": "ne",
+    "name": "Niger",
+    "capital": "Niamey",
+    "population": 26000000,
+    "area": 1267000,
+    "gdp": 16,
+    "gdpPerCapita": 615,
+    "currency": "Franc CFA",
+    "tier": 4,
+    "continent": "Afrique",
+    "cities": [
+      "Zinder",
+      "Maradi"
+    ],
+    "borders": [
+      "dz",
+      "ly",
+      "td",
+      "ng",
+      "bj",
+      "bf",
+      "ml"
+    ],
+    "isIsland": false
+  },
+  {
+    "code": "ng",
+    "name": "Nigéria",
+    "capital": "Abuja",
+    "population": 220000000,
+    "area": 923768,
+    "gdp": 470,
+    "gdpPerCapita": 2136,
+    "currency": "Naira",
+    "tier": 4,
+    "continent": "Afrique",
+    "cities": [
+      "Lagos",
+      "Kano",
+      "Ibadan"
+    ],
+    "borders": [
+      "bj",
+      "ne",
+      "td",
+      "cm"
+    ],
+    "isIsland": false
+  },
+  {
+    "code": "ug",
+    "name": "Ouganda",
+    "capital": "Kampala",
+    "population": 48000000,
+    "area": 241038,
+    "gdp": 50,
+    "gdpPerCapita": 1042,
+    "currency": "Shilling ougandais",
+    "tier": 4,
+    "continent": "Afrique",
+    "cities": [
+      "Gulu",
+      "Lira"
+    ],
+    "borders": [
+      "ss",
+      "ke",
+      "tz",
+      "rw",
+      "cd"
+    ],
+    "isIsland": false
+  },
+  {
+    "code": "rw",
+    "name": "Rwanda",
+    "capital": "Kigali",
+    "population": 14000000,
+    "area": 26338,
+    "gdp": 14,
+    "gdpPerCapita": 1000,
+    "currency": "Franc rwandais",
+    "tier": 4,
+    "continent": "Afrique",
+    "cities": [
+      "Butare",
+      "Gisenyi"
+    ],
+    "borders": [
+      "ug",
+      "tz",
+      "bi",
+      "cd"
+    ],
+    "isIsland": false
+  },
+  {
+    "code": "st",
+    "name": "Sao Tomé-et-Principe",
+    "capital": "Sao Tomé",
+    "population": 230000,
+    "area": 964,
+    "gdp": 0.6,
+    "gdpPerCapita": 2609,
+    "currency": "Dobra",
+    "tier": 5,
+    "continent": "Afrique",
+    "cities": [],
+    "borders": [],
+    "isIsland": true
+  },
+  {
+    "code": "sn",
+    "name": "Sénégal",
+    "capital": "Dakar",
+    "population": 18000000,
+    "area": 196722,
+    "gdp": 31,
+    "gdpPerCapita": 1722,
+    "currency": "Franc CFA",
+    "tier": 4,
+    "continent": "Afrique",
+    "cities": [
+      "Touba",
+      "Thiès",
+      "Saint-Louis"
+    ],
+    "borders": [
+      "mr",
+      "ml",
+      "gn",
+      "gw",
+      "gm"
+    ],
+    "isIsland": false
+  },
+  {
+    "code": "sc",
+    "name": "Seychelles",
+    "capital": "Victoria",
+    "population": 100000,
+    "area": 452,
+    "gdp": 2,
+    "gdpPerCapita": 20000,
+    "currency": "Roupie seychelloise",
+    "tier": 5,
+    "continent": "Afrique",
+    "cities": [],
+    "borders": [],
+    "isIsland": true
+  },
+  {
+    "code": "sl",
+    "name": "Sierra Leone",
+    "capital": "Freetown",
+    "population": 8600000,
+    "area": 71740,
+    "gdp": 4,
+    "gdpPerCapita": 465,
+    "currency": "Leone",
+    "tier": 4,
+    "continent": "Afrique",
+    "cities": [],
+    "borders": [
+      "gn",
+      "lr"
+    ],
+    "isIsland": false
+  },
+  {
+    "code": "so",
+    "name": "Somalie",
+    "capital": "Mogadiscio",
+    "population": 18000000,
+    "area": 637657,
+    "gdp": 11,
+    "gdpPerCapita": 611,
+    "currency": "Shilling somalien",
+    "tier": 4,
+    "continent": "Afrique",
+    "cities": [
+      "Hargeisa",
+      "Kismaayo"
+    ],
+    "borders": [
+      "dj",
+      "et",
+      "ke"
+    ],
+    "isIsland": false
+  },
+  {
+    "code": "sd",
+    "name": "Soudan",
+    "capital": "Khartoum",
+    "population": 48000000,
+    "area": 1861484,
+    "gdp": 30,
+    "gdpPerCapita": 625,
+    "currency": "Livre soudanaise",
+    "tier": 4,
+    "continent": "Afrique",
+    "cities": [
+      "Omdourman",
+      "Port-Soudan"
+    ],
+    "borders": [
+      "eg",
+      "ly",
+      "td",
+      "cf",
+      "ss",
+      "et",
+      "er"
+    ],
+    "isIsland": false
+  },
+  {
+    "code": "ss",
+    "name": "Soudan du Sud",
+    "capital": "Djouba",
+    "population": 11000000,
+    "area": 644329,
+    "gdp": 7,
+    "gdpPerCapita": 636,
+    "currency": "Livre sud-soudanaise",
+    "tier": 4,
+    "continent": "Afrique",
+    "cities": [],
+    "borders": [
+      "sd",
+      "et",
+      "ke",
+      "ug",
+      "cd",
+      "cf"
+    ],
+    "isIsland": false
+  },
+  {
+    "code": "tz",
+    "name": "Tanzanie",
+    "capital": "Dodoma",
+    "population": 67000000,
+    "area": 945087,
+    "gdp": 85,
+    "gdpPerCapita": 1269,
+    "currency": "Shilling tanzanien",
+    "tier": 4,
+    "continent": "Afrique",
+    "cities": [
+      "Dar es Salaam",
+      "Mwanza",
+      "Arusha"
+    ],
+    "borders": [
+      "ke",
+      "ug",
+      "rw",
+      "bi",
+      "cd",
+      "zm",
+      "mw",
+      "mz"
+    ],
+    "isIsland": false
+  },
+  {
+    "code": "td",
+    "name": "Tchad",
+    "capital": "N'Djaména",
+    "population": 18000000,
+    "area": 1284000,
+    "gdp": 13,
+    "gdpPerCapita": 722,
+    "currency": "Franc CFA",
+    "tier": 4,
+    "continent": "Afrique",
+    "cities": [
+      "Moundou"
+    ],
+    "borders": [
+      "ly",
+      "sd",
+      "cf",
+      "cm",
+      "ng",
+      "ne"
+    ],
+    "isIsland": false
+  },
+  {
+    "code": "tg",
+    "name": "Togo",
+    "capital": "Lomé",
+    "population": 9000000,
+    "area": 56785,
+    "gdp": 9,
+    "gdpPerCapita": 1000,
+    "currency": "Franc CFA",
+    "tier": 4,
+    "continent": "Afrique",
+    "cities": [
+      "Sokodé"
+    ],
+    "borders": [
+      "gh",
+      "bf",
+      "bj"
+    ],
+    "isIsland": false
+  },
+  {
+    "code": "tn",
+    "name": "Tunisie",
+    "capital": "Tunis",
+    "population": 12400000,
+    "area": 163610,
+    "gdp": 50,
+    "gdpPerCapita": 4032,
+    "currency": "Dinar tunisien",
+    "tier": 4,
+    "continent": "Afrique",
+    "cities": [
+      "Sousse",
+      "Sfax"
+    ],
+    "borders": [
+      "dz",
+      "ly"
+    ],
+    "isIsland": false
+  },
+  {
+    "code": "zm",
+    "name": "Zambie",
+    "capital": "Lusaka",
+    "population": 20000000,
+    "area": 752618,
+    "gdp": 28,
+    "gdpPerCapita": 1400,
+    "currency": "Kwacha zambien",
+    "tier": 4,
+    "continent": "Afrique",
+    "cities": [
+      "Kitwe",
+      "Ndola"
+    ],
+    "borders": [
+      "cd",
+      "tz",
+      "mw",
+      "mz",
+      "zw",
+      "bw",
+      "na",
+      "ao"
+    ],
+    "isIsland": false
+  },
+  {
+    "code": "zw",
+    "name": "Zimbabwe",
+    "capital": "Harare",
+    "population": 16000000,
+    "area": 390757,
+    "gdp": 32,
+    "gdpPerCapita": 2000,
+    "currency": "Dollar zimbabwéen",
+    "tier": 4,
+    "continent": "Afrique",
+    "cities": [
+      "Bulawayo"
+    ],
+    "borders": [
+      "zm",
+      "mz",
+      "za",
+      "bw"
+    ],
+    "isIsland": false
+  },
+  {
+    "code": "au",
+    "name": "Australie",
+    "capital": "Canberra",
+    "population": 26000000,
+    "area": 7692024,
+    "gdp": 1700,
+    "gdpPerCapita": 65385,
+    "currency": "Dollar australien",
+    "tier": 3,
+    "continent": "Océanie",
+    "cities": [
+      "Sydney",
+      "Melbourne",
+      "Brisbane"
+    ],
+    "borders": [],
+    "isIsland": true
+  },
+  {
+    "code": "fj",
+    "name": "Fidji",
+    "capital": "Suva",
+    "population": 930000,
+    "area": 18274,
+    "gdp": 5,
+    "gdpPerCapita": 5376,
+    "currency": "Dollar fidjien",
+    "tier": 5,
+    "continent": "Océanie",
+    "cities": [],
+    "borders": [],
+    "isIsland": true
+  },
+  {
+    "code": "ki",
+    "name": "Kiribati",
+    "capital": "Tarawa-Sud",
+    "population": 130000,
+    "area": 811,
+    "gdp": 0.3,
+    "gdpPerCapita": 2308,
+    "currency": "Dollar australien",
+    "tier": 5,
+    "continent": "Océanie",
+    "cities": [],
+    "borders": [],
+    "isIsland": true
+  },
+  {
+    "code": "mh",
+    "name": "Îles Marshall",
+    "capital": "Majuro",
+    "population": 42000,
+    "area": 181,
+    "gdp": 0.3,
+    "gdpPerCapita": 7143,
+    "currency": "Dollar américain",
+    "tier": 5,
+    "continent": "Océanie",
+    "cities": [],
+    "borders": [],
+    "isIsland": true
+  },
+  {
+    "code": "fm",
+    "name": "Micronésie",
+    "capital": "Palikir",
+    "population": 115000,
+    "area": 702,
+    "gdp": 0.4,
+    "gdpPerCapita": 3478,
+    "currency": "Dollar américain",
+    "tier": 5,
+    "continent": "Océanie",
+    "cities": [],
+    "borders": [],
+    "isIsland": true
+  },
+  {
+    "code": "nr",
+    "name": "Nauru",
+    "capital": "Yaren",
+    "population": 11000,
+    "area": 21,
+    "gdp": 0.15,
+    "gdpPerCapita": 13636,
+    "currency": "Dollar australien",
+    "tier": 5,
+    "continent": "Océanie",
+    "cities": [],
+    "borders": [],
+    "isIsland": true
+  },
+  {
+    "code": "nz",
+    "name": "Nouvelle-Zélande",
+    "capital": "Wellington",
+    "population": 5200000,
+    "area": 270467,
+    "gdp": 250,
+    "gdpPerCapita": 48077,
+    "currency": "Dollar néo-zélandais",
+    "tier": 3,
+    "continent": "Océanie",
+    "cities": [
+      "Auckland",
+      "Christchurch"
+    ],
+    "borders": [],
+    "isIsland": true
+  },
+  {
+    "code": "pw",
+    "name": "Palaos",
+    "capital": "Ngerulmud",
+    "population": 18000,
+    "area": 459,
+    "gdp": 0.3,
+    "gdpPerCapita": 16667,
+    "currency": "Dollar américain",
+    "tier": 5,
+    "continent": "Océanie",
+    "cities": [],
+    "borders": [],
+    "isIsland": true
+  },
+  {
+    "code": "pg",
+    "name": "Papouasie-Nouvelle-Guinée",
+    "capital": "Port Moresby",
+    "population": 10000000,
+    "area": 462840,
+    "gdp": 31,
+    "gdpPerCapita": 3100,
+    "currency": "Kina",
+    "tier": 5,
+    "continent": "Océanie",
+    "cities": [],
+    "borders": [
+      "id"
+    ],
+    "isIsland": true
+  },
+  {
+    "code": "sb",
+    "name": "Îles Salomon",
+    "capital": "Honiara",
+    "population": 720000,
+    "area": 28896,
+    "gdp": 1.6,
+    "gdpPerCapita": 2222,
+    "currency": "Dollar des Îles Salomon",
+    "tier": 5,
+    "continent": "Océanie",
+    "cities": [],
+    "borders": [],
+    "isIsland": true
+  },
+  {
+    "code": "ws",
+    "name": "Samoa",
+    "capital": "Apia",
+    "population": 220000,
+    "area": 2842,
+    "gdp": 0.8,
+    "gdpPerCapita": 3636,
+    "currency": "Tala",
+    "tier": 5,
+    "continent": "Océanie",
+    "cities": [],
+    "borders": [],
+    "isIsland": true
+  },
+  {
+    "code": "to",
+    "name": "Tonga",
+    "capital": "Nuku'alofa",
+    "population": 100000,
+    "area": 747,
+    "gdp": 0.5,
+    "gdpPerCapita": 5000,
+    "currency": "Paʻanga",
+    "tier": 5,
+    "continent": "Océanie",
+    "cities": [],
+    "borders": [],
+    "isIsland": true
+  },
+  {
+    "code": "tv",
+    "name": "Tuvalu",
+    "capital": "Funafuti",
+    "population": 11000,
+    "area": 26,
+    "gdp": 0.06,
+    "gdpPerCapita": 5455,
+    "currency": "Dollar australien",
+    "tier": 5,
+    "continent": "Océanie",
+    "cities": [],
+    "borders": [],
+    "isIsland": true
+  },
+  {
+    "code": "vu",
+    "name": "Vanuatu",
+    "capital": "Port-Vila",
+    "population": 330000,
+    "area": 12189,
+    "gdp": 1,
+    "gdpPerCapita": 3030,
+    "currency": "Vatu",
+    "tier": 5,
+    "continent": "Océanie",
+    "cities": [],
+    "borders": [],
+    "isIsland": true
+  }
+];
+
+export const FRANCE_REFERENCE = {
+  code: 'fr',
+  name: 'France',
+  area: 551695,
+  gdp: 3000,
+  population: 68000000,
+  gdpPerCapita: 44100, // ~44 100 $ / habitant
+};
+
+export default advancedCountries;
