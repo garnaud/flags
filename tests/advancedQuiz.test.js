@@ -17,11 +17,11 @@ import {
 
 describe('Mode Avancé - Logique Métier & TDD', () => {
   describe('Formule de difficulté et pondérations', () => {
-    it('la difficulté de frontiere et monnaie doit être au niveau 2, pib et surface à 5, population à 4', () => {
+    it('la difficulté de frontiere est au niveau 2, monnaie au niveau 3, pib et surface à 5, population à 4', () => {
       expect(CATEGORY_DIFFICULTY.surface).toBe(5);
       expect(CATEGORY_DIFFICULTY.pib).toBe(5);
       expect(CATEGORY_DIFFICULTY.population).toBe(4);
-      expect(CATEGORY_DIFFICULTY.monnaie).toBe(2);
+      expect(CATEGORY_DIFFICULTY.monnaie).toBe(3);
       expect(CATEGORY_DIFFICULTY.frontiere).toBe(2);
       expect(CATEGORY_DIFFICULTY.capitale).toBe(1);
       expect(CATEGORY_DIFFICULTY.drapeau).toBe(1);
@@ -87,13 +87,21 @@ describe('Mode Avancé - Logique Métier & TDD', () => {
       expect(hasAmericanLureCity).toBe(true);
     });
 
-    it('generateCurrencyQuestion : génère des choix de devises uniques au niveau 2', () => {
+    it('generateCurrencyQuestion : génère des choix de devises uniques au niveau 3 et épurées de toute référence de pays', () => {
       const q = generateCurrencyQuestion(espagne, advancedCountries, 3);
       expect(q.category).toBe('monnaie');
       expect(q.correctAnswer).toBe('Euro');
       expect(q.options).toHaveLength(3);
       expect(q.options).toContain('Euro');
       expect(new Set(q.options).size).toBe(3);
+
+      const qUsa = generateCurrencyQuestion(usa, advancedCountries, 4);
+      expect(qUsa.correctAnswer).toBe('Dollar'); // Pas 'Dollar américain' !
+
+      // Vérifier qu'aucune option ne contient d'adjectif de nationalité évident
+      qUsa.options.forEach((opt) => {
+        expect(opt).not.toMatch(/(américain|canadien|australien|mexicain|suédois|norvégien|suisse|indien)/i);
+      });
     });
 
     it('generateBorderQuestion : pose une question binaire Oui/Non, exclut les îles, et applique un bonus +1 si même continent', () => {

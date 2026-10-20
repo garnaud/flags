@@ -16,14 +16,15 @@ export const DEFAULT_WEIGHTS = {
 /**
  * Niveaux de difficulté par catégorie.
  * - Niveau 1 : drapeau, capitale
- * - Niveau 2 : monnaie, frontiere
+ * - Niveau 2 : frontiere
+ * - Niveau 3 : monnaie
  * - Niveau 4 : population
  * - Niveau 5 : surface, pib (par habitant)
  */
 export const CATEGORY_DIFFICULTY = {
   drapeau: 1,
   capitale: 1,
-  monnaie: 2,
+  monnaie: 3,
   frontiere: 2,
   population: 4,
   surface: 5,

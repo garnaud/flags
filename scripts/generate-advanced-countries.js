@@ -235,6 +235,30 @@ const continentMap = {
   au: 'Océanie', fj: 'Océanie', ki: 'Océanie', mh: 'Océanie', fm: 'Océanie', nr: 'Océanie', nz: 'Océanie', pw: 'Océanie', pg: 'Océanie', sb: 'Océanie', ws: 'Océanie', to: 'Océanie', tv: 'Océanie', vu: 'Océanie',
 };
 
+function sanitizeCurrency(raw) {
+  if (!raw) return 'Monnaie locale';
+  if (/dollar/i.test(raw)) return 'Dollar';
+  if (/couronne/i.test(raw)) return 'Couronne';
+  if (/peso/i.test(raw)) return 'Peso';
+  if (/dinar/i.test(raw)) return 'Dinar';
+  if (/franc/i.test(raw)) return 'Franc';
+  if (/livre/i.test(raw)) return 'Livre';
+  if (/roupie/i.test(raw)) return 'Roupie';
+  if (/rouble/i.test(raw)) return 'Rouble';
+  if (/dirham/i.test(raw)) return 'Dirham';
+  if (/riyal/i.test(raw)) return 'Riyal';
+  if (/rial/i.test(raw)) return 'Rial';
+  if (/manat/i.test(raw)) return 'Manat';
+  if (/won/i.test(raw)) return 'Won';
+  if (/leu\b/i.test(raw)) return 'Leu';
+  if (/lev\b/i.test(raw)) return 'Lev';
+  if (/shilling/i.test(raw)) return 'Shilling';
+  if (/escudo/i.test(raw)) return 'Escudo';
+  if (/kwacha/i.test(raw)) return 'Kwacha';
+  if (/mark convertible/i.test(raw)) return 'Mark';
+  return raw.trim();
+}
+
 // Fusion de toutes les données pour les 195 pays
 const result = countries.map((c) => {
   const custom = enrichedData[c.code] || defaultTier4[c.code] || {
@@ -251,6 +275,7 @@ const result = countries.map((c) => {
   const cities = custom.cities || [];
   const borders = custom.borders || [];
   const continent = continentMap[c.code] || 'Monde';
+  const currency = sanitizeCurrency(custom.currency);
   // Calcul du PIB par habitant en dollars ($)
   const gdpPerCapita = Math.round((custom.gdp * 1000000000) / custom.pop);
 
@@ -262,7 +287,7 @@ const result = countries.map((c) => {
     area: custom.area,
     gdp: custom.gdp,
     gdpPerCapita,
-    currency: custom.currency,
+    currency,
     tier,
     continent,
     cities,
