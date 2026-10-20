@@ -12,13 +12,16 @@
   </head>
   <body>
     <div id="app" class="app-container">
-      <!-- Sélecteur de Mode de Jeu -->
+      <!-- Sélecteur de Mode de Jeu et Paramètres -->
       <nav class="mode-switch-nav" aria-label="Choix du mode de jeu">
         <button id="mode-classic-btn" class="mode-btn active" type="button">
           🚩 Mode Drapeaux
         </button>
         <button id="mode-advanced-btn" class="mode-btn" type="button">
           ⚡ Mode Avancé (Survie)
+        </button>
+        <button id="settings-open-btn" class="mode-btn settings-btn" type="button" aria-label="Paramètres de difficulté" title="Paramètres">
+          ⚙️
         </button>
       </nav>
 
@@ -148,6 +151,32 @@
           <button id="restart-btn" class="btn btn-primary" type="button">
             Rejouer une partie
           </button>
+        </div>
+      </dialog>
+
+      <!-- Modal des Paramètres (Poids des Catégories) -->
+      <dialog id="settings-modal" class="modal" aria-labelledby="settings-title">
+        <div class="modal-content settings-content">
+          <div class="settings-header">
+            <h2 id="settings-title" class="modal-title">⚙️ Poids des Catégories</h2>
+            <button id="settings-close-x" class="btn-close-icon" type="button" aria-label="Fermer les paramètres">✕</button>
+          </div>
+          <p class="modal-message">
+            Ajustez les points attribués à chaque catégorie pour personnaliser la difficulté du Mode Avancé.
+          </p>
+
+          <div id="settings-sliders-container" class="settings-sliders-list">
+            <!-- Sliders générés dynamiquement -->
+          </div>
+
+          <div class="settings-actions">
+            <button id="settings-reset-btn" class="btn btn-secondary" type="button">
+              Réinitialiser par défaut
+            </button>
+            <button id="settings-save-btn" class="btn btn-primary" type="button">
+              Enregistrer & Fermer
+            </button>
+          </div>
         </div>
       </dialog>
     </div>

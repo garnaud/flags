@@ -6,7 +6,12 @@ import {
   LiveStreakTracker,
 } from './quiz.js';
 import { advancedCountries } from './data/advancedCountries.js';
-import { AdvancedQuizEngine } from './advancedQuiz.js';
+import {
+  AdvancedQuizEngine,
+  getCategoryDifficulties,
+  saveCategoryDifficulties,
+  resetCategoryDifficulties,
+} from './advancedQuiz.js';
 
 // Stockage dédié pour le Mode Avancé
 const ADVANCED_STORAGE_KEY = 'flags_quiz_advanced_top_streaks';
@@ -67,6 +72,14 @@ const newRecordBadge = document.getElementById('new-record-badge');
 const modalPodiumTitle = document.getElementById('modal-podium-title');
 const modalPodiumList = document.getElementById('modal-podium-list');
 const restartBtn = document.getElementById('restart-btn');
+
+// Éléments du DOM - Paramètres (Settings)
+const settingsOpenBtn = document.getElementById('settings-open-btn');
+const settingsModal = document.getElementById('settings-modal');
+const settingsCloseX = document.getElementById('settings-close-x');
+const settingsResetBtn = document.getElementById('settings-reset-btn');
+const settingsSaveBtn = document.getElementById('settings-save-btn');
+const settingsSlidersContainer = document.getElementById('settings-sliders-container');
 
 // État de l'application
 let currentMode = 'classic'; // 'classic' | 'advanced'
@@ -573,6 +586,88 @@ function renderPodium(topStreaks, highlightedRank) {
     modalPodiumList.appendChild(li);
   }
 }
+
+// ==========================================================================
+// Gestion des Paramètres (Poids des Catégories)
+// ==========================================================================
+const categoryDefs = [
+  { id: 'drapeau', label: '🚩 Drapeau' },
+  { id: 'capitale', label: '🏛️ Capitale' },
+  { id: 'frontiere', label: '🗺️ Frontière' },
+  { id: 'monnaie', label: '🪙 Monnaie' },
+  { id: 'population', label: '👥 Population' },
+  { id: 'surface', label: '📐 Superficie' },
+  { id: 'pib', label: '💰 PIB par habitant' },
+];
+
+function openSettingsModal() {
+  const currentDiffs = getCategoryDifficulties();
+  renderSettingsSliders(currentDiffs);
+  settingsModal.showModal();
+}
+
+function renderSettingsSliders(diffs) {
+  settingsSlidersContainer.innerHTML = '';
+
+  categoryDefs.forEach((cat) => {
+    const row = document.createElement('div');
+    row.className = 'setting-row';
+
+    const val = diffs[cat.id] ?? 1;
+
+    row.innerHTML = `
+      <div class="setting-row-top">
+        <span class="setting-cat-label">${cat.label}</span>
+        <span class="setting-val-badge" id="badge-${cat.id}">${val} pt${val > 1 ? 's' : ''}</span>
+      </div>
+      <input
+        type="range"
+        class="setting-range"
+        id="range-${cat.id}"
+        min="1"
+        max="10"
+        value="${val}"
+        aria-label="Poids de la catégorie ${cat.label}"
+      />
+    `;
+
+    const input = row.querySelector(`#range-${cat.id}`);
+    const badge = row.querySelector(`#badge-${cat.id}`);
+
+    input.addEventListener('input', () => {
+      const currentV = Number(input.value);
+      badge.textContent = `${currentV} pt${currentV > 1 ? 's' : ''}`;
+    });
+
+    settingsSlidersContainer.appendChild(row);
+  });
+}
+
+function saveAndCloseSettings() {
+  const newValues = {};
+  categoryDefs.forEach((cat) => {
+    const input = document.getElementById(`range-${cat.id}`);
+    if (input) {
+      newValues[cat.id] = Number(input.value);
+    }
+  });
+
+  saveCategoryDifficulties(newValues);
+  settingsModal.close();
+
+  if (currentMode === 'advanced' && advancedEngine && advancedEngine.currentQuestion) {
+    renderQuestion();
+  }
+}
+
+// Événements - Paramètres
+settingsOpenBtn.addEventListener('click', openSettingsModal);
+settingsCloseX.addEventListener('click', () => settingsModal.close());
+settingsSaveBtn.addEventListener('click', saveAndCloseSettings);
+settingsResetBtn.addEventListener('click', () => {
+  const defaults = resetCategoryDifficulties();
+  renderSettingsSliders(defaults);
+});
 
 // Événements - Switcher de Mode
 modeClassicBtn.addEventListener('click', () => switchMode('classic'));

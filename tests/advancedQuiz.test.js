@@ -3,6 +3,10 @@ import { advancedCountries, FRANCE_REFERENCE } from '../src/data/advancedCountri
 import {
   DEFAULT_WEIGHTS,
   CATEGORY_DIFFICULTY,
+  DEFAULT_CATEGORY_DIFFICULTY,
+  getCategoryDifficulties,
+  saveCategoryDifficulties,
+  resetCategoryDifficulties,
   calculateQuestionDifficulty,
   generateFlagQuestion,
   generateCapitalQuestion,
@@ -57,6 +61,51 @@ describe('Mode Avancé - Logique Métier & TDD', () => {
 
       const q4 = calculateQuestionDifficulty(1, 'drapeau', 4, 4);
       expect(q4).toBe(8);
+    });
+  });
+
+  describe('Gestion dynamique des paramètres et poids des catégories (Settings)', () => {
+    let mockStorage;
+
+    beforeEach(() => {
+      const store = {};
+      mockStorage = {
+        getItem: (k) => store[k] || null,
+        setItem: (k, v) => { store[k] = v.toString(); },
+        removeItem: (k) => { delete store[k]; },
+      };
+      resetCategoryDifficulties(mockStorage);
+    });
+
+    it('devrait retourner les difficultés par défaut initialement', () => {
+      const diffs = getCategoryDifficulties(mockStorage);
+      expect(diffs).toEqual(DEFAULT_CATEGORY_DIFFICULTY);
+      expect(diffs.drapeau).toBe(1);
+      expect(diffs.surface).toBe(5);
+    });
+
+    it('devrait mettre à jour et persister de nouveaux poids de catégories', () => {
+      saveCategoryDifficulties({ drapeau: 3, surface: 2 }, mockStorage);
+      const updated = getCategoryDifficulties(mockStorage);
+
+      expect(updated.drapeau).toBe(3);
+      expect(updated.surface).toBe(2);
+      expect(updated.capitale).toBe(1); // Non modifié conserve sa valeur
+
+      // Impact direct sur le calcul de difficulté
+      const scoreDrapeau = calculateQuestionDifficulty(1, 'drapeau', 2, 2, undefined, updated);
+      // 1 (pays) + 3 (cat drapeau personnalisé) + 1 (choix) + 1 (indices) = 6 pts
+      expect(scoreDrapeau).toBe(6);
+    });
+
+    it('devrait réinitialiser tous les poids aux valeurs par défaut avec resetCategoryDifficulties', () => {
+      saveCategoryDifficulties({ drapeau: 4, monnaie: 5 }, mockStorage);
+      expect(getCategoryDifficulties(mockStorage).drapeau).toBe(4);
+
+      const restored = resetCategoryDifficulties(mockStorage);
+      expect(restored.drapeau).toBe(1);
+      expect(restored.monnaie).toBe(3);
+      expect(getCategoryDifficulties(mockStorage)).toEqual(DEFAULT_CATEGORY_DIFFICULTY);
     });
   });
 

@@ -13,28 +13,98 @@ export const DEFAULT_WEIGHTS = {
   hintsWeight: 1,
 };
 
+export const STORAGE_KEY_CATEGORY_DIFFICULTIES = 'flags_quiz_category_difficulties';
+
 /**
- * Niveaux de difficulté par catégorie.
- * - Niveau 1 : drapeau, capitale
- * - Niveau 2 : frontiere
- * - Niveau 3 : monnaie
- * - Niveau 4 : population
- * - Niveau 5 : surface, pib (par habitant)
+ * Valeurs par défaut des difficultés par catégorie.
  */
-export const CATEGORY_DIFFICULTY = {
+export const DEFAULT_CATEGORY_DIFFICULTY = {
   drapeau: 1,
   capitale: 1,
-  monnaie: 3,
   frontiere: 2,
+  monnaie: 3,
   population: 4,
   surface: 5,
   pib: 5,
 };
 
 /**
+ * Niveaux de difficulté actifs en mémoire.
+ */
+export let CATEGORY_DIFFICULTY = { ...DEFAULT_CATEGORY_DIFFICULTY };
+
+/**
+ * Récupère les poids actuels des catégories (depuis le stockage ou les valeurs par défaut).
+ */
+export function getCategoryDifficulties(storage) {
+  const store = storage || (typeof window !== 'undefined' ? window.localStorage : null);
+  if (!store) return { ...CATEGORY_DIFFICULTY };
+
+  try {
+    const raw = store.getItem(STORAGE_KEY_CATEGORY_DIFFICULTIES);
+    if (!raw) return { ...DEFAULT_CATEGORY_DIFFICULTY };
+    const parsed = JSON.parse(raw);
+    if (typeof parsed !== 'object' || parsed === null) return { ...DEFAULT_CATEGORY_DIFFICULTY };
+
+    return {
+      ...DEFAULT_CATEGORY_DIFFICULTY,
+      ...Object.fromEntries(
+        Object.entries(parsed).filter(
+          ([k, v]) => k in DEFAULT_CATEGORY_DIFFICULTY && typeof v === 'number' && v >= 1
+        )
+      ),
+    };
+  } catch {
+    return { ...DEFAULT_CATEGORY_DIFFICULTY };
+  }
+}
+
+/**
+ * Enregistre de nouveaux poids pour les catégories et les persiste dans le stockage.
+ */
+export function saveCategoryDifficulties(newDifficulties, storage) {
+  const store = storage || (typeof window !== 'undefined' ? window.localStorage : null);
+  const validated = { ...getCategoryDifficulties(store) };
+
+  for (const [k, v] of Object.entries(newDifficulties)) {
+    if (k in DEFAULT_CATEGORY_DIFFICULTY && typeof v === 'number' && v >= 1) {
+      validated[k] = Math.round(v);
+    }
+  }
+
+  Object.assign(CATEGORY_DIFFICULTY, validated);
+
+  if (store) {
+    try {
+      store.setItem(STORAGE_KEY_CATEGORY_DIFFICULTIES, JSON.stringify(validated));
+    } catch (e) {
+      console.warn('Erreur sauvegarde difficultés catégories', e);
+    }
+  }
+
+  return validated;
+}
+
+/**
+ * Réinitialise tous les poids de catégories à leurs valeurs par défaut.
+ */
+export function resetCategoryDifficulties(storage) {
+  const store = storage || (typeof window !== 'undefined' ? window.localStorage : null);
+  Object.assign(CATEGORY_DIFFICULTY, DEFAULT_CATEGORY_DIFFICULTY);
+  if (store) {
+    try {
+      store.removeItem(STORAGE_KEY_CATEGORY_DIFFICULTIES);
+    } catch (e) {
+      console.warn('Erreur reset difficultés catégories', e);
+    }
+  }
+  return { ...DEFAULT_CATEGORY_DIFFICULTY };
+}
+
+/**
  * Calcule la difficulté d'une question selon les 4 critères :
  * - Pays : Tier (1 à 5) + 4 si petit pays (< 5M habitants)
- * - Catégorie : drapeau (1), capitale (1), monnaie (2), frontiere (2), population (4), surface (5), pib (5)
+ * - Catégorie : drapeau, capitale, monnaie, frontiere, population, surface, pib
  * - Choix multiples : 2 choix -> 1 pt, 3 choix -> 2 pts, 4 choix -> 3 pts
  * - Indices : 2 indices -> 1 pt, 3 indices -> 2 pts, 4 indices -> 3 pts
  *
@@ -43,6 +113,7 @@ export const CATEGORY_DIFFICULTY = {
  * @param {number} [optionsCount=2] - Nombre de choix multiples (2, 3, 4)
  * @param {number} [hintsCount=2] - Nombre d'indices (2, 3, 4)
  * @param {typeof DEFAULT_WEIGHTS} [weights] - Pondérations configurables
+ * @param {Object} [categoryDifficulties] - Poids personnalisés optionnels
  * @returns {number} Score total de difficulté (entre 4 et 20)
  */
 export function calculateQuestionDifficulty(
@@ -50,7 +121,8 @@ export function calculateQuestionDifficulty(
   category,
   optionsCount = 2,
   hintsCount = 2,
-  weights = DEFAULT_WEIGHTS
+  weights = DEFAULT_WEIGHTS,
+  categoryDifficulties = null
 ) {
   const cWeight = weights.countryWeight ?? 1;
   const catWeight = weights.categoryWeight ?? 1;
@@ -68,7 +140,8 @@ export function calculateQuestionDifficulty(
     countryPoints = Number(countryOrTier) || 1;
   }
 
-  const catPoints = CATEGORY_DIFFICULTY[category] ?? 1;
+  const activeCatDifficulties = categoryDifficulties || CATEGORY_DIFFICULTY;
+  const catPoints = activeCatDifficulties[category] ?? 1;
   const optionsPoints = Math.max(1, optionsCount - 1);
   const hintsPoints = Math.max(1, hintsCount - 1);
 
