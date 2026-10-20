@@ -21,11 +21,11 @@ export const STORAGE_KEY_CATEGORY_DIFFICULTIES = 'flags_quiz_category_difficulti
 export const DEFAULT_CATEGORY_DIFFICULTY = {
   drapeau: 1,
   capitale: 1,
-  frontiere: 2,
+  frontiere: 3,
   monnaie: 3,
   population: 4,
   surface: 5,
-  pib: 5,
+  pib: 6,
 };
 
 /**
@@ -315,7 +315,7 @@ export function generateBorderQuestion(country, allCountries) {
 
   const isNeighbor = country.borders.includes(candidate.code);
   const sameContinent = country.continent && candidate.continent && country.continent === candidate.continent;
-  const difficulty = calculateQuestionDifficulty(country, 'frontiere', 2, 2) + (sameContinent ? 1 : 0);
+  const difficulty = calculateQuestionDifficulty(country, 'frontiere', 2, 2) + (sameContinent ? 2 : 0);
 
   return {
     category: 'frontiere',

@@ -21,12 +21,12 @@ import {
 
 describe('Mode Avancé - Logique Métier & TDD', () => {
   describe('Formule de difficulté et pondérations', () => {
-    it('la difficulté de frontiere est au niveau 2, monnaie au niveau 3, pib et surface à 5, population à 4', () => {
+    it('la difficulté de frontiere et monnaie est au niveau 3, pib au niveau 6, surface à 5, population à 4', () => {
+      expect(CATEGORY_DIFFICULTY.pib).toBe(6);
       expect(CATEGORY_DIFFICULTY.surface).toBe(5);
-      expect(CATEGORY_DIFFICULTY.pib).toBe(5);
       expect(CATEGORY_DIFFICULTY.population).toBe(4);
       expect(CATEGORY_DIFFICULTY.monnaie).toBe(3);
-      expect(CATEGORY_DIFFICULTY.frontiere).toBe(2);
+      expect(CATEGORY_DIFFICULTY.frontiere).toBe(3);
       expect(CATEGORY_DIFFICULTY.capitale).toBe(1);
       expect(CATEGORY_DIFFICULTY.drapeau).toBe(1);
     });
@@ -153,7 +153,7 @@ describe('Mode Avancé - Logique Métier & TDD', () => {
       });
     });
 
-    it('generateBorderQuestion : pose une question binaire Oui/Non, exclut les îles, et applique un bonus +1 si même continent', () => {
+    it('generateBorderQuestion : pose une question binaire Oui/Non, exclut les îles, et applique un bonus +2 si même continent', () => {
       const q = generateBorderQuestion(france, advancedCountries);
       expect(q.category).toBe('frontiere');
       expect(q.options).toEqual(['Oui', 'Non']);
@@ -169,10 +169,10 @@ describe('Mode Avancé - Logique Métier & TDD', () => {
       const areNeighbors = france.borders.includes(q.secondCountry.code);
       expect(q.correctAnswer).toBe(areNeighbors ? 'Oui' : 'Non');
 
-      // Bonus +1 si les deux pays sont sur le même continent
+      // Bonus +2 si les deux pays sont sur le même continent
       const baseDiff = calculateQuestionDifficulty(france, 'frontiere', 2, 2);
       if (france.continent === q.secondCountry.continent) {
-        expect(q.difficulty).toBe(baseDiff + 1);
+        expect(q.difficulty).toBe(baseDiff + 2);
       } else {
         expect(q.difficulty).toBe(baseDiff);
       }
