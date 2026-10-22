@@ -183,26 +183,19 @@ describe('Mode Avancé - Logique Métier & TDD', () => {
       }
     });
 
-    it('generatePopulationQuestion : produit une chaîne d inégalités sans référence France', () => {
-      const q = generatePopulationQuestion(espagne, advancedCountries, 2, 4);
+    it('generatePopulationQuestion : duel comparatif Oui/Non avec la population absolue affichée pour le pays de gauche', () => {
+      const q = generatePopulationQuestion(espagne, advancedCountries);
       expect(q.category).toBe('population');
-      expect(q.options).toHaveLength(2);
-      expect(q.options).toContain(q.correctAnswer);
+      expect(q.options).toEqual(['Oui', 'Non']);
+      expect(['Oui', 'Non']).toContain(q.correctAnswer);
+      expect(q.questionText).toContain('population');
+      expect(q.secondCountry).toBeDefined();
+      expect(q.leftPopulationText).toBeDefined();
+      expect(q.visualComparison).toContain('>');
 
-      expect(q.inequality).toBeDefined();
-      expect(q.inequality).toContain(' < ');
-      expect(q.inequality).toContain('Espagne');
-      expect(q.hints.some((h) => h.includes('Référence France'))).toBe(false);
-
-      const countriesInOrder = q.inequality.split(' < ');
-      expect(countriesInOrder.length).toBeGreaterThanOrEqual(3);
-      for (let i = 0; i < countriesInOrder.length - 1; i++) {
-        const c1 = advancedCountries.find((c) => c.name === countriesInOrder[i]);
-        const c2 = advancedCountries.find((c) => c.name === countriesInOrder[i + 1]);
-        if (c1 && c2) {
-          expect(c1.population).toBeLessThanOrEqual(c2.population);
-        }
-      }
+      // Vérifier la validité de la réponse
+      const isSuperior = espagne.population > q.secondCountry.population;
+      expect(q.correctAnswer).toBe(isSuperior ? 'Oui' : 'Non');
     });
 
     it('generateSurfaceQuestion : duel comparatif binaire Oui/Non (Drapeau A > Drapeau B ?)', () => {

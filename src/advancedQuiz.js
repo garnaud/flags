@@ -337,42 +337,51 @@ export function generateBorderQuestion(country, allCountries) {
 }
 
 /**
- * Générateur de question : Population (fourchettes à 10%)
+ * Générateur de question : Population (Niveau 8)
+ * Duel de comparaison binaire Oui / Non. Le pays de gauche affiche sa population exacte en valeur absolue,
+ * et le joueur doit déterminer si cette population est supérieure à celle du pays de droite.
  */
-export function generatePopulationQuestion(country, allCountries, optionsCount = 2, hintsCount = 2) {
-  const pop = country.population;
-  const margin = 0.10; // 10%
-  const lower = Math.round(pop * (1 - margin));
-  const upper = Math.round(pop * (1 + margin));
+export function generatePopulationQuestion(country, allCountries) {
+  const smallerPool = allCountries.filter(
+    (c) => c.population < country.population && c.code !== country.code
+  );
+  const biggerPool = allCountries.filter(
+    (c) => c.population > country.population && c.code !== country.code
+  );
+
+  const shouldBeSuperior = Math.random() < 0.5;
+  let candidate = null;
+
+  if (shouldBeSuperior && smallerPool.length > 0) {
+    candidate = smallerPool[Math.floor(Math.random() * smallerPool.length)];
+  } else if (biggerPool.length > 0) {
+    candidate = biggerPool[Math.floor(Math.random() * biggerPool.length)];
+  } else {
+    candidate = smallerPool[0] || biggerPool[0];
+  }
+
+  const isSuperior = country.population > candidate.population;
 
   const formatPop = (n) => {
-    if (n >= 1000000000) return `${(n / 1000000000).toFixed(2)} milliard(s)`;
-    if (n >= 1000000) return `${(n / 1000000).toFixed(1)} million(s)`;
-    return formatNumber(n);
+    if (n >= 1000000000) return `${(n / 1000000000).toFixed(2)} milliard(s) d'hab.`;
+    if (n >= 1000000) return `${(n / 1000000).toFixed(1)} million(s) d'hab.`;
+    return `${formatNumber(n)} hab.`;
   };
 
-  const correctRange = `Entre ${formatPop(lower)} et ${formatPop(upper)}`;
-  const lure1 = `Entre ${formatPop(Math.round(pop * 0.4))} et ${formatPop(Math.round(pop * 0.6))}`;
-  const lure2 = `Entre ${formatPop(Math.round(pop * 1.5))} et ${formatPop(Math.round(pop * 1.9))}`;
-  const lure3 = `Entre ${formatPop(Math.round(pop * 2.8))} et ${formatPop(Math.round(pop * 3.5))}`;
-
-  const allLures = shuffle([lure1, lure2, lure3]);
-  const selectedLures = allLures.slice(0, Math.max(1, optionsCount - 1));
-  const options = shuffle([correctRange, ...selectedLures]);
-
-  const inequality = buildInequalityChain(country, allCountries, 'population', hintsCount);
-  const hints = [`Inégalité de population : ${inequality}`];
+  const leftPopulationText = formatPop(country.population);
 
   return {
     category: 'population',
     country,
-    questionText: `Quelle est la population approximative de : ${country.name} ?`,
+    secondCountry: candidate,
+    questionText: `La population de ${country.name} (${leftPopulationText}) est-elle supérieure à celle de ${candidate.name} ?`,
+    leftPopulationText,
+    visualComparison: `${country.name} (${leftPopulationText}) > ${candidate.name}`,
     flagCode: country.code,
-    correctAnswer: correctRange,
-    options,
-    inequality,
-    hints,
-    difficulty: calculateQuestionDifficulty(country, 'population', optionsCount, hintsCount),
+    secondFlagCode: candidate.code,
+    correctAnswer: isSuperior ? 'Oui' : 'Non',
+    options: ['Oui', 'Non'],
+    difficulty: calculateQuestionDifficulty(country, 'population', 2, 2),
   };
 }
 
@@ -469,7 +478,7 @@ export function generateAdvancedQuestion(country, category, optionsCount, hintsC
     case 'frontiere':
       return generateBorderQuestion(country, allCountries);
     case 'population':
-      return generatePopulationQuestion(country, allCountries, optionsCount, hintsCount);
+      return generatePopulationQuestion(country, allCountries);
     case 'surface':
       return generateSurfaceQuestion(country, allCountries);
     case 'pib':
@@ -536,7 +545,12 @@ export class AdvancedQuizEngine {
         continue;
       }
 
-      const isTwoChoicesOnly = (category === 'frontiere' || category === 'surface' || category === 'pib');
+      const isTwoChoicesOnly = (
+        category === 'frontiere' ||
+        category === 'surface' ||
+        category === 'pib' ||
+        category === 'population'
+      );
       const optionsCount = isTwoChoicesOnly ? 2 : choiceOptions[Math.floor(Math.random() * choiceOptions.length)];
       const hintsCount = hintOptions[Math.floor(Math.random() * hintOptions.length)];
 

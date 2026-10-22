@@ -267,14 +267,19 @@ function renderAdvancedQuestion() {
   // Affichage du ou des drapeaux (duel A > B ou repère unique)
   const flagWrapper = document.querySelector('.flag-wrapper');
   if (q.secondFlagCode) {
-    const isComparison = q.category === 'surface' || q.category === 'pib';
+    const isComparison = q.category === 'surface' || q.category === 'pib' || q.category === 'population';
     const operator = isComparison ? '>' : '🤝';
 
-    const leftSubText = q.leftGdpPerCapitaText
-      ? `<br><strong style="color: #60a5fa; font-size: 0.78rem; display: block; margin-top: 2px;">${q.leftGdpPerCapitaText}</strong>`
+    const leftVal = q.leftGdpPerCapitaText || q.leftPopulationText;
+    const rightValLabel = q.leftGdpPerCapitaText
+      ? '??? $ / hab'
+      : (q.leftPopulationText ? '??? hab.' : '');
+
+    const leftSubText = leftVal
+      ? `<br><strong style="color: #60a5fa; font-size: 0.78rem; display: block; margin-top: 2px;">${leftVal}</strong>`
       : '';
-    const rightSubText = q.leftGdpPerCapitaText
-      ? `<br><span style="color: #94a3b8; font-size: 0.78rem; display: block; margin-top: 2px;">??? $ / hab</span>`
+    const rightSubText = rightValLabel
+      ? `<br><span style="color: #94a3b8; font-size: 0.78rem; display: block; margin-top: 2px;">${rightValLabel}</span>`
       : '';
 
     flagWrapper.innerHTML = `
