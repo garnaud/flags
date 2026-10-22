@@ -1,10 +1,10 @@
 import { FRANCE_REFERENCE } from './data/advancedCountries.js';
 
 /**
- * Pondérations par défaut pour la formule de difficulté.
- * 2 choix ou indices -> 1 pt
- * 3 choix ou indices -> 2 pts
- * 4 choix ou indices -> 3 pts
+ * Pondérations par défaut pour la formule de difficulté doublée (échelle de 8 à 40 points).
+ * 2 choix ou indices -> 2 pts
+ * 3 choix ou indices -> 4 pts
+ * 4 choix ou indices -> 6 pts
  */
 export const DEFAULT_WEIGHTS = {
   countryWeight: 1,
@@ -16,16 +16,16 @@ export const DEFAULT_WEIGHTS = {
 export const STORAGE_KEY_CATEGORY_DIFFICULTIES = 'flags_quiz_category_difficulties';
 
 /**
- * Valeurs par défaut des difficultés par catégorie.
+ * Valeurs par défaut des difficultés par catégorie (points doublés pour un lissage optimal).
  */
 export const DEFAULT_CATEGORY_DIFFICULTY = {
-  drapeau: 1,
-  capitale: 1,
-  frontiere: 3,
-  monnaie: 3,
-  population: 4,
-  surface: 5,
-  pib: 6,
+  drapeau: 2,
+  capitale: 2,
+  frontiere: 4,
+  monnaie: 6,
+  population: 8,
+  surface: 10,
+  pib: 12,
 };
 
 /**
@@ -102,11 +102,11 @@ export function resetCategoryDifficulties(storage) {
 }
 
 /**
- * Calcule la difficulté d'une question selon les 4 critères :
- * - Pays : Tier (1 à 5) + 4 si petit pays (< 5M habitants)
- * - Catégorie : drapeau, capitale, monnaie, frontiere, population, surface, pib
- * - Choix multiples : 2 choix -> 1 pt, 3 choix -> 2 pts, 4 choix -> 3 pts
- * - Indices : 2 indices -> 1 pt, 3 indices -> 2 pts, 4 indices -> 3 pts
+ * Calcule la difficulté d'une question selon l'échelle doublée (8 à 40 points) :
+ * - Pays : Tier (2 à 10 pts) + 8 pts si petit pays (< 5M habitants)
+ * - Catégorie : drapeau (2), capitale (2), frontiere (4), monnaie (6), population (8), surface (10), pib (12)
+ * - Choix multiples : 2 choix -> 2 pts, 3 choix -> 4 pts, 4 choix -> 6 pts
+ * - Indices : 2 indices -> 2 pts, 3 indices -> 4 pts, 4 indices -> 6 pts
  *
  * @param {Object|number} countryOrTier - Objet pays ou tier numérique (1 à 5)
  * @param {string} category - Catégorie de la question
@@ -114,7 +114,7 @@ export function resetCategoryDifficulties(storage) {
  * @param {number} [hintsCount=2] - Nombre d'indices (2, 3, 4)
  * @param {typeof DEFAULT_WEIGHTS} [weights] - Pondérations configurables
  * @param {Object} [categoryDifficulties] - Poids personnalisés optionnels
- * @returns {number} Score total de difficulté (entre 4 et 20)
+ * @returns {number} Score total de difficulté (entre 8 et 40)
  */
 export function calculateQuestionDifficulty(
   countryOrTier,
@@ -129,21 +129,28 @@ export function calculateQuestionDifficulty(
   const optWeight = weights.optionsWeight ?? 1;
   const hWeight = weights.hintsWeight ?? 1;
 
-  let countryPoints = 1;
+  let countryPoints = 2;
+  let popBonus = 0;
   if (typeof countryOrTier === 'object' && countryOrTier !== null) {
-    countryPoints = countryOrTier.tier || 1;
-    // Petit pays (< 5M habitants, sans critère de surface) : bonus +4
-    if (countryOrTier.population < 5000000) {
-      countryPoints += 4;
+    countryPoints = (countryOrTier.tier || 1) * 2;
+    // Bonus petits pays : +10 pts si < 1M hab, +5 pts si < 3M hab
+    if (countryOrTier.population < 1000000) {
+      popBonus = 10;
+    } else if (countryOrTier.population < 3000000) {
+      popBonus = 5;
     }
   } else {
-    countryPoints = Number(countryOrTier) || 1;
+    countryPoints = (Number(countryOrTier) || 1) * 2;
   }
+  countryPoints += popBonus;
 
   const activeCatDifficulties = categoryDifficulties || CATEGORY_DIFFICULTY;
-  const catPoints = activeCatDifficulties[category] ?? 1;
-  const optionsPoints = Math.max(1, optionsCount - 1);
-  const hintsPoints = Math.max(1, hintsCount - 1);
+  const catPoints = activeCatDifficulties[category] ?? 2;
+
+  // 2 choix -> 2 pts, 3 choix -> 4 pts, 4 choix -> 6 pts
+  const optionsPoints = Math.max(1, optionsCount - 1) * 2;
+  // 2 indices -> 2 pts, 3 indices -> 4 pts, 4 indices -> 6 pts
+  const hintsPoints = Math.max(1, hintsCount - 1) * 2;
 
   return (
     (countryPoints * cWeight) +
@@ -173,7 +180,7 @@ function formatNumber(num) {
 }
 
 /**
- * Construit une chaîne d'inégalités ordonnée selon une grandeur numérique (ex: "Portugal < Espagne < France < Chine").
+ * Construit une chaîne d'inégalités ordonnée selon une grandeur numérique.
  */
 function buildInequalityChain(targetCountry, allCountries, metricKey, count = 2) {
   const targetVal = targetCountry[metricKey];
@@ -261,7 +268,7 @@ export function generateCapitalQuestion(country, allCountries, count = 2) {
 }
 
 /**
- * Générateur de question : Monnaie (Niveau 2)
+ * Générateur de question : Monnaie
  */
 export function generateCurrencyQuestion(country, allCountries, count = 2) {
   const otherCurrencies = [
@@ -287,9 +294,8 @@ export function generateCurrencyQuestion(country, allCountries, count = 2) {
 }
 
 /**
- * Générateur de question : Frontière terrestre (Niveau 2)
- * Pose une question binaire 'Oui' ou 'Non' si deux pays partagent une frontière.
- * Exclut strictement les îles (isIsland: true ou sans frontières).
+ * Générateur de question : Frontière terrestre (Oui/Non)
+ * Bonus +6 points si les deux pays appartiennent au même continent.
  */
 export function generateBorderQuestion(country, allCountries) {
   if (!country || country.isIsland || !Array.isArray(country.borders) || country.borders.length === 0) {
@@ -299,7 +305,6 @@ export function generateBorderQuestion(country, allCountries) {
   const continentalCountries = allCountries.filter((c) => !c.isIsland && c.code !== country.code);
   if (continentalCountries.length === 0) return null;
 
-  // 50% de chance d'interroger sur un vrai voisin, 50% sur un non-voisin
   const shouldBeNeighbor = Math.random() < 0.5;
   let candidate = null;
 
@@ -315,7 +320,8 @@ export function generateBorderQuestion(country, allCountries) {
 
   const isNeighbor = country.borders.includes(candidate.code);
   const sameContinent = country.continent && candidate.continent && country.continent === candidate.continent;
-  const difficulty = calculateQuestionDifficulty(country, 'frontiere', 2, 2) + (sameContinent ? 2 : 0);
+  // Bonus de frontière doublé à +6 points si même continent
+  const difficulty = calculateQuestionDifficulty(country, 'frontiere', 2, 2) + (sameContinent ? 6 : 0);
 
   return {
     category: 'frontiere',
@@ -331,7 +337,7 @@ export function generateBorderQuestion(country, allCountries) {
 }
 
 /**
- * Générateur de question : Population (Niveau 4)
+ * Générateur de question : Population (fourchettes à 10%)
  */
 export function generatePopulationQuestion(country, allCountries, optionsCount = 2, hintsCount = 2) {
   const pop = country.population;
@@ -371,8 +377,7 @@ export function generatePopulationQuestion(country, allCountries, optionsCount =
 }
 
 /**
- * Générateur de question : Surface (Niveau 5)
- * Duel de comparaison binaire Oui / Non (visuellement Drapeau A > Drapeau B)
+ * Générateur de question : Surface (Duel Oui/Non Drapeau A > Drapeau B)
  */
 export function generateSurfaceQuestion(country, allCountries) {
   const smallerPool = allCountries.filter((c) => c.area < country.area && c.code !== country.code);
@@ -406,40 +411,47 @@ export function generateSurfaceQuestion(country, allCountries) {
 }
 
 /**
- * Générateur de question : PIB par habitant (Niveau 5)
+ * Générateur de question : PIB par habitant (strictement 2 choix maximum)
  */
-export function generateGdpQuestion(country, allCountries, optionsCount = 2, hintsCount = 2) {
-  const gdpPC = country.gdpPerCapita;
-  const margin = 0.20; // 20%
-  const lower = Math.round(gdpPC * (1 - margin));
-  const upper = Math.round(gdpPC * (1 + margin));
+/**
+ * Générateur de question : PIB par habitant (Niveau 6)
+ * Duel de comparaison binaire Oui / Non. Le pays de gauche affiche son PIB par habitant,
+ * et le joueur doit déterminer si ce PIB est supérieur à celui du pays de droite.
+ */
+export function generateGdpQuestion(country, allCountries) {
+  const smallerPool = allCountries.filter(
+    (c) => c.gdpPerCapita < country.gdpPerCapita && c.code !== country.code
+  );
+  const biggerPool = allCountries.filter(
+    (c) => c.gdpPerCapita > country.gdpPerCapita && c.code !== country.code
+  );
 
-  const formatGdpPC = (val) => `${formatNumber(val)} $ / hab`;
-  const correctRange = `Entre ${formatGdpPC(lower)} et ${formatGdpPC(upper)}`;
-  const lure1 = `Entre ${formatGdpPC(Math.round(gdpPC * 0.4))} et ${formatGdpPC(Math.round(gdpPC * 0.6))}`;
-  const lure2 = `Entre ${formatGdpPC(Math.round(gdpPC * 1.6))} et ${formatGdpPC(Math.round(gdpPC * 2.2))}`;
-  const lure3 = `Entre ${formatGdpPC(Math.round(gdpPC * 3.5))} et ${formatGdpPC(Math.round(gdpPC * 4.8))}`;
+  const shouldBeSuperior = Math.random() < 0.5;
+  let candidate = null;
 
-  const allLures = shuffle([lure1, lure2, lure3]);
-  const selectedLures = allLures.slice(0, Math.max(1, optionsCount - 1));
-  const options = shuffle([correctRange, ...selectedLures]);
+  if (shouldBeSuperior && smallerPool.length > 0) {
+    candidate = smallerPool[Math.floor(Math.random() * smallerPool.length)];
+  } else if (biggerPool.length > 0) {
+    candidate = biggerPool[Math.floor(Math.random() * biggerPool.length)];
+  } else {
+    candidate = smallerPool[0] || biggerPool[0];
+  }
 
-  const refText = `🇫🇷 Référence France : ~44 100 $ / habitant`;
-  const inequality = buildInequalityChain(country, allCountries, 'gdpPerCapita', hintsCount);
-  const hints = [`Inégalité de PIB par habitant : ${inequality}`, refText];
+  const isSuperior = country.gdpPerCapita > candidate.gdpPerCapita;
+  const leftGdpPerCapitaText = `${formatNumber(country.gdpPerCapita)} $ / hab`;
 
   return {
     category: 'pib',
     country,
-    questionText: `Quel est le PIB par habitant approximatif de : ${country.name} ?`,
+    secondCountry: candidate,
+    questionText: `Le PIB par habitant de ${country.name} (${leftGdpPerCapitaText}) est-il supérieur à celui de ${candidate.name} ?`,
+    leftGdpPerCapitaText,
+    visualComparison: `${country.name} (${leftGdpPerCapitaText}) > ${candidate.name}`,
     flagCode: country.code,
-    correctAnswer: correctRange,
-    options,
-    inequality,
-    hints,
-    referenceFrance: refText,
-    clues: { smallerThan: null, biggerThan: null },
-    difficulty: calculateQuestionDifficulty(country, 'pib', optionsCount, hintsCount),
+    secondFlagCode: candidate.code,
+    correctAnswer: isSuperior ? 'Oui' : 'Non',
+    options: ['Oui', 'Non'],
+    difficulty: calculateQuestionDifficulty(country, 'pib', 2, 2),
   };
 }
 
@@ -461,7 +473,7 @@ export function generateAdvancedQuestion(country, category, optionsCount, hintsC
     case 'surface':
       return generateSurfaceQuestion(country, allCountries);
     case 'pib':
-      return generateGdpQuestion(country, allCountries, optionsCount, hintsCount);
+      return generateGdpQuestion(country, allCountries);
     default:
       return generateCapitalQuestion(country, allCountries, optionsCount);
   }
@@ -469,6 +481,8 @@ export function generateAdvancedQuestion(country, category, optionsCount, hintsC
 
 /**
  * Moteur du Mode Avancé (Survie & Culture)
+ * Fonctionne sur une échelle lissée de 8 à 40 points :
+ * Score Cible = Math.min(40, Math.floor(10 + streak * 1.5))
  */
 export class AdvancedQuizEngine {
   /**
@@ -482,11 +496,13 @@ export class AdvancedQuizEngine {
     this.bestStreak = 0;
     this.isGameOver = false;
     this.currentQuestion = null;
+    this.askedQuestions = new Set();
+    this.history = [];
     this.getNextQuestion();
   }
 
   getTargetDifficulty(streak) {
-    return Math.min(20, Math.floor(5 + streak * 0.75));
+    return Math.min(40, Math.floor(10 + streak * 1.5));
   }
 
   getNextQuestion() {
@@ -505,17 +521,23 @@ export class AdvancedQuizEngine {
     let bestCandidate = null;
     let minDiff = Infinity;
 
-    for (let attempt = 0; attempt < 35; attempt++) {
+    for (let attempt = 0; attempt < 50; attempt++) {
       const category = categories[Math.floor(Math.random() * categories.length)];
 
-      // Si catégorie frontière : filtrer sur les pays continentaux non-insulaires
       let eligible = this.allCountries;
       if (category === 'frontiere') {
         eligible = this.allCountries.filter((c) => !c.isIsland && c.borders.length > 0);
       }
 
       const country = eligible[Math.floor(Math.random() * eligible.length)] || this.allCountries[0];
-      const optionsCount = (category === 'frontiere' || category === 'surface') ? 2 : choiceOptions[Math.floor(Math.random() * choiceOptions.length)];
+      const qKey = `${country.code}_${category}`;
+
+      if (this.askedQuestions.has(qKey)) {
+        continue;
+      }
+
+      const isTwoChoicesOnly = (category === 'frontiere' || category === 'surface' || category === 'pib');
+      const optionsCount = isTwoChoicesOnly ? 2 : choiceOptions[Math.floor(Math.random() * choiceOptions.length)];
       const hintsCount = hintOptions[Math.floor(Math.random() * hintOptions.length)];
 
       const score = calculateQuestionDifficulty(country, category, optionsCount, hintsCount, this.weights);
@@ -523,19 +545,27 @@ export class AdvancedQuizEngine {
 
       if (diff < minDiff) {
         minDiff = diff;
-        bestCandidate = { country, category, optionsCount, hintsCount };
+        bestCandidate = { country, category, optionsCount, hintsCount, qKey };
         if (diff === 0) break;
       }
     }
 
+    if (!bestCandidate) {
+      const unasked = this.allCountries.find((c) => !this.askedQuestions.has(`${c.code}_capitale`));
+      const country = unasked || this.allCountries[Math.floor(Math.random() * this.allCountries.length)];
+      const qKey = `${country.code}_capitale_${Date.now()}`;
+      bestCandidate = { country, category: 'capitale', optionsCount: 2, hintsCount: 2, qKey };
+    }
+
+    this.askedQuestions.add(bestCandidate.qKey);
     const { country, category, optionsCount, hintsCount } = bestCandidate;
     this.currentQuestion = generateAdvancedQuestion(country, category, optionsCount, hintsCount, this.allCountries);
 
-    // En cas de fallback
     if (!this.currentQuestion) {
       this.currentQuestion = generateCapitalQuestion(country, this.allCountries, 2);
     }
 
+    this.history.push(this.currentQuestion);
     return this.currentQuestion;
   }
 
@@ -550,6 +580,11 @@ export class AdvancedQuizEngine {
     }
 
     const isCorrect = selectedAnswer === this.currentQuestion.correctAnswer;
+
+    if (this.history.length > 0) {
+      this.history[this.history.length - 1].userAnswer = selectedAnswer;
+      this.history[this.history.length - 1].isCorrect = isCorrect;
+    }
 
     if (isCorrect) {
       this.streak += 1;
@@ -578,6 +613,8 @@ export class AdvancedQuizEngine {
   reset() {
     this.streak = 0;
     this.isGameOver = false;
+    this.askedQuestions.clear();
+    this.history = [];
     this.getNextQuestion();
   }
 }

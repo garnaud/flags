@@ -267,18 +267,26 @@ function renderAdvancedQuestion() {
   // Affichage du ou des drapeaux (duel A > B ou repère unique)
   const flagWrapper = document.querySelector('.flag-wrapper');
   if (q.secondFlagCode) {
-    const isSurface = q.category === 'surface';
-    const operator = isSurface ? '>' : '🤝';
+    const isComparison = q.category === 'surface' || q.category === 'pib';
+    const operator = isComparison ? '>' : '🤝';
+
+    const leftSubText = q.leftGdpPerCapitaText
+      ? `<br><strong style="color: #60a5fa; font-size: 0.78rem; display: block; margin-top: 2px;">${q.leftGdpPerCapitaText}</strong>`
+      : '';
+    const rightSubText = q.leftGdpPerCapitaText
+      ? `<br><span style="color: #94a3b8; font-size: 0.78rem; display: block; margin-top: 2px;">??? $ / hab</span>`
+      : '';
+
     flagWrapper.innerHTML = `
       <div class="duel-flags-container">
         <div class="duel-flag-item">
           <img class="flag-image loading" src="https://flagcdn.com/w320/${q.flagCode.toLowerCase()}.png" alt="${q.country.name}" />
-          <span class="duel-country-name">${q.country.name}</span>
+          <span class="duel-country-name">${q.country.name}${leftSubText}</span>
         </div>
-        <span class="duel-operator ${isSurface ? 'comparison' : 'border'}">${operator}</span>
+        <span class="duel-operator ${isComparison ? 'comparison' : 'border'}">${operator}</span>
         <div class="duel-flag-item">
           <img class="flag-image loading" src="https://flagcdn.com/w320/${q.secondFlagCode.toLowerCase()}.png" alt="${q.secondCountry.name}" />
-          <span class="duel-country-name">${q.secondCountry.name}</span>
+          <span class="duel-country-name">${q.secondCountry.name}${rightSubText}</span>
         </div>
       </div>
     `;
@@ -340,7 +348,7 @@ function renderAdvancedQuestion() {
   currentScore.textContent = `${advancedEngine.streak}`;
   currentStreakEl.textContent = `🔥 ${advancedEngine.streak}`;
 
-  const diffStars = '⭐'.repeat(Math.min(5, Math.floor(q.difficulty / 5) + 1));
+  const diffStars = '⭐'.repeat(Math.min(5, Math.floor(q.difficulty / 8) + 1));
   advancedDifficultyBadge.textContent = `Difficulté : ${diffStars} (Nv. ${q.difficulty})`;
 
   const progressPercent = Math.min(100, Math.round((advancedEngine.streak / 25) * 100));
@@ -625,7 +633,7 @@ function renderSettingsSliders(diffs) {
         class="setting-range"
         id="range-${cat.id}"
         min="1"
-        max="10"
+        max="20"
         value="${val}"
         aria-label="Poids de la catégorie ${cat.label}"
       />

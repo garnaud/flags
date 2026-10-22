@@ -20,15 +20,15 @@ import {
 } from '../src/advancedQuiz.js';
 
 describe('Mode Avancé - Logique Métier & TDD', () => {
-  describe('Formule de difficulté et pondérations', () => {
-    it('la difficulté de frontiere et monnaie est au niveau 3, pib au niveau 6, surface à 5, population à 4', () => {
-      expect(CATEGORY_DIFFICULTY.pib).toBe(6);
-      expect(CATEGORY_DIFFICULTY.surface).toBe(5);
-      expect(CATEGORY_DIFFICULTY.population).toBe(4);
-      expect(CATEGORY_DIFFICULTY.monnaie).toBe(3);
-      expect(CATEGORY_DIFFICULTY.frontiere).toBe(3);
-      expect(CATEGORY_DIFFICULTY.capitale).toBe(1);
-      expect(CATEGORY_DIFFICULTY.drapeau).toBe(1);
+  describe('Formule de difficulté et pondérations (Points doublés)', () => {
+    it('l ensemble des points de catégorie doit être doublé', () => {
+      expect(CATEGORY_DIFFICULTY.pib).toBe(12);
+      expect(CATEGORY_DIFFICULTY.surface).toBe(10);
+      expect(CATEGORY_DIFFICULTY.population).toBe(8);
+      expect(CATEGORY_DIFFICULTY.monnaie).toBe(6);
+      expect(CATEGORY_DIFFICULTY.frontiere).toBe(4);
+      expect(CATEGORY_DIFFICULTY.capitale).toBe(2);
+      expect(CATEGORY_DIFFICULTY.drapeau).toBe(2);
     });
 
     it('devrait calculer la difficulté avec les poids par défaut', () => {
@@ -37,30 +37,35 @@ describe('Mode Avancé - Logique Métier & TDD', () => {
       expect(diffHard).toBeGreaterThan(diffEasy);
     });
 
-    it('les petits pays (< 5M hab) doivent recevoir un bonus de +4 sur leur niveau de pays', () => {
-      const uruguay = advancedCountries.find((c) => c.code === 'uy');
+    it('doit appliquer un bonus de +10 pts pour les pays < 1M hab et de +5 pts pour les pays < 3M hab', () => {
+      // Pays < 1M (ex: Luxembourg, pop 660 000, tier 1) : bonus +10
+      const luxembourg = advancedCountries.find((c) => c.code === 'lu');
+      const baseLux = calculateQuestionDifficulty(1, 'capitale', 2, 2);
+      const diffLux = calculateQuestionDifficulty(luxembourg, 'capitale', 2, 2);
+      expect(diffLux - baseLux).toBe(10);
+
+      // Pays entre 1M et 3M (ex: Slovénie, pop 2.1M, tier 2) : bonus +5
+      const slovenie = advancedCountries.find((c) => c.code === 'si');
+      const baseSlovenie = calculateQuestionDifficulty(2, 'capitale', 2, 2);
+      const diffSlovenie = calculateQuestionDifficulty(slovenie, 'capitale', 2, 2);
+      expect(diffSlovenie - baseSlovenie).toBe(5);
+
+      // Pays >= 3M (ex: Espagne, pop 48M, tier 1) : bonus 0
       const espagne = advancedCountries.find((c) => c.code === 'es');
-
-      const diffUruguay = calculateQuestionDifficulty(uruguay, 'capitale', 2);
-      const diffEspagne = calculateQuestionDifficulty(espagne, 'capitale', 2);
-
-      expect(diffUruguay).toBeGreaterThan(diffEspagne);
-
-      const customCountry = { tier: 2, population: 4000000 };
-      const diffWithBonus = calculateQuestionDifficulty(customCountry, 'capitale', 2);
-      const diffWithoutBonus = calculateQuestionDifficulty(2, 'capitale', 2);
-      expect(diffWithBonus - diffWithoutBonus).toBe(4);
+      const baseEspagne = calculateQuestionDifficulty(1, 'capitale', 2, 2);
+      const diffEspagne = calculateQuestionDifficulty(espagne, 'capitale', 2, 2);
+      expect(diffEspagne - baseEspagne).toBe(0);
     });
 
-    it('devrait calculer correctement les points des choix multiples et des indices (2 -> 1, 3 -> 2, 4 -> 3)', () => {
+    it('devrait calculer correctement les points des choix multiples et des indices (2 -> 2, 3 -> 4, 4 -> 6)', () => {
       const q2 = calculateQuestionDifficulty(1, 'drapeau', 2, 2);
-      expect(q2).toBe(4);
+      expect(q2).toBe(8);
 
       const q3 = calculateQuestionDifficulty(1, 'drapeau', 3, 3);
-      expect(q3).toBe(6);
+      expect(q3).toBe(12);
 
       const q4 = calculateQuestionDifficulty(1, 'drapeau', 4, 4);
-      expect(q4).toBe(8);
+      expect(q4).toBe(16);
     });
   });
 
@@ -80,31 +85,31 @@ describe('Mode Avancé - Logique Métier & TDD', () => {
     it('devrait retourner les difficultés par défaut initialement', () => {
       const diffs = getCategoryDifficulties(mockStorage);
       expect(diffs).toEqual(DEFAULT_CATEGORY_DIFFICULTY);
-      expect(diffs.drapeau).toBe(1);
-      expect(diffs.surface).toBe(5);
+      expect(diffs.drapeau).toBe(2);
+      expect(diffs.surface).toBe(10);
     });
 
     it('devrait mettre à jour et persister de nouveaux poids de catégories', () => {
-      saveCategoryDifficulties({ drapeau: 3, surface: 2 }, mockStorage);
+      saveCategoryDifficulties({ drapeau: 6, surface: 4 }, mockStorage);
       const updated = getCategoryDifficulties(mockStorage);
 
-      expect(updated.drapeau).toBe(3);
-      expect(updated.surface).toBe(2);
-      expect(updated.capitale).toBe(1); // Non modifié conserve sa valeur
+      expect(updated.drapeau).toBe(6);
+      expect(updated.surface).toBe(4);
+      expect(updated.capitale).toBe(2); // Non modifié conserve sa valeur
 
       // Impact direct sur le calcul de difficulté
       const scoreDrapeau = calculateQuestionDifficulty(1, 'drapeau', 2, 2, undefined, updated);
-      // 1 (pays) + 3 (cat drapeau personnalisé) + 1 (choix) + 1 (indices) = 6 pts
-      expect(scoreDrapeau).toBe(6);
+      // 2 (pays) + 6 (cat drapeau personnalisé) + 2 (choix) + 2 (indices) = 12 pts
+      expect(scoreDrapeau).toBe(12);
     });
 
     it('devrait réinitialiser tous les poids aux valeurs par défaut avec resetCategoryDifficulties', () => {
-      saveCategoryDifficulties({ drapeau: 4, monnaie: 5 }, mockStorage);
-      expect(getCategoryDifficulties(mockStorage).drapeau).toBe(4);
+      saveCategoryDifficulties({ drapeau: 8, monnaie: 10 }, mockStorage);
+      expect(getCategoryDifficulties(mockStorage).drapeau).toBe(8);
 
       const restored = resetCategoryDifficulties(mockStorage);
-      expect(restored.drapeau).toBe(1);
-      expect(restored.monnaie).toBe(3);
+      expect(restored.drapeau).toBe(2);
+      expect(restored.monnaie).toBe(6);
       expect(getCategoryDifficulties(mockStorage)).toEqual(DEFAULT_CATEGORY_DIFFICULTY);
     });
   });
@@ -153,7 +158,7 @@ describe('Mode Avancé - Logique Métier & TDD', () => {
       });
     });
 
-    it('generateBorderQuestion : pose une question binaire Oui/Non, exclut les îles, et applique un bonus +2 si même continent', () => {
+    it('generateBorderQuestion : pose une question binaire Oui/Non, exclut les îles, et applique un bonus +6 si même continent', () => {
       const q = generateBorderQuestion(france, advancedCountries);
       expect(q.category).toBe('frontiere');
       expect(q.options).toEqual(['Oui', 'Non']);
@@ -169,10 +174,10 @@ describe('Mode Avancé - Logique Métier & TDD', () => {
       const areNeighbors = france.borders.includes(q.secondCountry.code);
       expect(q.correctAnswer).toBe(areNeighbors ? 'Oui' : 'Non');
 
-      // Bonus +2 si les deux pays sont sur le même continent
+      // Bonus +6 si les deux pays sont sur le même continent
       const baseDiff = calculateQuestionDifficulty(france, 'frontiere', 2, 2);
       if (france.continent === q.secondCountry.continent) {
-        expect(q.difficulty).toBe(baseDiff + 2);
+        expect(q.difficulty).toBe(baseDiff + 6);
       } else {
         expect(q.difficulty).toBe(baseDiff);
       }
@@ -214,26 +219,19 @@ describe('Mode Avancé - Logique Métier & TDD', () => {
       expect(q.correctAnswer).toBe(isLarger ? 'Oui' : 'Non');
     });
 
-    it('generateGdpQuestion : pose la question sur le PIB par habitant avec fourchettes et référence France', () => {
-      const q = generateGdpQuestion(espagne, advancedCountries, 2, 4);
+    it('generateGdpQuestion : duel comparatif Oui/Non avec le PIB par habitant affiché pour le pays de gauche', () => {
+      const q = generateGdpQuestion(espagne, advancedCountries);
       expect(q.category).toBe('pib');
+      expect(q.options).toEqual(['Oui', 'Non']);
+      expect(['Oui', 'Non']).toContain(q.correctAnswer);
       expect(q.questionText).toContain('PIB par habitant');
-      expect(q.correctAnswer).toContain('$ / hab');
-      expect(q.referenceFrance).toContain('44 100 $ / habitant');
+      expect(q.secondCountry).toBeDefined();
+      expect(q.leftGdpPerCapitaText).toContain('$ / hab');
+      expect(q.visualComparison).toContain('>');
 
-      expect(q.inequality).toBeDefined();
-      expect(q.inequality).toContain(' < ');
-      expect(q.inequality).toContain('Espagne');
-
-      // Vérifier le tri croissant du PIB par habitant
-      const countriesInOrder = q.inequality.split(' < ');
-      for (let i = 0; i < countriesInOrder.length - 1; i++) {
-        const c1 = advancedCountries.find((c) => c.name === countriesInOrder[i]);
-        const c2 = advancedCountries.find((c) => c.name === countriesInOrder[i + 1]);
-        if (c1 && c2) {
-          expect(c1.gdpPerCapita).toBeLessThanOrEqual(c2.gdpPerCapita);
-        }
-      }
+      // Vérifier la validité de la réponse
+      const isSuperior = espagne.gdpPerCapita > q.secondCountry.gdpPerCapita;
+      expect(q.correctAnswer).toBe(isSuperior ? 'Oui' : 'Non');
     });
   });
 
@@ -249,10 +247,10 @@ describe('Mode Avancé - Logique Métier & TDD', () => {
       const diffMid = engine.getTargetDifficulty(10);
       const diffHigh = engine.getTargetDifficulty(20);
 
-      expect(diffStart).toBe(5);
+      expect(diffStart).toBe(10);
       expect(diffMid).toBeGreaterThan(diffStart);
       expect(diffHigh).toBeGreaterThan(diffMid);
-      expect(diffHigh).toBeLessThanOrEqual(20);
+      expect(diffHigh).toBeLessThanOrEqual(40);
     });
 
     it('devrait générer des questions intégrant la nouvelle catégorie frontière', () => {
@@ -272,6 +270,29 @@ describe('Mode Avancé - Logique Métier & TDD', () => {
       const res = engine.answer(wrongAnswer);
       expect(res.isCorrect).toBe(false);
       expect(engine.isGameOver).toBe(true);
+    });
+
+    it('devrait enregistrer l historique et ne jamais générer de doublons de questions dans une même partie', () => {
+      const keysSeen = [];
+      expect(engine.history).toBeDefined();
+      expect(engine.history).toHaveLength(1); // Question initiale
+
+      // Simuler une série de 25 bonnes réponses
+      for (let i = 0; i < 25; i++) {
+        const current = engine.currentQuestion;
+        const key = `${current.country.code}_${current.category}`;
+        keysSeen.push(key);
+        engine.answer(current.correctAnswer);
+      }
+
+      // Vérification : zéro doublon
+      const uniqueKeys = new Set(keysSeen);
+      expect(uniqueKeys.size).toBe(keysSeen.length);
+      expect(engine.history.length).toBe(26);
+
+      // Le reset efface l'historique
+      engine.reset();
+      expect(engine.history).toHaveLength(1);
     });
   });
 });
