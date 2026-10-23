@@ -4,6 +4,7 @@ const STATIC_ASSETS = [
   './index.html',
   './manifest.json',
   './favicon.svg',
+  './world.svg',
 ];
 
 // Installation : pré-mise en cache des assets statiques critiques

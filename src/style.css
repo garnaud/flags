@@ -847,3 +847,189 @@ body {
   color: #ffffff;
 }
 
+/* ==========================================================================
+   Modal Carte des Frontières SVG
+   ========================================================================== */
+.border-map-content {
+  max-width: 650px;
+  width: 95%;
+  max-height: 92vh;
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  padding: 1.25rem;
+  text-align: left;
+}
+
+.border-map-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.border-map-status-badge {
+  padding: 0.25rem 0.75rem;
+  border-radius: 999px;
+  font-weight: 700;
+  font-size: 0.82rem;
+  display: inline-flex;
+  align-items: center;
+}
+
+.border-map-status-badge.status-neighbor {
+  background: rgba(34, 197, 94, 0.2);
+  border: 1px solid rgba(34, 197, 94, 0.4);
+  color: #4ade80;
+}
+
+.border-map-status-badge.status-not-neighbor {
+  background: rgba(239, 68, 68, 0.18);
+  border: 1px solid rgba(239, 68, 68, 0.4);
+  color: #f87171;
+}
+
+.border-map-legend {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  background: rgba(15, 23, 42, 0.65);
+  padding: 0.5rem 0.85rem;
+  border-radius: var(--radius-md);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--text-main);
+}
+
+.legend-color-dot {
+  width: 14px;
+  height: 14px;
+  border-radius: 4px;
+  display: inline-block;
+  flex-shrink: 0;
+}
+
+.dot-blue {
+  background: #3b82f6;
+  border: 1px solid #93c5fd;
+}
+
+.dot-orange {
+  background: #f97316;
+  border: 1px solid #fdba74;
+}
+
+.btn-zoom {
+  padding: 0.35rem 0.75rem !important;
+  font-size: 0.8rem !important;
+  background: #334155;
+  color: #cbd5e1;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.btn-zoom:hover {
+  background: #475569;
+  color: #ffffff;
+}
+
+.border-map-container {
+  width: 100%;
+  height: 360px;
+  max-height: 52vh;
+  background: #090d16;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.border-map-container svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.border-map-actions {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 0.35rem;
+}
+
+/* ==========================================================================
+   Duel de Superficies : Silhouettes à l'échelle (1:1)
+   ========================================================================== */
+.duel-silhouette-box {
+  width: 130px;
+  height: 105px;
+  background: rgba(15, 23, 42, 0.75);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: var(--radius-md);
+  margin-top: 0.45rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.35);
+}
+
+.duel-silhouette-box svg {
+  width: 90%;
+  height: 85%;
+  display: block;
+}
+
+.silhouette-path-left {
+  fill: #38bdf8;
+  stroke: #7dd3fc;
+  stroke-width: 1.5;
+  filter: drop-shadow(0 0 5px rgba(56, 189, 248, 0.45));
+}
+
+.silhouette-path-right {
+  fill: #fb923c;
+  stroke: #fdba74;
+  stroke-width: 1.5;
+  filter: drop-shadow(0 0 5px rgba(251, 146, 60, 0.45));
+}
+
+.silhouette-scale-label {
+  position: absolute;
+  bottom: 3px;
+  right: 6px;
+  font-size: 0.62rem;
+  color: var(--text-muted);
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+.silhouette-area-reveal {
+  font-size: 0.8rem;
+  font-weight: 800;
+  color: #fbbf24;
+  margin-top: 0.3rem;
+  display: none;
+}
+
+.silhouette-area-reveal.visible {
+  display: block;
+}
+

@@ -191,6 +191,7 @@ describe('Mode Avancé - Logique Métier & TDD', () => {
       expect(q.questionText).toContain('population');
       expect(q.secondCountry).toBeDefined();
       expect(q.leftPopulationText).toBeDefined();
+      expect(q.rightPopulationText).toBeDefined();
       expect(q.visualComparison).toContain('>');
 
       // Vérifier la validité de la réponse
@@ -205,6 +206,8 @@ describe('Mode Avancé - Logique Métier & TDD', () => {
       expect(['Oui', 'Non']).toContain(q.correctAnswer);
       expect(q.secondCountry).toBeDefined();
       expect(q.secondFlagCode).toBeDefined();
+      expect(q.leftAreaText).toContain('km²');
+      expect(q.rightAreaText).toContain('km²');
       expect(q.visualComparison).toContain('>');
 
       // Vérifier la validité de la réponse
@@ -220,6 +223,7 @@ describe('Mode Avancé - Logique Métier & TDD', () => {
       expect(q.questionText).toContain('PIB par habitant');
       expect(q.secondCountry).toBeDefined();
       expect(q.leftGdpPerCapitaText).toContain('$ / hab');
+      expect(q.rightGdpPerCapitaText).toContain('$ / hab');
       expect(q.visualComparison).toContain('>');
 
       // Vérifier la validité de la réponse

@@ -179,6 +179,40 @@
           </div>
         </div>
       </dialog>
+
+      <!-- Modal Carte des Frontières -->
+      <dialog id="border-map-modal" class="modal" aria-labelledby="border-map-title">
+        <div class="modal-content border-map-content">
+          <div class="border-map-header">
+            <h2 id="border-map-title" class="modal-title">🗺️ Carte des Frontières</h2>
+            <div id="border-map-status" class="border-map-status-badge"></div>
+          </div>
+
+          <div class="border-map-legend">
+            <div class="legend-item legend-c1">
+              <span class="legend-color-dot dot-blue"></span>
+              <span id="border-map-c1-name" class="legend-country-name">Pays 1</span>
+            </div>
+            <div class="legend-item legend-c2">
+              <span class="legend-color-dot dot-orange"></span>
+              <span id="border-map-c2-name" class="legend-country-name">Pays 2</span>
+            </div>
+            <button id="border-map-toggle-zoom" class="btn btn-sm btn-zoom" type="button" title="Basculer entre vue zoomée et vue mondiale">
+              🌍 Vue Monde
+            </button>
+          </div>
+
+          <div id="border-map-container" class="border-map-container">
+            <!-- SVG injecté dynamiquement -->
+          </div>
+
+          <div class="border-map-actions">
+            <button id="border-map-next-btn" class="btn btn-primary" type="button">
+              Question suivante ➔
+            </button>
+          </div>
+        </div>
+      </dialog>
     </div>
 
     <script type="module" src="src/main.js"></script>

@@ -369,6 +369,7 @@ export function generatePopulationQuestion(country, allCountries) {
   };
 
   const leftPopulationText = formatPop(country.population);
+  const rightPopulationText = formatPop(candidate.population);
 
   return {
     category: 'population',
@@ -376,6 +377,7 @@ export function generatePopulationQuestion(country, allCountries) {
     secondCountry: candidate,
     questionText: `La population de ${country.name} (${leftPopulationText}) est-elle supérieure à celle de ${candidate.name} ?`,
     leftPopulationText,
+    rightPopulationText,
     visualComparison: `${country.name} (${leftPopulationText}) > ${candidate.name}`,
     flagCode: country.code,
     secondFlagCode: candidate.code,
@@ -404,6 +406,8 @@ export function generateSurfaceQuestion(country, allCountries) {
   }
 
   const isLarger = country.area > candidate.area;
+  const leftAreaText = `${formatNumber(country.area)} km²`;
+  const rightAreaText = `${formatNumber(candidate.area)} km²`;
 
   return {
     category: 'surface',
@@ -411,6 +415,8 @@ export function generateSurfaceQuestion(country, allCountries) {
     secondCountry: candidate,
     questionText: `${country.name} est-il plus grand que ${candidate.name} ?`,
     visualComparison: `${country.name} > ${candidate.name}`,
+    leftAreaText,
+    rightAreaText,
     flagCode: country.code,
     secondFlagCode: candidate.code,
     correctAnswer: isLarger ? 'Oui' : 'Non',
@@ -419,9 +425,6 @@ export function generateSurfaceQuestion(country, allCountries) {
   };
 }
 
-/**
- * Générateur de question : PIB par habitant (strictement 2 choix maximum)
- */
 /**
  * Générateur de question : PIB par habitant (Niveau 6)
  * Duel de comparaison binaire Oui / Non. Le pays de gauche affiche son PIB par habitant,
@@ -448,6 +451,7 @@ export function generateGdpQuestion(country, allCountries) {
 
   const isSuperior = country.gdpPerCapita > candidate.gdpPerCapita;
   const leftGdpPerCapitaText = `${formatNumber(country.gdpPerCapita)} $ / hab`;
+  const rightGdpPerCapitaText = `${formatNumber(candidate.gdpPerCapita)} $ / hab`;
 
   return {
     category: 'pib',
@@ -455,6 +459,7 @@ export function generateGdpQuestion(country, allCountries) {
     secondCountry: candidate,
     questionText: `Le PIB par habitant de ${country.name} (${leftGdpPerCapitaText}) est-il supérieur à celui de ${candidate.name} ?`,
     leftGdpPerCapitaText,
+    rightGdpPerCapitaText,
     visualComparison: `${country.name} (${leftGdpPerCapitaText}) > ${candidate.name}`,
     flagCode: country.code,
     secondFlagCode: candidate.code,

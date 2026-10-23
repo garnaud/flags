@@ -12,6 +12,13 @@ import {
   saveCategoryDifficulties,
   resetCategoryDifficulties,
 } from './advancedQuiz.js';
+import {
+  computeZoomViewBox,
+  getBorderInfo,
+  DEFAULT_MAP_VIEWBOX,
+  getCountryPathD,
+  computeSameScaleViewBoxes,
+} from './borderMap.js';
 
 // Stockage dédié pour le Mode Avancé
 const ADVANCED_STORAGE_KEY = 'flags_quiz_advanced_top_streaks';
@@ -80,6 +87,15 @@ const settingsCloseX = document.getElementById('settings-close-x');
 const settingsResetBtn = document.getElementById('settings-reset-btn');
 const settingsSaveBtn = document.getElementById('settings-save-btn');
 const settingsSlidersContainer = document.getElementById('settings-sliders-container');
+
+// Éléments du DOM - Carte des Frontières
+const borderMapModal = document.getElementById('border-map-modal');
+const borderMapStatus = document.getElementById('border-map-status');
+const borderMapC1Name = document.getElementById('border-map-c1-name');
+const borderMapC2Name = document.getElementById('border-map-c2-name');
+const borderMapToggleZoom = document.getElementById('border-map-toggle-zoom');
+const borderMapContainer = document.getElementById('border-map-container');
+const borderMapNextBtn = document.getElementById('border-map-next-btn');
 
 // État de l'application
 let currentMode = 'classic'; // 'classic' | 'advanced'
@@ -279,22 +295,48 @@ function renderAdvancedQuestion() {
       ? `<br><strong style="color: #60a5fa; font-size: 0.78rem; display: block; margin-top: 2px;">${leftVal}</strong>`
       : '';
     const rightSubText = rightValLabel
-      ? `<br><span style="color: #94a3b8; font-size: 0.78rem; display: block; margin-top: 2px;">${rightValLabel}</span>`
+      ? `<br><span id="right-country-value" style="color: #94a3b8; font-size: 0.78rem; display: block; margin-top: 2px;">${rightValLabel}</span>`
       : '';
 
-    flagWrapper.innerHTML = `
-      <div class="duel-flags-container">
-        <div class="duel-flag-item">
-          <img class="flag-image loading" src="https://flagcdn.com/w320/${q.flagCode.toLowerCase()}.png" alt="${q.country.name}" />
-          <span class="duel-country-name">${q.country.name}${leftSubText}</span>
+    if (q.category === 'surface') {
+      const formatArea = (num) => new Intl.NumberFormat('fr-FR').format(num);
+      flagWrapper.innerHTML = `
+        <div class="duel-flags-container">
+          <div class="duel-flag-item">
+            <img class="flag-image loading" src="https://flagcdn.com/w320/${q.flagCode.toLowerCase()}.png" alt="${q.country.name}" />
+            <span class="duel-country-name">${q.country.name}</span>
+            <div class="duel-silhouette-box hidden" id="silhouette-left" title="Silhouette de ${q.country.name} à l'échelle">
+              <span class="silhouette-scale-label">ÉCHELLE 1:1</span>
+            </div>
+            <span class="silhouette-area-reveal" id="area-reveal-left">${q.leftAreaText || formatArea(q.country.area) + ' km²'}</span>
+          </div>
+          <span class="duel-operator comparison">&gt;</span>
+          <div class="duel-flag-item">
+            <img class="flag-image loading" src="https://flagcdn.com/w320/${q.secondFlagCode.toLowerCase()}.png" alt="${q.secondCountry.name}" />
+            <span class="duel-country-name">${q.secondCountry.name}</span>
+            <div class="duel-silhouette-box hidden" id="silhouette-right" title="Silhouette de ${q.secondCountry.name} à l'échelle">
+              <span class="silhouette-scale-label">ÉCHELLE 1:1</span>
+            </div>
+            <span class="silhouette-area-reveal" id="area-reveal-right">${q.rightAreaText || formatArea(q.secondCountry.area) + ' km²'}</span>
+          </div>
         </div>
-        <span class="duel-operator ${isComparison ? 'comparison' : 'border'}">${operator}</span>
-        <div class="duel-flag-item">
-          <img class="flag-image loading" src="https://flagcdn.com/w320/${q.secondFlagCode.toLowerCase()}.png" alt="${q.secondCountry.name}" />
-          <span class="duel-country-name">${q.secondCountry.name}${rightSubText}</span>
+      `;
+      loadSurfaceSilhouettes(q.flagCode, q.secondFlagCode);
+    } else {
+      flagWrapper.innerHTML = `
+        <div class="duel-flags-container">
+          <div class="duel-flag-item">
+            <img class="flag-image loading" src="https://flagcdn.com/w320/${q.flagCode.toLowerCase()}.png" alt="${q.country.name}" />
+            <span class="duel-country-name">${q.country.name}${leftSubText}</span>
+          </div>
+          <span class="duel-operator ${isComparison ? 'comparison' : 'border'}">${operator}</span>
+          <div class="duel-flag-item">
+            <img class="flag-image loading" src="https://flagcdn.com/w320/${q.secondFlagCode.toLowerCase()}.png" alt="${q.secondCountry.name}" />
+            <span class="duel-country-name">${q.secondCountry.name}${rightSubText}</span>
+          </div>
         </div>
-      </div>
-    `;
+      `;
+    }
     flagWrapper.querySelectorAll('.flag-image').forEach((img) => {
       img.onload = () => img.classList.remove('loading');
     });
@@ -422,6 +464,194 @@ function handleClassicOptionClick(selectedOption, clickedButton) {
   }, 850);
 }
 
+let cachedWorldSvgText = null;
+
+/**
+ * Récupère le contenu SVG de la carte du monde (en cache après le premier appel).
+ */
+async function getWorldSvgText() {
+  if (cachedWorldSvgText) return cachedWorldSvgText;
+  try {
+    const res = await fetch('./world.svg');
+    if (res.ok) {
+      cachedWorldSvgText = await res.text();
+      return cachedWorldSvgText;
+    }
+  } catch (e) {
+    console.warn('Erreur chargement world.svg', e);
+  }
+  return null;
+}
+
+/**
+ * Charge et affiche les silhouettes vectorielles des deux pays à la même échelle relative (1:1).
+ */
+async function loadSurfaceSilhouettes(code1, code2) {
+  const svgText = await getWorldSvgText();
+  if (!svgText) return;
+
+  const boxLeft = document.getElementById('silhouette-left');
+  const boxRight = document.getElementById('silhouette-right');
+  if (!boxLeft || !boxRight) return;
+
+  const d1 = getCountryPathD(svgText, code1);
+  const d2 = getCountryPathD(svgText, code2);
+  if (!d1 || !d2) return;
+
+  const tempSvg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+  tempSvg.style.position = 'absolute';
+  tempSvg.style.visibility = 'hidden';
+  tempSvg.style.width = '0';
+  tempSvg.style.height = '0';
+
+  const p1 = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+  p1.setAttribute('d', d1);
+  const p2 = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+  p2.setAttribute('d', d2);
+
+  tempSvg.appendChild(p1);
+  tempSvg.appendChild(p2);
+  document.body.appendChild(tempSvg);
+
+  let b1 = { x: 0, y: 0, width: 30, height: 30 };
+  let b2 = { x: 0, y: 0, width: 30, height: 30 };
+  try {
+    const raw1 = p1.getBBox();
+    const raw2 = p2.getBBox();
+    if (raw1 && raw1.width > 0) b1 = raw1;
+    if (raw2 && raw2.width > 0) b2 = raw2;
+  } catch (e) {
+    console.warn('Erreur BBox silhouette', e);
+  }
+  document.body.removeChild(tempSvg);
+
+  const { viewBox1, viewBox2 } = computeSameScaleViewBoxes(b1, b2, 0.20);
+
+  boxLeft.innerHTML = `
+    <svg viewBox="${viewBox1}" preserveAspectRatio="xMidYMid meet">
+      <path d="${d1}" class="silhouette-path-left" />
+    </svg>
+    <span class="silhouette-scale-label">ÉCHELLE 1:1</span>
+  `;
+
+  boxRight.innerHTML = `
+    <svg viewBox="${viewBox2}" preserveAspectRatio="xMidYMid meet">
+      <path d="${d2}" class="silhouette-path-right" />
+    </svg>
+    <span class="silhouette-scale-label">ÉCHELLE 1:1</span>
+  `;
+}
+
+/**
+ * Affiche la boîte modale de la carte des frontières après avoir répondu à une question frontière.
+ */
+async function showBorderMapModal(question, onNext) {
+  if (!question || !question.secondCountry) {
+    onNext();
+    return;
+  }
+
+  borderMapC1Name.textContent = question.country.name;
+  borderMapC2Name.textContent = question.secondCountry.name;
+
+  const borderInfo = getBorderInfo(question.country, question.secondCountry);
+  borderMapStatus.className = `border-map-status-badge ${borderInfo.areNeighbors ? 'status-neighbor' : 'status-not-neighbor'}`;
+  borderMapStatus.textContent = borderInfo.areNeighbors
+    ? '🤝 Voisins frontaliers'
+    : '❌ Non frontaliers';
+
+  const svgText = await getWorldSvgText();
+  if (!svgText) {
+    onNext();
+    return;
+  }
+
+  borderMapContainer.innerHTML = svgText;
+  const svg = borderMapContainer.querySelector('svg');
+  if (!svg) {
+    onNext();
+    return;
+  }
+
+  const code1 = question.country.code.toLowerCase();
+  const code2 = question.secondCountry.code.toLowerCase();
+
+  const path1 = svg.querySelector(`#${code1}`);
+  const path2 = svg.querySelector(`#${code2}`);
+
+  // Fond sombre pour tous les pays
+  svg.querySelectorAll('path').forEach((p) => {
+    p.style.fill = '#1e293b';
+    p.style.stroke = '#334155';
+    p.style.strokeWidth = '0.5';
+  });
+
+  if (path1) {
+    path1.style.fill = '#3b82f6';
+    path1.style.stroke = '#93c5fd';
+    path1.style.strokeWidth = '1.8';
+    path1.parentElement.appendChild(path1);
+  }
+
+  if (path2) {
+    path2.style.fill = '#f97316';
+    path2.style.stroke = '#fdba74';
+    path2.style.strokeWidth = '1.8';
+    path2.parentElement.appendChild(path2);
+  }
+
+  // Par défaut : Vue Régionale dézoomée
+  let isZoomed = true;
+  let zoomBox = DEFAULT_MAP_VIEWBOX;
+  borderMapToggleZoom.textContent = '🌍 Vue Monde';
+
+  const calculateZoom = () => {
+    if (path1 && path2) {
+      try {
+        const b1 = path1.getBBox();
+        const b2 = path2.getBBox();
+        const computed = computeZoomViewBox(b1, b2, 1010, 666);
+        if (computed && computed !== DEFAULT_MAP_VIEWBOX) {
+          zoomBox = computed;
+          if (isZoomed) {
+            svg.setAttribute('viewBox', zoomBox);
+          }
+        }
+      } catch (e) {
+        console.warn('Erreur calcul BBox', e);
+      }
+    }
+  };
+
+  borderMapToggleZoom.onclick = () => {
+    calculateZoom();
+    isZoomed = !isZoomed;
+    svg.setAttribute('viewBox', isZoomed ? zoomBox : DEFAULT_MAP_VIEWBOX);
+    borderMapToggleZoom.textContent = isZoomed ? '🌍 Vue Monde' : '🔍 Zoom Pays';
+  };
+
+  const advanceHandler = () => {
+    borderMapModal.close();
+    borderMapNextBtn.removeEventListener('click', advanceHandler);
+    window.removeEventListener('keydown', keydownHandler);
+    onNext();
+  };
+
+  const keydownHandler = (e) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      advanceHandler();
+    }
+  };
+
+  borderMapNextBtn.addEventListener('click', advanceHandler);
+  window.addEventListener('keydown', keydownHandler);
+
+  borderMapModal.showModal();
+  // Calculer la boîte de zoom une fois le modal visible dans le DOM
+  requestAnimationFrame(calculateZoom);
+}
+
 /**
  * Clic d'option en Mode Avancé (Survie)
  */
@@ -459,13 +689,53 @@ function handleAdvancedOptionClick(selectedOption, clickedButton) {
     currentStreakEl.textContent = '🔥 0';
   }
 
+  // Révélations post-réponse pour les duels comparatifs
+  let advanceDelay = 850;
+
+  if (currentQ.category === 'surface') {
+    // Révéler les silhouettes à l'échelle et les superficies en km²
+    document.getElementById('silhouette-left')?.classList.remove('hidden');
+    document.getElementById('silhouette-right')?.classList.remove('hidden');
+    document.getElementById('area-reveal-left')?.classList.add('visible');
+    document.getElementById('area-reveal-right')?.classList.add('visible');
+    advanceDelay = 1800;
+  } else if (currentQ.category === 'population') {
+    // Révéler la population exacte du pays de droite
+    const rightValEl = document.getElementById('right-country-value');
+    if (rightValEl && currentQ.rightPopulationText) {
+      rightValEl.innerHTML = `<strong style="color: #fbbf24; font-size: 0.8rem;">${currentQ.rightPopulationText}</strong>`;
+    }
+    advanceDelay = 1700;
+  } else if (currentQ.category === 'pib') {
+    // Révéler le PIB par habitant exact du pays de droite
+    const rightValEl = document.getElementById('right-country-value');
+    if (rightValEl && currentQ.rightGdpPerCapitaText) {
+      rightValEl.innerHTML = `<strong style="color: #fbbf24; font-size: 0.8rem;">${currentQ.rightGdpPerCapitaText}</strong>`;
+    }
+    advanceDelay = 1700;
+  }
+
+  // Pour les questions frontière : afficher la carte vectorielle avant d'enchaîner
+  if (currentQ.category === 'frontiere') {
+    setTimeout(() => {
+      showBorderMapModal(currentQ, () => {
+        if (advancedEngine.isGameOver) {
+          showEndModal();
+        } else {
+          renderQuestion();
+        }
+      });
+    }, 600);
+    return;
+  }
+
   setTimeout(() => {
     if (advancedEngine.isGameOver) {
       showEndModal();
     } else {
       renderQuestion();
     }
-  }, 850);
+  }, advanceDelay);
 }
 
 /**
