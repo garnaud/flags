@@ -19,6 +19,7 @@ import {
   getCountryPathD,
   computeSameScaleViewBoxes,
 } from './borderMap.js';
+import { SOCIAL_METRICS } from './socialMetrics.js';
 
 // Stockage dédié pour le Mode Avancé
 const ADVANCED_STORAGE_KEY = 'flags_quiz_advanced_top_streaks';
@@ -273,6 +274,10 @@ function renderAdvancedQuestion() {
     population: '👥 Population',
     surface: '📐 Superficie',
     pib: '💰 PIB par hab.',
+    lifeExpectancy: '🏥 Espérance de vie',
+    hdi: '🌍 IDH',
+    medianAge: '🎂 Âge médian',
+    schoolingYears: '📚 Scolarisation',
   };
 
   categoryBadge.textContent = categoryLabels[q.category] || q.category.toUpperCase();
@@ -283,7 +288,12 @@ function renderAdvancedQuestion() {
   // Affichage du ou des drapeaux (duel A > B ou repère unique)
   const flagWrapper = document.querySelector('.flag-wrapper');
   if (q.secondFlagCode) {
-    const isComparison = q.category === 'surface' || q.category === 'pib' || q.category === 'population';
+    const isComparison = (
+      q.category === 'surface' ||
+      q.category === 'pib' ||
+      q.category === 'population' ||
+      q.category in SOCIAL_METRICS
+    );
     const operator = isComparison ? '>' : '🤝';
 
     const leftVal = q.leftGdpPerCapitaText || q.leftPopulationText;
@@ -298,7 +308,22 @@ function renderAdvancedQuestion() {
       ? `<br><span id="right-country-value" style="color: #94a3b8; font-size: 0.78rem; display: block; margin-top: 2px;">${rightValLabel}</span>`
       : '';
 
-    if (q.category === 'surface') {
+    if (q.category in SOCIAL_METRICS) {
+      const metricDef = SOCIAL_METRICS[q.category];
+      flagWrapper.innerHTML = `
+        <div class="duel-flags-container">
+          <div class="duel-flag-item">
+            <img class="flag-image loading" src="https://flagcdn.com/w320/${q.flagCode.toLowerCase()}.png" alt="${q.country.name}" />
+            <span class="duel-country-name">${q.country.name}<br><span id="left-country-value" style="color: #94a3b8; font-size: 0.78rem; display: block; margin-top: 2px;">??? ${metricDef.unit}</span></span>
+          </div>
+          <span class="duel-operator comparison">&gt;</span>
+          <div class="duel-flag-item">
+            <img class="flag-image loading" src="https://flagcdn.com/w320/${q.secondFlagCode.toLowerCase()}.png" alt="${q.secondCountry.name}" />
+            <span class="duel-country-name">${q.secondCountry.name}<br><strong id="right-country-value" style="color: #60a5fa; font-size: 0.78rem; display: block; margin-top: 2px;">${q.rightValueText}</strong></span>
+          </div>
+        </div>
+      `;
+    } else if (q.category === 'surface') {
       const formatArea = (num) => new Intl.NumberFormat('fr-FR').format(num);
       flagWrapper.innerHTML = `
         <div class="duel-flags-container">
@@ -713,6 +738,13 @@ function handleAdvancedOptionClick(selectedOption, clickedButton) {
       rightValEl.innerHTML = `<strong style="color: #fbbf24; font-size: 0.8rem;">${currentQ.rightGdpPerCapitaText}</strong>`;
     }
     advanceDelay = 1700;
+  } else if (currentQ.category in SOCIAL_METRICS) {
+    // Révéler la valeur sociale exacte du pays de gauche
+    const leftValEl = document.getElementById('left-country-value');
+    if (leftValEl && currentQ.leftValueText) {
+      leftValEl.innerHTML = `<strong style="color: #fbbf24; font-size: 0.8rem;">${currentQ.leftValueText}</strong>`;
+    }
+    advanceDelay = 1800;
   }
 
   // Pour les questions frontière : afficher la carte vectorielle avant d'enchaîner
@@ -881,6 +913,10 @@ const categoryDefs = [
   { id: 'population', label: '👥 Population' },
   { id: 'surface', label: '📐 Superficie' },
   { id: 'pib', label: '💰 PIB par habitant' },
+  { id: 'lifeExpectancy', label: '🏥 Espérance de vie' },
+  { id: 'hdi', label: '🌍 IDH' },
+  { id: 'medianAge', label: '🎂 Âge médian' },
+  { id: 'schoolingYears', label: '📚 Scolarisation' },
 ];
 
 function openSettingsModal() {

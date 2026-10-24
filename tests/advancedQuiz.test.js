@@ -23,6 +23,10 @@ describe('Mode Avancé - Logique Métier & TDD', () => {
   describe('Formule de difficulté et pondérations (Points doublés)', () => {
     it('l ensemble des points de catégorie doit être doublé', () => {
       expect(CATEGORY_DIFFICULTY.pib).toBe(12);
+      expect(CATEGORY_DIFFICULTY.lifeExpectancy).toBe(12);
+      expect(CATEGORY_DIFFICULTY.hdi).toBe(12);
+      expect(CATEGORY_DIFFICULTY.medianAge).toBe(12);
+      expect(CATEGORY_DIFFICULTY.schoolingYears).toBe(12);
       expect(CATEGORY_DIFFICULTY.surface).toBe(10);
       expect(CATEGORY_DIFFICULTY.population).toBe(8);
       expect(CATEGORY_DIFFICULTY.monnaie).toBe(6);

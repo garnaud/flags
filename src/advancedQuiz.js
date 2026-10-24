@@ -1,4 +1,5 @@
 import { FRANCE_REFERENCE } from './data/advancedCountries.js';
+import { generateSocialMetricQuestion, SOCIAL_METRICS } from './socialMetrics.js';
 
 /**
  * Pondérations par défaut pour la formule de difficulté doublée (échelle de 8 à 40 points).
@@ -17,6 +18,7 @@ export const STORAGE_KEY_CATEGORY_DIFFICULTIES = 'flags_quiz_category_difficulti
 
 /**
  * Valeurs par défaut des difficultés par catégorie (points doublés pour un lissage optimal).
+ * Les métriques sociales sont par défaut au même niveau que le PIB (12).
  */
 export const DEFAULT_CATEGORY_DIFFICULTY = {
   drapeau: 2,
@@ -26,6 +28,10 @@ export const DEFAULT_CATEGORY_DIFFICULTY = {
   population: 8,
   surface: 10,
   pib: 12,
+  lifeExpectancy: 12,
+  hdi: 12,
+  medianAge: 12,
+  schoolingYears: 12,
 };
 
 /**
@@ -488,6 +494,11 @@ export function generateAdvancedQuestion(country, category, optionsCount, hintsC
       return generateSurfaceQuestion(country, allCountries);
     case 'pib':
       return generateGdpQuestion(country, allCountries);
+    case 'lifeExpectancy':
+    case 'hdi':
+    case 'medianAge':
+    case 'schoolingYears':
+      return generateSocialMetricQuestion(country, allCountries, category, 10, DEFAULT_WEIGHTS);
     default:
       return generateCapitalQuestion(country, allCountries, optionsCount);
   }
@@ -528,7 +539,19 @@ export class AdvancedQuizEngine {
     const s = this.streak;
     const target = this.getTargetDifficulty(s);
 
-    const categories = ['drapeau', 'capitale', 'monnaie', 'frontiere', 'population', 'surface', 'pib'];
+    const categories = [
+      'drapeau',
+      'capitale',
+      'monnaie',
+      'frontiere',
+      'population',
+      'surface',
+      'pib',
+      'lifeExpectancy',
+      'hdi',
+      'medianAge',
+      'schoolingYears',
+    ];
     const choiceOptions = [2, 3, 4];
     const hintOptions = [2, 3, 4];
 
@@ -554,7 +577,8 @@ export class AdvancedQuizEngine {
         category === 'frontiere' ||
         category === 'surface' ||
         category === 'pib' ||
-        category === 'population'
+        category === 'population' ||
+        category in SOCIAL_METRICS
       );
       const optionsCount = isTwoChoicesOnly ? 2 : choiceOptions[Math.floor(Math.random() * choiceOptions.length)];
       const hintsCount = hintOptions[Math.floor(Math.random() * hintOptions.length)];

@@ -1,6 +1,7 @@
 /**
  * Données enrichies des 195 pays pour le Mode Avancé (Survie & Culture).
  * tier : 1 (Frontaliers), 2 (Europe), 3 (Occidentaux/Grands), 4 (Autres continentaux), 5 (Îles)
+ * Indicateurs sociaux certifiés : lifeExpectancy, hdi, medianAge, schoolingYears
  */
 export const advancedCountries = [
   {
@@ -21,7 +22,11 @@ export const advancedCountries = [
       "mk",
       "gr"
     ],
-    "isIsland": false
+    "isIsland": false,
+    "lifeExpectancy": 76.5,
+    "hdi": 0.789,
+    "medianAge": 38.2,
+    "schoolingYears": 10.1
   },
   {
     "code": "de",
@@ -50,7 +55,11 @@ export const advancedCountries = [
       "be",
       "nl"
     ],
-    "isIsland": false
+    "isIsland": false,
+    "lifeExpectancy": 81,
+    "hdi": 0.95,
+    "medianAge": 46.8,
+    "schoolingYears": 14.1
   },
   {
     "code": "ad",
@@ -68,7 +77,11 @@ export const advancedCountries = [
       "fr",
       "es"
     ],
-    "isIsland": false
+    "isIsland": false,
+    "lifeExpectancy": 83.6,
+    "hdi": 0.884,
+    "medianAge": 46.2,
+    "schoolingYears": 10.6
   },
   {
     "code": "at",
@@ -92,7 +105,11 @@ export const advancedCountries = [
       "ch",
       "li"
     ],
-    "isIsland": false
+    "isIsland": false,
+    "lifeExpectancy": 81.6,
+    "hdi": 0.926,
+    "medianAge": 44.5,
+    "schoolingYears": 12.3
   },
   {
     "code": "be",
@@ -116,7 +133,11 @@ export const advancedCountries = [
       "de",
       "nl"
     ],
-    "isIsland": false
+    "isIsland": false,
+    "lifeExpectancy": 81.9,
+    "hdi": 0.942,
+    "medianAge": 41.9,
+    "schoolingYears": 12.4
   },
   {
     "code": "by",
@@ -137,7 +158,11 @@ export const advancedCountries = [
       "ru",
       "ua"
     ],
-    "isIsland": false
+    "isIsland": false,
+    "lifeExpectancy": 72.4,
+    "hdi": 0.801,
+    "medianAge": 40.9,
+    "schoolingYears": 12.1
   },
   {
     "code": "ba",
@@ -156,7 +181,11 @@ export const advancedCountries = [
       "rs",
       "me"
     ],
-    "isIsland": false
+    "isIsland": false,
+    "lifeExpectancy": 75.3,
+    "hdi": 0.779,
+    "medianAge": 43.3,
+    "schoolingYears": 10.5
   },
   {
     "code": "bg",
@@ -177,7 +206,11 @@ export const advancedCountries = [
       "gr",
       "tr"
     ],
-    "isIsland": false
+    "isIsland": false,
+    "lifeExpectancy": 74.2,
+    "hdi": 0.799,
+    "medianAge": 45.1,
+    "schoolingYears": 11.4
   },
   {
     "code": "cy",
@@ -192,7 +225,11 @@ export const advancedCountries = [
     "continent": "Europe",
     "cities": [],
     "borders": [],
-    "isIsland": true
+    "isIsland": true,
+    "lifeExpectancy": 81.3,
+    "hdi": 0.907,
+    "medianAge": 37.9,
+    "schoolingYears": 12.4
   },
   {
     "code": "hr",
@@ -213,7 +250,11 @@ export const advancedCountries = [
       "ba",
       "me"
     ],
-    "isIsland": false
+    "isIsland": false,
+    "lifeExpectancy": 78.5,
+    "hdi": 0.867,
+    "medianAge": 44.3,
+    "schoolingYears": 11.5
   },
   {
     "code": "dk",
@@ -230,7 +271,11 @@ export const advancedCountries = [
     "borders": [
       "de"
     ],
-    "isIsland": false
+    "isIsland": false,
+    "lifeExpectancy": 81.4,
+    "hdi": 0.952,
+    "medianAge": 42,
+    "schoolingYears": 13
   },
   {
     "code": "es",
@@ -254,7 +299,11 @@ export const advancedCountries = [
       "pt",
       "ma"
     ],
-    "isIsland": false
+    "isIsland": false,
+    "lifeExpectancy": 83.3,
+    "hdi": 0.911,
+    "medianAge": 45.5,
+    "schoolingYears": 10.6
   },
   {
     "code": "ee",
@@ -272,7 +321,11 @@ export const advancedCountries = [
       "ru",
       "lv"
     ],
-    "isIsland": false
+    "isIsland": false,
+    "lifeExpectancy": 78.8,
+    "hdi": 0.899,
+    "medianAge": 42.4,
+    "schoolingYears": 13.5
   },
   {
     "code": "fi",
@@ -291,7 +344,11 @@ export const advancedCountries = [
       "no",
       "ru"
     ],
-    "isIsland": false
+    "isIsland": false,
+    "lifeExpectancy": 82,
+    "hdi": 0.942,
+    "medianAge": 43.1,
+    "schoolingYears": 12.9
   },
   {
     "code": "fr",
@@ -319,7 +376,11 @@ export const advancedCountries = [
       "lu",
       "be"
     ],
-    "isIsland": false
+    "isIsland": false,
+    "lifeExpectancy": 83.1,
+    "hdi": 0.91,
+    "medianAge": 42.3,
+    "schoolingYears": 11.6
   },
   {
     "code": "gr",
@@ -342,7 +403,11 @@ export const advancedCountries = [
       "bg",
       "tr"
     ],
-    "isIsland": false
+    "isIsland": false,
+    "lifeExpectancy": 81.1,
+    "hdi": 0.893,
+    "medianAge": 45.6,
+    "schoolingYears": 11.4
   },
   {
     "code": "hu",
@@ -365,7 +430,11 @@ export const advancedCountries = [
       "hr",
       "si"
     ],
-    "isIsland": false
+    "isIsland": false,
+    "lifeExpectancy": 76,
+    "hdi": 0.851,
+    "medianAge": 43.3,
+    "schoolingYears": 12.2
   },
   {
     "code": "ie",
@@ -382,7 +451,11 @@ export const advancedCountries = [
     "borders": [
       "gb"
     ],
-    "isIsland": false
+    "isIsland": false,
+    "lifeExpectancy": 82.4,
+    "hdi": 0.95,
+    "medianAge": 38.5,
+    "schoolingYears": 11.6
   },
   {
     "code": "is",
@@ -397,7 +470,11 @@ export const advancedCountries = [
     "continent": "Europe",
     "cities": [],
     "borders": [],
-    "isIsland": true
+    "isIsland": true,
+    "lifeExpectancy": 83,
+    "hdi": 0.959,
+    "medianAge": 37.5,
+    "schoolingYears": 13.8
   },
   {
     "code": "it",
@@ -423,7 +500,11 @@ export const advancedCountries = [
       "sm",
       "va"
     ],
-    "isIsland": false
+    "isIsland": false,
+    "lifeExpectancy": 83,
+    "hdi": 0.906,
+    "medianAge": 48,
+    "schoolingYears": 10.7
   },
   {
     "code": "li",
@@ -441,7 +522,11 @@ export const advancedCountries = [
       "ch",
       "at"
     ],
-    "isIsland": false
+    "isIsland": false,
+    "lifeExpectancy": 84.4,
+    "hdi": 0.942,
+    "medianAge": 43.7,
+    "schoolingYears": 13
   },
   {
     "code": "lv",
@@ -461,7 +546,11 @@ export const advancedCountries = [
       "by",
       "lt"
     ],
-    "isIsland": false
+    "isIsland": false,
+    "lifeExpectancy": 75.5,
+    "hdi": 0.879,
+    "medianAge": 44.4,
+    "schoolingYears": 13.3
   },
   {
     "code": "lt",
@@ -481,7 +570,11 @@ export const advancedCountries = [
       "pl",
       "ru"
     ],
-    "isIsland": false
+    "isIsland": false,
+    "lifeExpectancy": 75.8,
+    "hdi": 0.879,
+    "medianAge": 44.8,
+    "schoolingYears": 13.5
   },
   {
     "code": "lu",
@@ -500,7 +593,11 @@ export const advancedCountries = [
       "fr",
       "de"
     ],
-    "isIsland": false
+    "isIsland": false,
+    "lifeExpectancy": 82.6,
+    "hdi": 0.927,
+    "medianAge": 39.8,
+    "schoolingYears": 13
   },
   {
     "code": "mk",
@@ -520,7 +617,11 @@ export const advancedCountries = [
       "gr",
       "al"
     ],
-    "isIsland": false
+    "isIsland": false,
+    "lifeExpectancy": 74.5,
+    "hdi": 0.774,
+    "medianAge": 40.1,
+    "schoolingYears": 10.2
   },
   {
     "code": "mt",
@@ -535,7 +636,11 @@ export const advancedCountries = [
     "continent": "Europe",
     "cities": [],
     "borders": [],
-    "isIsland": true
+    "isIsland": true,
+    "lifeExpectancy": 82.9,
+    "hdi": 0.915,
+    "medianAge": 42.6,
+    "schoolingYears": 12.2
   },
   {
     "code": "md",
@@ -553,7 +658,11 @@ export const advancedCountries = [
       "ro",
       "ua"
     ],
-    "isIsland": false
+    "isIsland": false,
+    "lifeExpectancy": 71.4,
+    "hdi": 0.763,
+    "medianAge": 38,
+    "schoolingYears": 11.7
   },
   {
     "code": "mc",
@@ -570,7 +679,11 @@ export const advancedCountries = [
     "borders": [
       "fr"
     ],
-    "isIsland": false
+    "isIsland": false,
+    "lifeExpectancy": 89.6,
+    "hdi": 0.956,
+    "medianAge": 55.4,
+    "schoolingYears": 13.5
   },
   {
     "code": "me",
@@ -590,7 +703,11 @@ export const advancedCountries = [
       "al",
       "hr"
     ],
-    "isIsland": false
+    "isIsland": false,
+    "lifeExpectancy": 75.9,
+    "hdi": 0.844,
+    "medianAge": 39.8,
+    "schoolingYears": 12.2
   },
   {
     "code": "no",
@@ -609,7 +726,11 @@ export const advancedCountries = [
       "fi",
       "ru"
     ],
-    "isIsland": false
+    "isIsland": false,
+    "lifeExpectancy": 83.4,
+    "hdi": 0.966,
+    "medianAge": 39.8,
+    "schoolingYears": 13
   },
   {
     "code": "nl",
@@ -631,7 +752,11 @@ export const advancedCountries = [
       "be",
       "de"
     ],
-    "isIsland": false
+    "isIsland": false,
+    "lifeExpectancy": 81.7,
+    "hdi": 0.946,
+    "medianAge": 43.3,
+    "schoolingYears": 12.6
   },
   {
     "code": "pl",
@@ -658,7 +783,11 @@ export const advancedCountries = [
       "lt",
       "ru"
     ],
-    "isIsland": false
+    "isIsland": false,
+    "lifeExpectancy": 77,
+    "hdi": 0.881,
+    "medianAge": 42.2,
+    "schoolingYears": 13.2
   },
   {
     "code": "pt",
@@ -678,7 +807,11 @@ export const advancedCountries = [
     "borders": [
       "es"
     ],
-    "isIsland": false
+    "isIsland": false,
+    "lifeExpectancy": 81.5,
+    "hdi": 0.874,
+    "medianAge": 46.2,
+    "schoolingYears": 9.6
   },
   {
     "code": "cz",
@@ -701,7 +834,11 @@ export const advancedCountries = [
       "sk",
       "at"
     ],
-    "isIsland": false
+    "isIsland": false,
+    "lifeExpectancy": 79.1,
+    "hdi": 0.895,
+    "medianAge": 43.5,
+    "schoolingYears": 12.9
   },
   {
     "code": "ro",
@@ -725,7 +862,11 @@ export const advancedCountries = [
       "rs",
       "hu"
     ],
-    "isIsland": false
+    "isIsland": false,
+    "lifeExpectancy": 75.3,
+    "hdi": 0.821,
+    "medianAge": 43.2,
+    "schoolingYears": 11.3
   },
   {
     "code": "gb",
@@ -746,7 +887,11 @@ export const advancedCountries = [
     "borders": [
       "ie"
     ],
-    "isIsland": false
+    "isIsland": false,
+    "lifeExpectancy": 81.3,
+    "hdi": 0.94,
+    "medianAge": 40.8,
+    "schoolingYears": 13.4
   },
   {
     "code": "ru",
@@ -778,7 +923,11 @@ export const advancedCountries = [
       "mn",
       "kp"
     ],
-    "isIsland": false
+    "isIsland": false,
+    "lifeExpectancy": 71.3,
+    "hdi": 0.821,
+    "medianAge": 40.5,
+    "schoolingYears": 12.2
   },
   {
     "code": "sm",
@@ -795,7 +944,11 @@ export const advancedCountries = [
     "borders": [
       "it"
     ],
-    "isIsland": false
+    "isIsland": false,
+    "lifeExpectancy": 85.4,
+    "hdi": 0.953,
+    "medianAge": 45.2,
+    "schoolingYears": 12.9
   },
   {
     "code": "rs",
@@ -818,7 +971,11 @@ export const advancedCountries = [
       "ba",
       "hr"
     ],
-    "isIsland": false
+    "isIsland": false,
+    "lifeExpectancy": 74.2,
+    "hdi": 0.805,
+    "medianAge": 43.8,
+    "schoolingYears": 11.4
   },
   {
     "code": "sk",
@@ -839,7 +996,11 @@ export const advancedCountries = [
       "hu",
       "at"
     ],
-    "isIsland": false
+    "isIsland": false,
+    "lifeExpectancy": 77.4,
+    "hdi": 0.86,
+    "medianAge": 41.8,
+    "schoolingYears": 12.9
   },
   {
     "code": "si",
@@ -859,7 +1020,11 @@ export const advancedCountries = [
       "hu",
       "hr"
     ],
-    "isIsland": false
+    "isIsland": false,
+    "lifeExpectancy": 81.3,
+    "hdi": 0.926,
+    "medianAge": 45.1,
+    "schoolingYears": 12.8
   },
   {
     "code": "se",
@@ -880,7 +1045,11 @@ export const advancedCountries = [
       "no",
       "fi"
     ],
-    "isIsland": false
+    "isIsland": false,
+    "lifeExpectancy": 83.2,
+    "hdi": 0.952,
+    "medianAge": 41.1,
+    "schoolingYears": 12.6
   },
   {
     "code": "ch",
@@ -901,7 +1070,11 @@ export const advancedCountries = [
       "at",
       "li"
     ],
-    "isIsland": false
+    "isIsland": false,
+    "lifeExpectancy": 84,
+    "hdi": 0.967,
+    "medianAge": 43.1,
+    "schoolingYears": 13.9
   },
   {
     "code": "ua",
@@ -928,7 +1101,11 @@ export const advancedCountries = [
       "ro",
       "md"
     ],
-    "isIsland": false
+    "isIsland": false,
+    "lifeExpectancy": 69.6,
+    "hdi": 0.734,
+    "medianAge": 41.2,
+    "schoolingYears": 11.4
   },
   {
     "code": "va",
@@ -945,7 +1122,11 @@ export const advancedCountries = [
     "borders": [
       "it"
     ],
-    "isIsland": false
+    "isIsland": false,
+    "lifeExpectancy": 82,
+    "hdi": 0.9,
+    "medianAge": 57,
+    "schoolingYears": 14
   },
   {
     "code": "ag",
@@ -960,7 +1141,11 @@ export const advancedCountries = [
     "continent": "Amériques",
     "cities": [],
     "borders": [],
-    "isIsland": true
+    "isIsland": true,
+    "lifeExpectancy": 75.5,
+    "hdi": 0.819,
+    "medianAge": 33.5,
+    "schoolingYears": 10.2
   },
   {
     "code": "ar",
@@ -985,7 +1170,11 @@ export const advancedCountries = [
       "br",
       "uy"
     ],
-    "isIsland": false
+    "isIsland": false,
+    "lifeExpectancy": 76.5,
+    "hdi": 0.849,
+    "medianAge": 32.5,
+    "schoolingYears": 11.1
   },
   {
     "code": "bs",
@@ -1000,7 +1189,11 @@ export const advancedCountries = [
     "continent": "Amériques",
     "cities": [],
     "borders": [],
-    "isIsland": true
+    "isIsland": true,
+    "lifeExpectancy": 77.6,
+    "hdi": 0.867,
+    "medianAge": 35.6,
+    "schoolingYears": 11.2
   },
   {
     "code": "bb",
@@ -1015,7 +1208,11 @@ export const advancedCountries = [
     "continent": "Amériques",
     "cities": [],
     "borders": [],
-    "isIsland": true
+    "isIsland": true,
+    "lifeExpectancy": 76.1,
+    "hdi": 0.833,
+    "medianAge": 34.1,
+    "schoolingYears": 10.5
   },
   {
     "code": "bz",
@@ -1033,7 +1230,11 @@ export const advancedCountries = [
       "mx",
       "gt"
     ],
-    "isIsland": false
+    "isIsland": false,
+    "lifeExpectancy": 72.7,
+    "hdi": 0.755,
+    "medianAge": 30.7,
+    "schoolingYears": 9.1
   },
   {
     "code": "bo",
@@ -1057,7 +1258,11 @@ export const advancedCountries = [
       "ar",
       "cl"
     ],
-    "isIsland": false
+    "isIsland": false,
+    "lifeExpectancy": 64.9,
+    "hdi": 0.698,
+    "medianAge": 25.6,
+    "schoolingYears": 9.8
   },
   {
     "code": "br",
@@ -1086,7 +1291,11 @@ export const advancedCountries = [
       "gy",
       "sr"
     ],
-    "isIsland": false
+    "isIsland": false,
+    "lifeExpectancy": 76,
+    "hdi": 0.76,
+    "medianAge": 34.3,
+    "schoolingYears": 8.4
   },
   {
     "code": "ca",
@@ -1107,7 +1316,11 @@ export const advancedCountries = [
     "borders": [
       "us"
     ],
-    "isIsland": false
+    "isIsland": false,
+    "lifeExpectancy": 82.6,
+    "hdi": 0.937,
+    "medianAge": 41.1,
+    "schoolingYears": 13.9
   },
   {
     "code": "cl",
@@ -1129,7 +1342,11 @@ export const advancedCountries = [
       "bo",
       "ar"
     ],
-    "isIsland": false
+    "isIsland": false,
+    "lifeExpectancy": 80,
+    "hdi": 0.86,
+    "medianAge": 35.8,
+    "schoolingYears": 11.2
   },
   {
     "code": "co",
@@ -1154,7 +1371,11 @@ export const advancedCountries = [
       "pe",
       "ec"
     ],
-    "isIsland": false
+    "isIsland": false,
+    "lifeExpectancy": 73.7,
+    "hdi": 0.758,
+    "medianAge": 31.6,
+    "schoolingYears": 8.9
   },
   {
     "code": "cr",
@@ -1172,7 +1393,11 @@ export const advancedCountries = [
       "ni",
       "pa"
     ],
-    "isIsland": false
+    "isIsland": false,
+    "lifeExpectancy": 80.8,
+    "hdi": 0.806,
+    "medianAge": 33.6,
+    "schoolingYears": 8.8
   },
   {
     "code": "cu",
@@ -1190,7 +1415,11 @@ export const advancedCountries = [
       "Camagüey"
     ],
     "borders": [],
-    "isIsland": true
+    "isIsland": true,
+    "lifeExpectancy": 78.2,
+    "hdi": 0.764,
+    "medianAge": 42.1,
+    "schoolingYears": 11.8
   },
   {
     "code": "dm",
@@ -1205,7 +1434,11 @@ export const advancedCountries = [
     "continent": "Amériques",
     "cities": [],
     "borders": [],
-    "isIsland": true
+    "isIsland": true,
+    "lifeExpectancy": 72.6,
+    "hdi": 0.753,
+    "medianAge": 30.6,
+    "schoolingYears": 8.9
   },
   {
     "code": "ec",
@@ -1226,7 +1459,11 @@ export const advancedCountries = [
       "co",
       "pe"
     ],
-    "isIsland": false
+    "isIsland": false,
+    "lifeExpectancy": 74,
+    "hdi": 0.765,
+    "medianAge": 28.8,
+    "schoolingYears": 9.3
   },
   {
     "code": "us",
@@ -1248,7 +1485,11 @@ export const advancedCountries = [
       "ca",
       "mx"
     ],
-    "isIsland": false
+    "isIsland": false,
+    "lifeExpectancy": 77.5,
+    "hdi": 0.927,
+    "medianAge": 38.5,
+    "schoolingYears": 13.7
   },
   {
     "code": "gd",
@@ -1263,7 +1504,11 @@ export const advancedCountries = [
     "continent": "Amériques",
     "cities": [],
     "borders": [],
-    "isIsland": true
+    "isIsland": true,
+    "lifeExpectancy": 74.1,
+    "hdi": 0.787,
+    "medianAge": 32.1,
+    "schoolingYears": 9.8
   },
   {
     "code": "gt",
@@ -1286,7 +1531,11 @@ export const advancedCountries = [
       "hn",
       "sv"
     ],
-    "isIsland": false
+    "isIsland": false,
+    "lifeExpectancy": 69.2,
+    "hdi": 0.629,
+    "medianAge": 23.2,
+    "schoolingYears": 5.7
   },
   {
     "code": "gy",
@@ -1305,7 +1554,11 @@ export const advancedCountries = [
       "br",
       "sr"
     ],
-    "isIsland": false
+    "isIsland": false,
+    "lifeExpectancy": 75.7,
+    "hdi": 0.823,
+    "medianAge": 33.7,
+    "schoolingYears": 10.3
   },
   {
     "code": "ht",
@@ -1325,7 +1578,11 @@ export const advancedCountries = [
     "borders": [
       "do"
     ],
-    "isIsland": true
+    "isIsland": true,
+    "lifeExpectancy": 63.2,
+    "hdi": 0.552,
+    "medianAge": 24.1,
+    "schoolingYears": 5.6
   },
   {
     "code": "hn",
@@ -1346,7 +1603,11 @@ export const advancedCountries = [
       "sv",
       "ni"
     ],
-    "isIsland": false
+    "isIsland": false,
+    "lifeExpectancy": 70.1,
+    "hdi": 0.624,
+    "medianAge": 24.5,
+    "schoolingYears": 7.1
   },
   {
     "code": "jm",
@@ -1361,7 +1622,11 @@ export const advancedCountries = [
     "continent": "Amériques",
     "cities": [],
     "borders": [],
-    "isIsland": true
+    "isIsland": true,
+    "lifeExpectancy": 70.5,
+    "hdi": 0.709,
+    "medianAge": 31.4,
+    "schoolingYears": 9.2
   },
   {
     "code": "mx",
@@ -1384,7 +1649,11 @@ export const advancedCountries = [
       "gt",
       "bz"
     ],
-    "isIsland": false
+    "isIsland": false,
+    "lifeExpectancy": 74.8,
+    "hdi": 0.781,
+    "medianAge": 29.8,
+    "schoolingYears": 9.2
   },
   {
     "code": "ni",
@@ -1402,7 +1671,11 @@ export const advancedCountries = [
       "hn",
       "cr"
     ],
-    "isIsland": false
+    "isIsland": false,
+    "lifeExpectancy": 74.5,
+    "hdi": 0.669,
+    "medianAge": 26.5,
+    "schoolingYears": 7.1
   },
   {
     "code": "pa",
@@ -1420,7 +1693,11 @@ export const advancedCountries = [
       "cr",
       "co"
     ],
-    "isIsland": false
+    "isIsland": false,
+    "lifeExpectancy": 78.2,
+    "hdi": 0.82,
+    "medianAge": 30.1,
+    "schoolingYears": 10.5
   },
   {
     "code": "py",
@@ -1439,7 +1716,11 @@ export const advancedCountries = [
       "br",
       "ar"
     ],
-    "isIsland": false
+    "isIsland": false,
+    "lifeExpectancy": 70.5,
+    "hdi": 0.731,
+    "medianAge": 28.2,
+    "schoolingYears": 8.9
   },
   {
     "code": "pe",
@@ -1464,7 +1745,11 @@ export const advancedCountries = [
       "bo",
       "cl"
     ],
-    "isIsland": false
+    "isIsland": false,
+    "lifeExpectancy": 73.4,
+    "hdi": 0.762,
+    "medianAge": 31,
+    "schoolingYears": 9.9
   },
   {
     "code": "do",
@@ -1483,7 +1768,11 @@ export const advancedCountries = [
     "borders": [
       "ht"
     ],
-    "isIsland": true
+    "isIsland": true,
+    "lifeExpectancy": 73.8,
+    "hdi": 0.766,
+    "medianAge": 28.1,
+    "schoolingYears": 9.3
   },
   {
     "code": "kn",
@@ -1498,7 +1787,11 @@ export const advancedCountries = [
     "continent": "Amériques",
     "cities": [],
     "borders": [],
-    "isIsland": true
+    "isIsland": true,
+    "lifeExpectancy": 76,
+    "hdi": 0.829,
+    "medianAge": 34,
+    "schoolingYears": 10.4
   },
   {
     "code": "lc",
@@ -1513,7 +1806,11 @@ export const advancedCountries = [
     "continent": "Amériques",
     "cities": [],
     "borders": [],
-    "isIsland": true
+    "isIsland": true,
+    "lifeExpectancy": 74.4,
+    "hdi": 0.794,
+    "medianAge": 32.4,
+    "schoolingYears": 9.8
   },
   {
     "code": "vc",
@@ -1528,7 +1825,11 @@ export const advancedCountries = [
     "continent": "Amériques",
     "cities": [],
     "borders": [],
-    "isIsland": true
+    "isIsland": true,
+    "lifeExpectancy": 73.5,
+    "hdi": 0.774,
+    "medianAge": 31.5,
+    "schoolingYears": 9.4
   },
   {
     "code": "sv",
@@ -1546,7 +1847,11 @@ export const advancedCountries = [
       "gt",
       "hn"
     ],
-    "isIsland": false
+    "isIsland": false,
+    "lifeExpectancy": 71,
+    "hdi": 0.674,
+    "medianAge": 28,
+    "schoolingYears": 7.2
   },
   {
     "code": "sr",
@@ -1564,7 +1869,11 @@ export const advancedCountries = [
       "gy",
       "br"
     ],
-    "isIsland": false
+    "isIsland": false,
+    "lifeExpectancy": 71.9,
+    "hdi": 0.739,
+    "medianAge": 29.9,
+    "schoolingYears": 8.8
   },
   {
     "code": "tt",
@@ -1579,7 +1888,11 @@ export const advancedCountries = [
     "continent": "Amériques",
     "cities": [],
     "borders": [],
-    "isIsland": true
+    "isIsland": true,
+    "lifeExpectancy": 73,
+    "hdi": 0.814,
+    "medianAge": 36.5,
+    "schoolingYears": 11
   },
   {
     "code": "uy",
@@ -1597,7 +1910,11 @@ export const advancedCountries = [
       "br",
       "ar"
     ],
-    "isIsland": false
+    "isIsland": false,
+    "lifeExpectancy": 78,
+    "hdi": 0.83,
+    "medianAge": 35.8,
+    "schoolingYears": 9.1
   },
   {
     "code": "ve",
@@ -1619,7 +1936,11 @@ export const advancedCountries = [
       "br",
       "gy"
     ],
-    "isIsland": false
+    "isIsland": false,
+    "lifeExpectancy": 70.6,
+    "hdi": 0.699,
+    "medianAge": 30,
+    "schoolingYears": 10.3
   },
   {
     "code": "af",
@@ -1644,7 +1965,11 @@ export const advancedCountries = [
       "cn",
       "pk"
     ],
-    "isIsland": false
+    "isIsland": false,
+    "lifeExpectancy": 62,
+    "hdi": 0.462,
+    "medianAge": 17.7,
+    "schoolingYears": 3
   },
   {
     "code": "sa",
@@ -1671,7 +1996,11 @@ export const advancedCountries = [
       "ye",
       "qa"
     ],
-    "isIsland": false
+    "isIsland": false,
+    "lifeExpectancy": 77.3,
+    "hdi": 0.875,
+    "medianAge": 32.4,
+    "schoolingYears": 11.3
   },
   {
     "code": "am",
@@ -1691,7 +2020,11 @@ export const advancedCountries = [
       "ir",
       "tr"
     ],
-    "isIsland": false
+    "isIsland": false,
+    "lifeExpectancy": 72.5,
+    "hdi": 0.76,
+    "medianAge": 32.1,
+    "schoolingYears": 8.8
   },
   {
     "code": "az",
@@ -1714,7 +2047,11 @@ export const advancedCountries = [
       "am",
       "ir"
     ],
-    "isIsland": false
+    "isIsland": false,
+    "lifeExpectancy": 71.8,
+    "hdi": 0.743,
+    "medianAge": 31.2,
+    "schoolingYears": 8.5
   },
   {
     "code": "bh",
@@ -1729,7 +2066,11 @@ export const advancedCountries = [
     "continent": "Asie",
     "cities": [],
     "borders": [],
-    "isIsland": true
+    "isIsland": true,
+    "lifeExpectancy": 77.6,
+    "hdi": 0.885,
+    "medianAge": 38.2,
+    "schoolingYears": 11.2
   },
   {
     "code": "bd",
@@ -1750,7 +2091,11 @@ export const advancedCountries = [
       "in",
       "mm"
     ],
-    "isIsland": false
+    "isIsland": false,
+    "lifeExpectancy": 72.4,
+    "hdi": 0.67,
+    "medianAge": 27.6,
+    "schoolingYears": 7.4
   },
   {
     "code": "bt",
@@ -1768,7 +2113,11 @@ export const advancedCountries = [
       "cn",
       "in"
     ],
-    "isIsland": false
+    "isIsland": false,
+    "lifeExpectancy": 69.7,
+    "hdi": 0.691,
+    "medianAge": 28.5,
+    "schoolingYears": 7.7
   },
   {
     "code": "mm",
@@ -1792,7 +2141,11 @@ export const advancedCountries = [
       "la",
       "th"
     ],
-    "isIsland": false
+    "isIsland": false,
+    "lifeExpectancy": 65.4,
+    "hdi": 0.587,
+    "medianAge": 23.3,
+    "schoolingYears": 5.8
   },
   {
     "code": "bn",
@@ -1809,7 +2162,11 @@ export const advancedCountries = [
     "borders": [
       "my"
     ],
-    "isIsland": true
+    "isIsland": true,
+    "lifeExpectancy": 78.4,
+    "hdi": 0.902,
+    "medianAge": 39.1,
+    "schoolingYears": 11.5
   },
   {
     "code": "kh",
@@ -1831,7 +2188,11 @@ export const advancedCountries = [
       "la",
       "vn"
     ],
-    "isIsland": false
+    "isIsland": false,
+    "lifeExpectancy": 66.4,
+    "hdi": 0.61,
+    "medianAge": 24.5,
+    "schoolingYears": 6.1
   },
   {
     "code": "cn",
@@ -1865,7 +2226,11 @@ export const advancedCountries = [
       "kg",
       "kz"
     ],
-    "isIsland": false
+    "isIsland": false,
+    "lifeExpectancy": 78.2,
+    "hdi": 0.788,
+    "medianAge": 39,
+    "schoolingYears": 8.8
   },
   {
     "code": "kp",
@@ -1887,7 +2252,11 @@ export const advancedCountries = [
       "ru",
       "kr"
     ],
-    "isIsland": false
+    "isIsland": false,
+    "lifeExpectancy": 62.8,
+    "hdi": 0.522,
+    "medianAge": 20.1,
+    "schoolingYears": 4.5
   },
   {
     "code": "kr",
@@ -1908,7 +2277,11 @@ export const advancedCountries = [
     "borders": [
       "kp"
     ],
-    "isIsland": false
+    "isIsland": false,
+    "lifeExpectancy": 83.6,
+    "hdi": 0.929,
+    "medianAge": 45,
+    "schoolingYears": 12.5
   },
   {
     "code": "ae",
@@ -1929,7 +2302,11 @@ export const advancedCountries = [
       "sa",
       "om"
     ],
-    "isIsland": false
+    "isIsland": false,
+    "lifeExpectancy": 79.2,
+    "hdi": 0.937,
+    "medianAge": 33.6,
+    "schoolingYears": 12.7
   },
   {
     "code": "ge",
@@ -1949,7 +2326,11 @@ export const advancedCountries = [
       "am",
       "tr"
     ],
-    "isIsland": false
+    "isIsland": false,
+    "lifeExpectancy": 72.9,
+    "hdi": 0.77,
+    "medianAge": 32.4,
+    "schoolingYears": 9.2
   },
   {
     "code": "in",
@@ -1975,7 +2356,11 @@ export const advancedCountries = [
       "bd",
       "mm"
     ],
-    "isIsland": false
+    "isIsland": false,
+    "lifeExpectancy": 70.2,
+    "hdi": 0.644,
+    "medianAge": 28.7,
+    "schoolingYears": 6.7
   },
   {
     "code": "id",
@@ -1998,7 +2383,11 @@ export const advancedCountries = [
       "tl",
       "pg"
     ],
-    "isIsland": true
+    "isIsland": true,
+    "lifeExpectancy": 68.3,
+    "hdi": 0.713,
+    "medianAge": 31.1,
+    "schoolingYears": 8.6
   },
   {
     "code": "iq",
@@ -2024,7 +2413,11 @@ export const advancedCountries = [
       "jo",
       "sy"
     ],
-    "isIsland": false
+    "isIsland": false,
+    "lifeExpectancy": 71.5,
+    "hdi": 0.735,
+    "medianAge": 30.7,
+    "schoolingYears": 8.5
   },
   {
     "code": "ir",
@@ -2051,7 +2444,11 @@ export const advancedCountries = [
       "iq",
       "tr"
     ],
-    "isIsland": false
+    "isIsland": false,
+    "lifeExpectancy": 74.6,
+    "hdi": 0.78,
+    "medianAge": 33,
+    "schoolingYears": 10.6
   },
   {
     "code": "il",
@@ -2075,7 +2472,11 @@ export const advancedCountries = [
       "eg",
       "ps"
     ],
-    "isIsland": false
+    "isIsland": false,
+    "lifeExpectancy": 82.6,
+    "hdi": 0.915,
+    "medianAge": 30.5,
+    "schoolingYears": 13.3
   },
   {
     "code": "jp",
@@ -2094,7 +2495,11 @@ export const advancedCountries = [
       "Yokohama"
     ],
     "borders": [],
-    "isIsland": true
+    "isIsland": true,
+    "lifeExpectancy": 84.5,
+    "hdi": 0.92,
+    "medianAge": 49.1,
+    "schoolingYears": 12.8
   },
   {
     "code": "jo",
@@ -2118,7 +2523,11 @@ export const advancedCountries = [
       "il",
       "ps"
     ],
-    "isIsland": false
+    "isIsland": false,
+    "lifeExpectancy": 70.6,
+    "hdi": 0.713,
+    "medianAge": 29.5,
+    "schoolingYears": 8.2
   },
   {
     "code": "kz",
@@ -2142,7 +2551,11 @@ export const advancedCountries = [
       "uz",
       "tm"
     ],
-    "isIsland": false
+    "isIsland": false,
+    "lifeExpectancy": 70.2,
+    "hdi": 0.802,
+    "medianAge": 31.6,
+    "schoolingYears": 12.3
   },
   {
     "code": "kg",
@@ -2162,7 +2575,11 @@ export const advancedCountries = [
       "tj",
       "uz"
     ],
-    "isIsland": false
+    "isIsland": false,
+    "lifeExpectancy": 66.3,
+    "hdi": 0.607,
+    "medianAge": 24.4,
+    "schoolingYears": 6.1
   },
   {
     "code": "kw",
@@ -2180,7 +2597,11 @@ export const advancedCountries = [
       "iq",
       "sa"
     ],
-    "isIsland": false
+    "isIsland": false,
+    "lifeExpectancy": 78.7,
+    "hdi": 0.847,
+    "medianAge": 36.8,
+    "schoolingYears": 7.3
   },
   {
     "code": "la",
@@ -2201,7 +2622,11 @@ export const advancedCountries = [
       "th",
       "mm"
     ],
-    "isIsland": false
+    "isIsland": false,
+    "lifeExpectancy": 67.1,
+    "hdi": 0.626,
+    "medianAge": 25.3,
+    "schoolingYears": 6.5
   },
   {
     "code": "lb",
@@ -2219,7 +2644,11 @@ export const advancedCountries = [
       "sy",
       "il"
     ],
-    "isIsland": false
+    "isIsland": false,
+    "lifeExpectancy": 70,
+    "hdi": 0.699,
+    "medianAge": 29,
+    "schoolingYears": 7.8
   },
   {
     "code": "my",
@@ -2241,7 +2670,11 @@ export const advancedCountries = [
       "bn",
       "id"
     ],
-    "isIsland": false
+    "isIsland": false,
+    "lifeExpectancy": 74.7,
+    "hdi": 0.807,
+    "medianAge": 30.6,
+    "schoolingYears": 10.7
   },
   {
     "code": "mv",
@@ -2256,7 +2689,11 @@ export const advancedCountries = [
     "continent": "Asie",
     "cities": [],
     "borders": [],
-    "isIsland": true
+    "isIsland": true,
+    "lifeExpectancy": 74.4,
+    "hdi": 0.804,
+    "medianAge": 34.1,
+    "schoolingYears": 9.8
   },
   {
     "code": "mn",
@@ -2274,7 +2711,11 @@ export const advancedCountries = [
       "ru",
       "cn"
     ],
-    "isIsland": false
+    "isIsland": false,
+    "lifeExpectancy": 71.7,
+    "hdi": 0.738,
+    "medianAge": 30.8,
+    "schoolingYears": 8.6
   },
   {
     "code": "np",
@@ -2295,7 +2736,11 @@ export const advancedCountries = [
       "cn",
       "in"
     ],
-    "isIsland": false
+    "isIsland": false,
+    "lifeExpectancy": 65.4,
+    "hdi": 0.586,
+    "medianAge": 23.3,
+    "schoolingYears": 5.7
   },
   {
     "code": "om",
@@ -2314,7 +2759,11 @@ export const advancedCountries = [
       "sa",
       "ye"
     ],
-    "isIsland": false
+    "isIsland": false,
+    "lifeExpectancy": 76.8,
+    "hdi": 0.865,
+    "medianAge": 37.2,
+    "schoolingYears": 10.8
   },
   {
     "code": "uz",
@@ -2338,7 +2787,11 @@ export const advancedCountries = [
       "af",
       "tm"
     ],
-    "isIsland": false
+    "isIsland": false,
+    "lifeExpectancy": 71.4,
+    "hdi": 0.727,
+    "medianAge": 29,
+    "schoolingYears": 11.9
   },
   {
     "code": "pk",
@@ -2362,7 +2815,11 @@ export const advancedCountries = [
       "cn",
       "in"
     ],
-    "isIsland": false
+    "isIsland": false,
+    "lifeExpectancy": 66.4,
+    "hdi": 0.54,
+    "medianAge": 22,
+    "schoolingYears": 4.5
   },
   {
     "code": "ps",
@@ -2381,7 +2838,11 @@ export const advancedCountries = [
       "eg",
       "jo"
     ],
-    "isIsland": false
+    "isIsland": false,
+    "lifeExpectancy": 69.7,
+    "hdi": 0.691,
+    "medianAge": 28.5,
+    "schoolingYears": 7.7
   },
   {
     "code": "ph",
@@ -2400,7 +2861,11 @@ export const advancedCountries = [
       "Quezon City"
     ],
     "borders": [],
-    "isIsland": true
+    "isIsland": true,
+    "lifeExpectancy": 69.3,
+    "hdi": 0.71,
+    "medianAge": 25.7,
+    "schoolingYears": 9
   },
   {
     "code": "qa",
@@ -2417,7 +2882,11 @@ export const advancedCountries = [
     "borders": [
       "sa"
     ],
-    "isIsland": false
+    "isIsland": false,
+    "lifeExpectancy": 81.6,
+    "hdi": 0.875,
+    "medianAge": 33.9,
+    "schoolingYears": 10.1
   },
   {
     "code": "sg",
@@ -2432,7 +2901,11 @@ export const advancedCountries = [
     "continent": "Asie",
     "cities": [],
     "borders": [],
-    "isIsland": true
+    "isIsland": true,
+    "lifeExpectancy": 84.1,
+    "hdi": 0.949,
+    "medianAge": 42.8,
+    "schoolingYears": 11.9
   },
   {
     "code": "lk",
@@ -2450,7 +2923,11 @@ export const advancedCountries = [
       "Kandy"
     ],
     "borders": [],
-    "isIsland": true
+    "isIsland": true,
+    "lifeExpectancy": 69.7,
+    "hdi": 0.69,
+    "medianAge": 28.5,
+    "schoolingYears": 7.7
   },
   {
     "code": "sy",
@@ -2474,7 +2951,11 @@ export const advancedCountries = [
       "il",
       "lb"
     ],
-    "isIsland": false
+    "isIsland": false,
+    "lifeExpectancy": 64.3,
+    "hdi": 0.559,
+    "medianAge": 21.9,
+    "schoolingYears": 5.3
   },
   {
     "code": "tj",
@@ -2494,7 +2975,11 @@ export const advancedCountries = [
       "af",
       "uz"
     ],
-    "isIsland": false
+    "isIsland": false,
+    "lifeExpectancy": 64.7,
+    "hdi": 0.569,
+    "medianAge": 22.5,
+    "schoolingYears": 5.3
   },
   {
     "code": "th",
@@ -2518,7 +3003,11 @@ export const advancedCountries = [
       "kh",
       "my"
     ],
-    "isIsland": false
+    "isIsland": false,
+    "lifeExpectancy": 75.3,
+    "hdi": 0.803,
+    "medianAge": 40.1,
+    "schoolingYears": 8.7
   },
   {
     "code": "tl",
@@ -2535,7 +3024,11 @@ export const advancedCountries = [
     "borders": [
       "id"
     ],
-    "isIsland": true
+    "isIsland": true,
+    "lifeExpectancy": 67.2,
+    "hdi": 0.629,
+    "medianAge": 25.5,
+    "schoolingYears": 6.4
   },
   {
     "code": "tm",
@@ -2555,7 +3048,11 @@ export const advancedCountries = [
       "af",
       "ir"
     ],
-    "isIsland": false
+    "isIsland": false,
+    "lifeExpectancy": 72.7,
+    "hdi": 0.765,
+    "medianAge": 32.3,
+    "schoolingYears": 8.9
   },
   {
     "code": "tr",
@@ -2583,7 +3080,11 @@ export const advancedCountries = [
       "iq",
       "sy"
     ],
-    "isIsland": false
+    "isIsland": false,
+    "lifeExpectancy": 76,
+    "hdi": 0.855,
+    "medianAge": 33.5,
+    "schoolingYears": 9.3
   },
   {
     "code": "vn",
@@ -2606,7 +3107,11 @@ export const advancedCountries = [
       "la",
       "kh"
     ],
-    "isIsland": false
+    "isIsland": false,
+    "lifeExpectancy": 73.6,
+    "hdi": 0.726,
+    "medianAge": 32.8,
+    "schoolingYears": 8.4
   },
   {
     "code": "ye",
@@ -2627,7 +3132,11 @@ export const advancedCountries = [
       "sa",
       "om"
     ],
-    "isIsland": false
+    "isIsland": false,
+    "lifeExpectancy": 62.6,
+    "hdi": 0.516,
+    "medianAge": 19.8,
+    "schoolingYears": 4.5
   },
   {
     "code": "za",
@@ -2653,7 +3162,11 @@ export const advancedCountries = [
       "sz",
       "ls"
     ],
-    "isIsland": false
+    "isIsland": false,
+    "lifeExpectancy": 65.3,
+    "hdi": 0.717,
+    "medianAge": 28,
+    "schoolingYears": 10.7
   },
   {
     "code": "dz",
@@ -2679,7 +3192,11 @@ export const advancedCountries = [
       "ml",
       "mr"
     ],
-    "isIsland": false
+    "isIsland": false,
+    "lifeExpectancy": 76.4,
+    "hdi": 0.745,
+    "medianAge": 28.9,
+    "schoolingYears": 8.1
   },
   {
     "code": "ao",
@@ -2702,7 +3219,11 @@ export const advancedCountries = [
       "zm",
       "na"
     ],
-    "isIsland": false
+    "isIsland": false,
+    "lifeExpectancy": 61.7,
+    "hdi": 0.591,
+    "medianAge": 16.7,
+    "schoolingYears": 5.4
   },
   {
     "code": "bj",
@@ -2725,7 +3246,11 @@ export const advancedCountries = [
       "ne",
       "ng"
     ],
-    "isIsland": false
+    "isIsland": false,
+    "lifeExpectancy": 59.1,
+    "hdi": 0.501,
+    "medianAge": 19.7,
+    "schoolingYears": 4.3
   },
   {
     "code": "bw",
@@ -2745,7 +3270,11 @@ export const advancedCountries = [
       "zw",
       "za"
     ],
-    "isIsland": false
+    "isIsland": false,
+    "lifeExpectancy": 65.7,
+    "hdi": 0.663,
+    "medianAge": 25.6,
+    "schoolingYears": 7.3
   },
   {
     "code": "bf",
@@ -2769,7 +3298,11 @@ export const advancedCountries = [
       "gh",
       "ci"
     ],
-    "isIsland": false
+    "isIsland": false,
+    "lifeExpectancy": 59.3,
+    "hdi": 0.438,
+    "medianAge": 17.9,
+    "schoolingYears": 2.1
   },
   {
     "code": "bi",
@@ -2790,7 +3323,11 @@ export const advancedCountries = [
       "tz",
       "cd"
     ],
-    "isIsland": false
+    "isIsland": false,
+    "lifeExpectancy": 52.5,
+    "hdi": 0.339,
+    "medianAge": 13.8,
+    "schoolingYears": 1.4
   },
   {
     "code": "cm",
@@ -2816,7 +3353,11 @@ export const advancedCountries = [
       "ga",
       "gq"
     ],
-    "isIsland": false
+    "isIsland": false,
+    "lifeExpectancy": 60.3,
+    "hdi": 0.587,
+    "medianAge": 18.7,
+    "schoolingYears": 6.3
   },
   {
     "code": "cv",
@@ -2831,7 +3372,11 @@ export const advancedCountries = [
     "continent": "Afrique",
     "cities": [],
     "borders": [],
-    "isIsland": true
+    "isIsland": true,
+    "lifeExpectancy": 63.6,
+    "hdi": 0.612,
+    "medianAge": 23.7,
+    "schoolingYears": 6.4
   },
   {
     "code": "cf",
@@ -2853,7 +3398,11 @@ export const advancedCountries = [
       "cg",
       "cm"
     ],
-    "isIsland": false
+    "isIsland": false,
+    "lifeExpectancy": 53.9,
+    "hdi": 0.387,
+    "medianAge": 17.6,
+    "schoolingYears": 4.3
   },
   {
     "code": "km",
@@ -2868,7 +3417,11 @@ export const advancedCountries = [
     "continent": "Afrique",
     "cities": [],
     "borders": [],
-    "isIsland": true
+    "isIsland": true,
+    "lifeExpectancy": 59.2,
+    "hdi": 0.502,
+    "medianAge": 19.7,
+    "schoolingYears": 4.3
   },
   {
     "code": "cg",
@@ -2891,7 +3444,11 @@ export const advancedCountries = [
       "ao",
       "ga"
     ],
-    "isIsland": false
+    "isIsland": false,
+    "lifeExpectancy": 61.5,
+    "hdi": 0.558,
+    "medianAge": 21.8,
+    "schoolingYears": 5.4
   },
   {
     "code": "cd",
@@ -2920,7 +3477,11 @@ export const advancedCountries = [
       "ao",
       "cg"
     ],
-    "isIsland": false
+    "isIsland": false,
+    "lifeExpectancy": 59.2,
+    "hdi": 0.481,
+    "medianAge": 17,
+    "schoolingYears": 7
   },
   {
     "code": "ci",
@@ -2945,7 +3506,11 @@ export const advancedCountries = [
       "bf",
       "gh"
     ],
-    "isIsland": false
+    "isIsland": false,
+    "lifeExpectancy": 58.6,
+    "hdi": 0.534,
+    "medianAge": 19.3,
+    "schoolingYears": 4.5
   },
   {
     "code": "dj",
@@ -2964,7 +3529,11 @@ export const advancedCountries = [
       "et",
       "so"
     ],
-    "isIsland": false
+    "isIsland": false,
+    "lifeExpectancy": 62.4,
+    "hdi": 0.581,
+    "medianAge": 22.5,
+    "schoolingYears": 5.7
   },
   {
     "code": "eg",
@@ -2988,7 +3557,11 @@ export const advancedCountries = [
       "il",
       "ps"
     ],
-    "isIsland": false
+    "isIsland": false,
+    "lifeExpectancy": 70.2,
+    "hdi": 0.728,
+    "medianAge": 24.8,
+    "schoolingYears": 8
   },
   {
     "code": "er",
@@ -3007,7 +3580,11 @@ export const advancedCountries = [
       "et",
       "dj"
     ],
-    "isIsland": false
+    "isIsland": false,
+    "lifeExpectancy": 56.1,
+    "hdi": 0.428,
+    "medianAge": 17,
+    "schoolingYears": 3
   },
   {
     "code": "sz",
@@ -3025,7 +3602,11 @@ export const advancedCountries = [
       "za",
       "mz"
     ],
-    "isIsland": false
+    "isIsland": false,
+    "lifeExpectancy": 63.6,
+    "hdi": 0.61,
+    "medianAge": 23.7,
+    "schoolingYears": 6.4
   },
   {
     "code": "et",
@@ -3050,7 +3631,11 @@ export const advancedCountries = [
       "ss",
       "sd"
     ],
-    "isIsland": false
+    "isIsland": false,
+    "lifeExpectancy": 65,
+    "hdi": 0.492,
+    "medianAge": 19.8,
+    "schoolingYears": 3.2
   },
   {
     "code": "ga",
@@ -3071,7 +3656,11 @@ export const advancedCountries = [
       "gq",
       "cg"
     ],
-    "isIsland": false
+    "isIsland": false,
+    "lifeExpectancy": 66.5,
+    "hdi": 0.681,
+    "medianAge": 26.3,
+    "schoolingYears": 7.7
   },
   {
     "code": "gm",
@@ -3090,7 +3679,11 @@ export const advancedCountries = [
     "borders": [
       "sn"
     ],
-    "isIsland": false
+    "isIsland": false,
+    "lifeExpectancy": 56.7,
+    "hdi": 0.441,
+    "medianAge": 17.5,
+    "schoolingYears": 3.1
   },
   {
     "code": "gh",
@@ -3112,7 +3705,11 @@ export const advancedCountries = [
       "bf",
       "tg"
     ],
-    "isIsland": false
+    "isIsland": false,
+    "lifeExpectancy": 63.8,
+    "hdi": 0.602,
+    "medianAge": 21.5,
+    "schoolingYears": 7.4
   },
   {
     "code": "gn",
@@ -3136,7 +3733,11 @@ export const advancedCountries = [
       "lr",
       "sl"
     ],
-    "isIsland": false
+    "isIsland": false,
+    "lifeExpectancy": 59.3,
+    "hdi": 0.504,
+    "medianAge": 19.8,
+    "schoolingYears": 4.3
   },
   {
     "code": "gw",
@@ -3154,7 +3755,11 @@ export const advancedCountries = [
       "sn",
       "gn"
     ],
-    "isIsland": false
+    "isIsland": false,
+    "lifeExpectancy": 57.2,
+    "hdi": 0.454,
+    "medianAge": 17.9,
+    "schoolingYears": 3.4
   },
   {
     "code": "gq",
@@ -3174,7 +3779,11 @@ export const advancedCountries = [
       "cm",
       "ga"
     ],
-    "isIsland": false
+    "isIsland": false,
+    "lifeExpectancy": 65.2,
+    "hdi": 0.65,
+    "medianAge": 25.1,
+    "schoolingYears": 6.9
   },
   {
     "code": "ke",
@@ -3198,7 +3807,11 @@ export const advancedCountries = [
       "ug",
       "ss"
     ],
-    "isIsland": false
+    "isIsland": false,
+    "lifeExpectancy": 62.1,
+    "hdi": 0.601,
+    "medianAge": 20,
+    "schoolingYears": 6.9
   },
   {
     "code": "ls",
@@ -3215,7 +3828,11 @@ export const advancedCountries = [
     "borders": [
       "za"
     ],
-    "isIsland": false
+    "isIsland": false,
+    "lifeExpectancy": 58.1,
+    "hdi": 0.477,
+    "medianAge": 18.8,
+    "schoolingYears": 3.9
   },
   {
     "code": "lr",
@@ -3234,7 +3851,11 @@ export const advancedCountries = [
       "gn",
       "ci"
     ],
-    "isIsland": false
+    "isIsland": false,
+    "lifeExpectancy": 57,
+    "hdi": 0.449,
+    "medianAge": 17.8,
+    "schoolingYears": 3.4
   },
   {
     "code": "ly",
@@ -3256,7 +3877,11 @@ export const advancedCountries = [
       "sd",
       "eg"
     ],
-    "isIsland": false
+    "isIsland": false,
+    "lifeExpectancy": 65.1,
+    "hdi": 0.648,
+    "medianAge": 25,
+    "schoolingYears": 7.1
   },
   {
     "code": "mg",
@@ -3274,7 +3899,11 @@ export const advancedCountries = [
       "Antsirabe"
     ],
     "borders": [],
-    "isIsland": true
+    "isIsland": true,
+    "lifeExpectancy": 64.5,
+    "hdi": 0.487,
+    "medianAge": 20.3,
+    "schoolingYears": 4.4
   },
   {
     "code": "mw",
@@ -3295,7 +3924,11 @@ export const advancedCountries = [
       "mz",
       "zm"
     ],
-    "isIsland": false
+    "isIsland": false,
+    "lifeExpectancy": 56.4,
+    "hdi": 0.435,
+    "medianAge": 17.3,
+    "schoolingYears": 3.2
   },
   {
     "code": "ml",
@@ -3321,7 +3954,11 @@ export const advancedCountries = [
       "sn",
       "mr"
     ],
-    "isIsland": false
+    "isIsland": false,
+    "lifeExpectancy": 58.9,
+    "hdi": 0.41,
+    "medianAge": 16,
+    "schoolingYears": 2.4
   },
   {
     "code": "ma",
@@ -3344,7 +3981,11 @@ export const advancedCountries = [
       "mr",
       "es"
     ],
-    "isIsland": false
+    "isIsland": false,
+    "lifeExpectancy": 74,
+    "hdi": 0.698,
+    "medianAge": 29.5,
+    "schoolingYears": 6
   },
   {
     "code": "mu",
@@ -3359,7 +4000,11 @@ export const advancedCountries = [
     "continent": "Afrique",
     "cities": [],
     "borders": [],
-    "isIsland": true
+    "isIsland": true,
+    "lifeExpectancy": 67.5,
+    "hdi": 0.705,
+    "medianAge": 27.1,
+    "schoolingYears": 8.2
   },
   {
     "code": "mr",
@@ -3379,7 +4024,11 @@ export const advancedCountries = [
       "sn",
       "ma"
     ],
-    "isIsland": false
+    "isIsland": false,
+    "lifeExpectancy": 60.8,
+    "hdi": 0.543,
+    "medianAge": 21.2,
+    "schoolingYears": 5.2
   },
   {
     "code": "mz",
@@ -3404,7 +4053,11 @@ export const advancedCountries = [
       "za",
       "sz"
     ],
-    "isIsland": false
+    "isIsland": false,
+    "lifeExpectancy": 59.3,
+    "hdi": 0.461,
+    "medianAge": 17.6,
+    "schoolingYears": 3.2
   },
   {
     "code": "na",
@@ -3424,7 +4077,11 @@ export const advancedCountries = [
       "bw",
       "za"
     ],
-    "isIsland": false
+    "isIsland": false,
+    "lifeExpectancy": 63.7,
+    "hdi": 0.611,
+    "medianAge": 23.7,
+    "schoolingYears": 6.2
   },
   {
     "code": "ne",
@@ -3450,7 +4107,11 @@ export const advancedCountries = [
       "bf",
       "ml"
     ],
-    "isIsland": false
+    "isIsland": false,
+    "lifeExpectancy": 61.6,
+    "hdi": 0.394,
+    "medianAge": 14.8,
+    "schoolingYears": 2.1
   },
   {
     "code": "ng",
@@ -3474,7 +4135,11 @@ export const advancedCountries = [
       "td",
       "cm"
     ],
-    "isIsland": false
+    "isIsland": false,
+    "lifeExpectancy": 53.5,
+    "hdi": 0.548,
+    "medianAge": 18.1,
+    "schoolingYears": 5.7
   },
   {
     "code": "ug",
@@ -3498,7 +4163,11 @@ export const advancedCountries = [
       "rw",
       "cd"
     ],
-    "isIsland": false
+    "isIsland": false,
+    "lifeExpectancy": 57.7,
+    "hdi": 0.466,
+    "medianAge": 18.4,
+    "schoolingYears": 3.7
   },
   {
     "code": "rw",
@@ -3521,7 +4190,11 @@ export const advancedCountries = [
       "bi",
       "cd"
     ],
-    "isIsland": false
+    "isIsland": false,
+    "lifeExpectancy": 57.7,
+    "hdi": 0.467,
+    "medianAge": 18.4,
+    "schoolingYears": 3.7
   },
   {
     "code": "st",
@@ -3536,7 +4209,11 @@ export const advancedCountries = [
     "continent": "Afrique",
     "cities": [],
     "borders": [],
-    "isIsland": true
+    "isIsland": true,
+    "lifeExpectancy": 61.7,
+    "hdi": 0.564,
+    "medianAge": 22,
+    "schoolingYears": 5.6
   },
   {
     "code": "sn",
@@ -3561,7 +4238,11 @@ export const advancedCountries = [
       "gw",
       "gm"
     ],
-    "isIsland": false
+    "isIsland": false,
+    "lifeExpectancy": 67.1,
+    "hdi": 0.517,
+    "medianAge": 19,
+    "schoolingYears": 3.2
   },
   {
     "code": "sc",
@@ -3576,7 +4257,11 @@ export const advancedCountries = [
     "continent": "Afrique",
     "cities": [],
     "borders": [],
-    "isIsland": true
+    "isIsland": true,
+    "lifeExpectancy": 69.5,
+    "hdi": 0.723,
+    "medianAge": 28.9,
+    "schoolingYears": 9
   },
   {
     "code": "sl",
@@ -3594,7 +4279,11 @@ export const advancedCountries = [
       "gn",
       "lr"
     ],
-    "isIsland": false
+    "isIsland": false,
+    "lifeExpectancy": 54.9,
+    "hdi": 0.398,
+    "medianAge": 15.9,
+    "schoolingYears": 2.5
   },
   {
     "code": "so",
@@ -3616,7 +4305,11 @@ export const advancedCountries = [
       "et",
       "ke"
     ],
-    "isIsland": false
+    "isIsland": false,
+    "lifeExpectancy": 56,
+    "hdi": 0.424,
+    "medianAge": 16.9,
+    "schoolingYears": 3
   },
   {
     "code": "sd",
@@ -3642,7 +4335,11 @@ export const advancedCountries = [
       "et",
       "er"
     ],
-    "isIsland": false
+    "isIsland": false,
+    "lifeExpectancy": 56,
+    "hdi": 0.424,
+    "medianAge": 16.9,
+    "schoolingYears": 3
   },
   {
     "code": "ss",
@@ -3664,7 +4361,11 @@ export const advancedCountries = [
       "cd",
       "cf"
     ],
-    "isIsland": false
+    "isIsland": false,
+    "lifeExpectancy": 55,
+    "hdi": 0.381,
+    "medianAge": 19,
+    "schoolingYears": 5.7
   },
   {
     "code": "tz",
@@ -3692,7 +4393,11 @@ export const advancedCountries = [
       "mw",
       "mz"
     ],
-    "isIsland": false
+    "isIsland": false,
+    "lifeExpectancy": 58.4,
+    "hdi": 0.483,
+    "medianAge": 19,
+    "schoolingYears": 3.9
   },
   {
     "code": "td",
@@ -3716,7 +4421,11 @@ export const advancedCountries = [
       "ng",
       "ne"
     ],
-    "isIsland": false
+    "isIsland": false,
+    "lifeExpectancy": 53,
+    "hdi": 0.394,
+    "medianAge": 15.5,
+    "schoolingYears": 2.3
   },
   {
     "code": "tg",
@@ -3737,7 +4446,11 @@ export const advancedCountries = [
       "bf",
       "bj"
     ],
-    "isIsland": false
+    "isIsland": false,
+    "lifeExpectancy": 58.1,
+    "hdi": 0.476,
+    "medianAge": 18.8,
+    "schoolingYears": 4
   },
   {
     "code": "tn",
@@ -3758,7 +4471,11 @@ export const advancedCountries = [
       "dz",
       "ly"
     ],
-    "isIsland": false
+    "isIsland": false,
+    "lifeExpectancy": 74.3,
+    "hdi": 0.732,
+    "medianAge": 33.1,
+    "schoolingYears": 7.4
   },
   {
     "code": "zm",
@@ -3785,7 +4502,11 @@ export const advancedCountries = [
       "na",
       "ao"
     ],
-    "isIsland": false
+    "isIsland": false,
+    "lifeExpectancy": 59.4,
+    "hdi": 0.507,
+    "medianAge": 19.9,
+    "schoolingYears": 4.5
   },
   {
     "code": "zw",
@@ -3807,7 +4528,11 @@ export const advancedCountries = [
       "za",
       "bw"
     ],
-    "isIsland": false
+    "isIsland": false,
+    "lifeExpectancy": 60,
+    "hdi": 0.523,
+    "medianAge": 20.4,
+    "schoolingYears": 4.6
   },
   {
     "code": "au",
@@ -3826,7 +4551,11 @@ export const advancedCountries = [
       "Brisbane"
     ],
     "borders": [],
-    "isIsland": true
+    "isIsland": true,
+    "lifeExpectancy": 83.3,
+    "hdi": 0.946,
+    "medianAge": 37.9,
+    "schoolingYears": 12.9
   },
   {
     "code": "fj",
@@ -3841,7 +4570,11 @@ export const advancedCountries = [
     "continent": "Océanie",
     "cities": [],
     "borders": [],
-    "isIsland": true
+    "isIsland": true,
+    "lifeExpectancy": 67.1,
+    "hdi": 0.729,
+    "medianAge": 28.9,
+    "schoolingYears": 10.9
   },
   {
     "code": "ki",
@@ -3856,7 +4589,11 @@ export const advancedCountries = [
     "continent": "Océanie",
     "cities": [],
     "borders": [],
-    "isIsland": true
+    "isIsland": true,
+    "lifeExpectancy": 67.3,
+    "hdi": 0.627,
+    "medianAge": 24.3,
+    "schoolingYears": 7.5
   },
   {
     "code": "mh",
@@ -3871,7 +4608,11 @@ export const advancedCountries = [
     "continent": "Océanie",
     "cities": [],
     "borders": [],
-    "isIsland": true
+    "isIsland": true,
+    "lifeExpectancy": 72.2,
+    "hdi": 0.737,
+    "medianAge": 28.7,
+    "schoolingYears": 9.4
   },
   {
     "code": "fm",
@@ -3886,7 +4627,11 @@ export const advancedCountries = [
     "continent": "Océanie",
     "cities": [],
     "borders": [],
-    "isIsland": true
+    "isIsland": true,
+    "lifeExpectancy": 69.3,
+    "hdi": 0.672,
+    "medianAge": 26.1,
+    "schoolingYears": 8.3
   },
   {
     "code": "nr",
@@ -3901,7 +4646,11 @@ export const advancedCountries = [
     "continent": "Océanie",
     "cities": [],
     "borders": [],
-    "isIsland": true
+    "isIsland": true,
+    "lifeExpectancy": 74.3,
+    "hdi": 0.782,
+    "medianAge": 30.5,
+    "schoolingYears": 9.8
   },
   {
     "code": "nz",
@@ -3919,7 +4668,11 @@ export const advancedCountries = [
       "Christchurch"
     ],
     "borders": [],
-    "isIsland": true
+    "isIsland": true,
+    "lifeExpectancy": 82.5,
+    "hdi": 0.939,
+    "medianAge": 37.4,
+    "schoolingYears": 12.9
   },
   {
     "code": "pw",
@@ -3934,7 +4687,11 @@ export const advancedCountries = [
     "continent": "Océanie",
     "cities": [],
     "borders": [],
-    "isIsland": true
+    "isIsland": true,
+    "lifeExpectancy": 75.6,
+    "hdi": 0.812,
+    "medianAge": 31.7,
+    "schoolingYears": 10.5
   },
   {
     "code": "pg",
@@ -3951,7 +4708,11 @@ export const advancedCountries = [
     "borders": [
       "id"
     ],
-    "isIsland": true
+    "isIsland": true,
+    "lifeExpectancy": 65.4,
+    "hdi": 0.568,
+    "medianAge": 22.4,
+    "schoolingYears": 4.7
   },
   {
     "code": "sb",
@@ -3966,7 +4727,11 @@ export const advancedCountries = [
     "continent": "Océanie",
     "cities": [],
     "borders": [],
-    "isIsland": true
+    "isIsland": true,
+    "lifeExpectancy": 67.5,
+    "hdi": 0.632,
+    "medianAge": 24.5,
+    "schoolingYears": 7.7
   },
   {
     "code": "ws",
@@ -3981,7 +4746,11 @@ export const advancedCountries = [
     "continent": "Océanie",
     "cities": [],
     "borders": [],
-    "isIsland": true
+    "isIsland": true,
+    "lifeExpectancy": 69,
+    "hdi": 0.663,
+    "medianAge": 25.7,
+    "schoolingYears": 8
   },
   {
     "code": "to",
@@ -3996,7 +4765,11 @@ export const advancedCountries = [
     "continent": "Océanie",
     "cities": [],
     "borders": [],
-    "isIsland": true
+    "isIsland": true,
+    "lifeExpectancy": 70.2,
+    "hdi": 0.691,
+    "medianAge": 26.8,
+    "schoolingYears": 8.4
   },
   {
     "code": "tv",
@@ -4011,7 +4784,11 @@ export const advancedCountries = [
     "continent": "Océanie",
     "cities": [],
     "borders": [],
-    "isIsland": true
+    "isIsland": true,
+    "lifeExpectancy": 70.6,
+    "hdi": 0.7,
+    "medianAge": 27.2,
+    "schoolingYears": 8.6
   },
   {
     "code": "vu",
@@ -4026,7 +4803,11 @@ export const advancedCountries = [
     "continent": "Océanie",
     "cities": [],
     "borders": [],
-    "isIsland": true
+    "isIsland": true,
+    "lifeExpectancy": 68.8,
+    "hdi": 0.661,
+    "medianAge": 25.6,
+    "schoolingYears": 8.2
   }
 ];
 
@@ -4037,6 +4818,10 @@ export const FRANCE_REFERENCE = {
   gdp: 3000,
   population: 68000000,
   gdpPerCapita: 44100, // ~44 100 $ / habitant
+  lifeExpectancy: 83.1, // ans
+  hdi: 0.910,
+  medianAge: 42.3, // ans
+  schoolingYears: 11.6, // ans
 };
 
 export default advancedCountries;

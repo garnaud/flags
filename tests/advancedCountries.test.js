@@ -20,6 +20,10 @@ describe('Données avancées des pays (advancedCountries.js)', () => {
       expect(c).toHaveProperty('continent');
       expect(c).toHaveProperty('borders');
       expect(c).toHaveProperty('isIsland');
+      expect(c).toHaveProperty('lifeExpectancy');
+      expect(c).toHaveProperty('hdi');
+      expect(c).toHaveProperty('medianAge');
+      expect(c).toHaveProperty('schoolingYears');
 
       expect(c.code).toMatch(/^[a-z]{2}$/);
       expect(typeof c.name).toBe('string');
@@ -35,6 +39,15 @@ describe('Données avancées des pays (advancedCountries.js)', () => {
       expect(c.tier).toBeLessThanOrEqual(5);
       expect(Array.isArray(c.borders)).toBe(true);
       expect(typeof c.isIsland).toBe('boolean');
+
+      expect(c.lifeExpectancy).toBeGreaterThan(45);
+      expect(c.lifeExpectancy).toBeLessThan(95);
+      expect(c.hdi).toBeGreaterThan(0.3);
+      expect(c.hdi).toBeLessThanOrEqual(1.0);
+      expect(c.medianAge).toBeGreaterThan(10);
+      expect(c.medianAge).toBeLessThan(65);
+      expect(c.schoolingYears).toBeGreaterThan(1);
+      expect(c.schoolingYears).toBeLessThan(20);
     });
   });
 
