@@ -11,6 +11,9 @@ import {
   getCategoryDifficulties,
   saveCategoryDifficulties,
   resetCategoryDifficulties,
+  getRevealDelay,
+  saveRevealDelay,
+  DEFAULT_REVEAL_DELAY,
 } from './advancedQuiz.js';
 import {
   computeZoomViewBox,
@@ -88,15 +91,15 @@ const settingsCloseX = document.getElementById('settings-close-x');
 const settingsResetBtn = document.getElementById('settings-reset-btn');
 const settingsSaveBtn = document.getElementById('settings-save-btn');
 const settingsSlidersContainer = document.getElementById('settings-sliders-container');
+const rangeRevealDelay = document.getElementById('range-reveal-delay');
+const badgeRevealDelay = document.getElementById('badge-reveal-delay');
 
-// Éléments du DOM - Carte des Frontières
-const borderMapModal = document.getElementById('border-map-modal');
-const borderMapStatus = document.getElementById('border-map-status');
-const borderMapC1Name = document.getElementById('border-map-c1-name');
-const borderMapC2Name = document.getElementById('border-map-c2-name');
-const borderMapToggleZoom = document.getElementById('border-map-toggle-zoom');
-const borderMapContainer = document.getElementById('border-map-container');
-const borderMapNextBtn = document.getElementById('border-map-next-btn');
+// Éléments du DOM - Bannière de Solution Systématique
+const solutionBanner = document.getElementById('solution-banner');
+const solutionText = document.getElementById('solution-text');
+const solutionTimer = document.getElementById('solution-timer');
+const inlineBorderMap = document.getElementById('inline-border-map');
+const inlineMapSvgContainer = document.getElementById('inline-map-svg-container');
 
 // État de l'application
 let currentMode = 'classic'; // 'classic' | 'advanced'
@@ -203,6 +206,14 @@ function switchMode(mode) {
  * Met à jour l'affichage avec la question courante selon le mode.
  */
 function renderQuestion() {
+  clearSolutionTimer();
+  if (solutionBanner) {
+    solutionBanner.classList.add('hidden');
+  }
+  if (inlineBorderMap) {
+    inlineBorderMap.classList.add('hidden');
+  }
+
   if (currentMode === 'classic') {
     renderClassicQuestion();
   } else {
@@ -326,23 +337,27 @@ function renderAdvancedQuestion() {
     } else if (q.category === 'surface') {
       const formatArea = (num) => new Intl.NumberFormat('fr-FR').format(num);
       flagWrapper.innerHTML = `
-        <div class="duel-flags-container">
-          <div class="duel-flag-item">
-            <img class="flag-image loading" src="https://flagcdn.com/w320/${q.flagCode.toLowerCase()}.png" alt="${q.country.name}" />
-            <span class="duel-country-name">${q.country.name}</span>
-            <div class="duel-silhouette-box hidden" id="silhouette-left" title="Silhouette de ${q.country.name} à l'échelle">
-              <span class="silhouette-scale-label">ÉCHELLE 1:1</span>
+        <div class="surface-duel-vertical">
+          <!-- Pays 1 (en haut) -->
+          <div class="surface-card">
+            <div class="surface-card-header">
+              <img class="flag-image-sm loading" src="https://flagcdn.com/w160/${q.flagCode.toLowerCase()}.png" alt="${q.country.name}" />
+              <span class="surface-card-name">${q.country.name}</span>
+              <span class="surface-area-badge hidden" id="area-reveal-left">${q.leftAreaText || formatArea(q.country.area) + ' km²'}</span>
             </div>
-            <span class="silhouette-area-reveal" id="area-reveal-left">${q.leftAreaText || formatArea(q.country.area) + ' km²'}</span>
+            <div class="surface-silhouette-wrapper hidden" id="silhouette-left" title="Silhouette de ${q.country.name} à l'échelle"></div>
           </div>
-          <span class="duel-operator comparison">&gt;</span>
-          <div class="duel-flag-item">
-            <img class="flag-image loading" src="https://flagcdn.com/w320/${q.secondFlagCode.toLowerCase()}.png" alt="${q.secondCountry.name}" />
-            <span class="duel-country-name">${q.secondCountry.name}</span>
-            <div class="duel-silhouette-box hidden" id="silhouette-right" title="Silhouette de ${q.secondCountry.name} à l'échelle">
-              <span class="silhouette-scale-label">ÉCHELLE 1:1</span>
+
+          <div class="surface-operator-separator">&gt;</div>
+
+          <!-- Pays 2 (en bas) -->
+          <div class="surface-card">
+            <div class="surface-card-header">
+              <img class="flag-image-sm loading" src="https://flagcdn.com/w160/${q.secondFlagCode.toLowerCase()}.png" alt="${q.secondCountry.name}" />
+              <span class="surface-card-name">${q.secondCountry.name}</span>
+              <span class="surface-area-badge hidden" id="area-reveal-right">${q.rightAreaText || formatArea(q.secondCountry.area) + ' km²'}</span>
             </div>
-            <span class="silhouette-area-reveal" id="area-reveal-right">${q.rightAreaText || formatArea(q.secondCountry.area) + ' km²'}</span>
+            <div class="surface-silhouette-wrapper hidden" id="silhouette-right" title="Silhouette de ${q.secondCountry.name} à l'échelle"></div>
           </div>
         </div>
       `;
@@ -420,8 +435,8 @@ function renderAdvancedQuestion() {
   currentScore.textContent = `${advancedEngine.streak}`;
   currentStreakEl.textContent = `🔥 ${advancedEngine.streak}`;
 
-  const diffStars = '⭐'.repeat(Math.min(5, Math.floor(q.difficulty / 8) + 1));
-  advancedDifficultyBadge.textContent = `Difficulté : ${diffStars} (Nv. ${q.difficulty})`;
+  const diffStars = '⭐'.repeat(Math.max(1, Math.min(5, Math.floor((q.difficulty - 20) / 16) + 1)));
+  advancedDifficultyBadge.textContent = `Difficulté : ${diffStars} (${q.difficulty} / 100)`;
 
   const progressPercent = Math.min(100, Math.round((advancedEngine.streak / 25) * 100));
   progressBar.style.width = `${progressPercent}%`;
@@ -477,7 +492,7 @@ function handleClassicOptionClick(selectedOption, clickedButton) {
     currentStreakEl.textContent = '🔥 0';
   }
 
-  setTimeout(() => {
+  showSystematicSolution(currentQ, isCorrect, 'classic', () => {
     if (classicEngine.isGameOver) {
       progressBar.style.width = '100%';
       currentScore.textContent = `${classicEngine.score}`;
@@ -486,7 +501,7 @@ function handleClassicOptionClick(selectedOption, clickedButton) {
     } else {
       renderQuestion();
     }
-  }, 850);
+  });
 }
 
 let cachedWorldSvgText = null;
@@ -524,10 +539,8 @@ async function loadSurfaceSilhouettes(code1, code2) {
   if (!d1 || !d2) return;
 
   const tempSvg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-  tempSvg.style.position = 'absolute';
-  tempSvg.style.visibility = 'hidden';
-  tempSvg.style.width = '0';
-  tempSvg.style.height = '0';
+  tempSvg.setAttribute('viewBox', '0 0 1010 666');
+  tempSvg.style.cssText = 'position:fixed;top:-9999px;left:-9999px;width:1010px;height:666px;opacity:0;pointer-events:none;';
 
   const p1 = document.createElementNS('http://www.w3.org/2000/svg', 'path');
   p1.setAttribute('d', d1);
@@ -550,7 +563,7 @@ async function loadSurfaceSilhouettes(code1, code2) {
   }
   document.body.removeChild(tempSvg);
 
-  const { viewBox1, viewBox2 } = computeSameScaleViewBoxes(b1, b2, 0.20);
+  const { viewBox1, viewBox2 } = computeSameScaleViewBoxes(b1, b2, 0.20, 2.4);
 
   boxLeft.innerHTML = `
     <svg viewBox="${viewBox1}" preserveAspectRatio="xMidYMid meet">
@@ -568,43 +581,22 @@ async function loadSurfaceSilhouettes(code1, code2) {
 }
 
 /**
- * Affiche la boîte modale de la carte des frontières après avoir répondu à une question frontière.
+ * Affiche la carte régionale directement dans la bannière de solution sans dialogue bloquant.
  */
-async function showBorderMapModal(question, onNext) {
-  if (!question || !question.secondCountry) {
-    onNext();
-    return;
-  }
-
-  borderMapC1Name.textContent = question.country.name;
-  borderMapC2Name.textContent = question.secondCountry.name;
-
-  const borderInfo = getBorderInfo(question.country, question.secondCountry);
-  borderMapStatus.className = `border-map-status-badge ${borderInfo.areNeighbors ? 'status-neighbor' : 'status-not-neighbor'}`;
-  borderMapStatus.textContent = borderInfo.areNeighbors
-    ? '🤝 Voisins frontaliers'
-    : '❌ Non frontaliers';
-
+async function renderInlineBorderMap(c1, c2) {
   const svgText = await getWorldSvgText();
-  if (!svgText) {
-    onNext();
-    return;
-  }
+  if (!svgText || !inlineMapSvgContainer) return;
 
-  borderMapContainer.innerHTML = svgText;
-  const svg = borderMapContainer.querySelector('svg');
-  if (!svg) {
-    onNext();
-    return;
-  }
+  inlineMapSvgContainer.innerHTML = svgText;
+  const svg = inlineMapSvgContainer.querySelector('svg');
+  if (!svg) return;
 
-  const code1 = question.country.code.toLowerCase();
-  const code2 = question.secondCountry.code.toLowerCase();
+  const code1 = c1.code.toLowerCase();
+  const code2 = c2.code.toLowerCase();
 
   const path1 = svg.querySelector(`#${code1}`);
   const path2 = svg.querySelector(`#${code2}`);
 
-  // Fond sombre pour tous les pays
   svg.querySelectorAll('path').forEach((p) => {
     p.style.fill = '#1e293b';
     p.style.stroke = '#334155';
@@ -625,56 +617,149 @@ async function showBorderMapModal(question, onNext) {
     path2.parentElement.appendChild(path2);
   }
 
-  // Par défaut : Vue Régionale dézoomée
-  let isZoomed = true;
   let zoomBox = DEFAULT_MAP_VIEWBOX;
-  borderMapToggleZoom.textContent = '🌍 Vue Monde';
-
-  const calculateZoom = () => {
-    if (path1 && path2) {
-      try {
-        const b1 = path1.getBBox();
-        const b2 = path2.getBBox();
-        const computed = computeZoomViewBox(b1, b2, 1010, 666);
-        if (computed && computed !== DEFAULT_MAP_VIEWBOX) {
-          zoomBox = computed;
-          if (isZoomed) {
-            svg.setAttribute('viewBox', zoomBox);
-          }
-        }
-      } catch (e) {
-        console.warn('Erreur calcul BBox', e);
+  if (path1 && path2) {
+    try {
+      const b1 = path1.getBBox();
+      const b2 = path2.getBBox();
+      const computed = computeZoomViewBox(b1, b2, 1010, 666);
+      if (computed && computed !== DEFAULT_MAP_VIEWBOX) {
+        zoomBox = computed;
       }
+    } catch (e) {
+      console.warn('Erreur BBox inline map', e);
     }
+  }
+
+  svg.setAttribute('viewBox', zoomBox);
+}
+
+let solutionTimeoutId = null;
+let solutionIntervalId = null;
+
+function clearSolutionTimer() {
+  if (solutionTimeoutId) {
+    clearTimeout(solutionTimeoutId);
+    solutionTimeoutId = null;
+  }
+  if (solutionIntervalId) {
+    clearInterval(solutionIntervalId);
+    solutionIntervalId = null;
+  }
+}
+
+/**
+ * Affiche systématiquement la solution pour toutes les questions avec délai configurable (3s par défaut).
+ * Un tap/clic sur la bannière ou la touche Espace/Entrée permet d'avancer immédiatement.
+ */
+function showSystematicSolution(currentQ, isCorrect, mode, onAdvance) {
+  clearSolutionTimer();
+  if (!solutionBanner || !solutionText) {
+    onAdvance();
+    return;
+  }
+
+  let text = '';
+  let isBorderQuestion = false;
+
+  if (mode === 'classic') {
+    text = `${isCorrect ? '✅ Exact !' : '❌ Réponse :'} Drapeau de : <strong>${currentQ.correctAnswer}</strong>`;
+  } else {
+    const cat = currentQ.category;
+    if (cat === 'drapeau') {
+      text = `${isCorrect ? '✅ Exact !' : '❌ Réponse :'} Drapeau de : <strong>${currentQ.correctAnswer}</strong>`;
+    } else if (cat === 'capitale') {
+      text = `${isCorrect ? '✅ Exact !' : '❌ Réponse :'} <strong>${currentQ.correctAnswer}</strong> est la capitale de <strong>${currentQ.country.name}</strong>`;
+    } else if (cat === 'monnaie') {
+      text = `${isCorrect ? '✅ Exact !' : '❌ Réponse :'} La monnaie de ${currentQ.country.name} est : <strong>${currentQ.correctAnswer}</strong>`;
+    } else if (cat === 'frontiere') {
+      const areNeighbors = currentQ.correctAnswer === 'Oui';
+      text = areNeighbors
+        ? `🤝 <strong>${currentQ.country.name}</strong> et <strong>${currentQ.secondCountry.name}</strong> partagent une frontière terrestre`
+        : `❌ <strong>${currentQ.country.name}</strong> et <strong>${currentQ.secondCountry.name}</strong> ne partagent aucune frontière`;
+      isBorderQuestion = true;
+    } else if (cat === 'surface') {
+      document.getElementById('silhouette-left')?.classList.remove('hidden');
+      document.getElementById('silhouette-right')?.classList.remove('hidden');
+      document.getElementById('area-reveal-left')?.classList.remove('hidden');
+      document.getElementById('area-reveal-right')?.classList.remove('hidden');
+      const op = currentQ.correctAnswer === 'Oui' ? '>' : '<';
+      text = `📐 Superficie : <strong>${currentQ.country.name}</strong> (${currentQ.leftAreaText}) ${op} <strong>${currentQ.secondCountry.name}</strong> (${currentQ.rightAreaText})`;
+    } else if (cat === 'population') {
+      const rightValEl = document.getElementById('right-country-value');
+      if (rightValEl && currentQ.rightPopulationText) {
+        rightValEl.innerHTML = `<strong style="color: #fbbf24; font-size: 0.8rem;">${currentQ.rightPopulationText}</strong>`;
+      }
+      const op = currentQ.correctAnswer === 'Oui' ? '>' : '<';
+      text = `👥 Population : <strong>${currentQ.country.name}</strong> (${currentQ.leftPopulationText}) ${op} <strong>${currentQ.secondCountry.name}</strong> (${currentQ.rightPopulationText})`;
+    } else if (cat === 'pib') {
+      const rightValEl = document.getElementById('right-country-value');
+      if (rightValEl && currentQ.rightGdpPerCapitaText) {
+        rightValEl.innerHTML = `<strong style="color: #fbbf24; font-size: 0.8rem;">${currentQ.rightGdpPerCapitaText}</strong>`;
+      }
+      const op = currentQ.correctAnswer === 'Oui' ? '>' : '<';
+      text = `💰 PIB / hab. : <strong>${currentQ.country.name}</strong> (${currentQ.leftGdpPerCapitaText}) ${op} <strong>${currentQ.secondCountry.name}</strong> (${currentQ.rightGdpPerCapitaText})`;
+    } else if (cat in SOCIAL_METRICS) {
+      const leftValEl = document.getElementById('left-country-value');
+      if (leftValEl && currentQ.leftValueText) {
+        leftValEl.innerHTML = `<strong style="color: #fbbf24; font-size: 0.8rem;">${currentQ.leftValueText}</strong>`;
+      }
+      const op = currentQ.correctAnswer === 'Oui' ? '>' : '<';
+      text = `${currentQ.metricIcon} ${currentQ.metricLabel} : <strong>${currentQ.country.name}</strong> (${currentQ.leftValueText}) ${op} <strong>${currentQ.secondCountry.name}</strong> (${currentQ.rightValueText})`;
+    }
+  }
+
+  solutionText.innerHTML = text;
+
+  if (isBorderQuestion && currentQ.secondCountry) {
+    renderInlineBorderMap(currentQ.country, currentQ.secondCountry);
+    inlineBorderMap?.classList.remove('hidden');
+  } else {
+    inlineBorderMap?.classList.add('hidden');
+  }
+
+  solutionBanner.classList.remove('hidden');
+
+  let remaining = getRevealDelay();
+  if (solutionTimer) {
+    solutionTimer.textContent = `⏱️ ${remaining.toFixed(1)}s`;
+  }
+
+  let hasAdvanced = false;
+  const triggerAdvance = () => {
+    if (hasAdvanced) return;
+    hasAdvanced = true;
+    clearSolutionTimer();
+    solutionBanner.classList.add('hidden');
+    inlineBorderMap?.classList.add('hidden');
+    solutionBanner.removeEventListener('click', triggerAdvance);
+    window.removeEventListener('keydown', keydownAdvance);
+    onAdvance();
   };
 
-  borderMapToggleZoom.onclick = () => {
-    calculateZoom();
-    isZoomed = !isZoomed;
-    svg.setAttribute('viewBox', isZoomed ? zoomBox : DEFAULT_MAP_VIEWBOX);
-    borderMapToggleZoom.textContent = isZoomed ? '🌍 Vue Monde' : '🔍 Zoom Pays';
-  };
-
-  const advanceHandler = () => {
-    borderMapModal.close();
-    borderMapNextBtn.removeEventListener('click', advanceHandler);
-    window.removeEventListener('keydown', keydownHandler);
-    onNext();
-  };
-
-  const keydownHandler = (e) => {
-    if (e.key === 'Enter' || e.key === ' ') {
+  const keydownAdvance = (e) => {
+    if (e.key === ' ' || e.key === 'Enter') {
       e.preventDefault();
-      advanceHandler();
+      triggerAdvance();
     }
   };
 
-  borderMapNextBtn.addEventListener('click', advanceHandler);
-  window.addEventListener('keydown', keydownHandler);
+  solutionBanner.addEventListener('click', triggerAdvance);
+  window.addEventListener('keydown', keydownAdvance);
 
-  borderMapModal.showModal();
-  // Calculer la boîte de zoom une fois le modal visible dans le DOM
-  requestAnimationFrame(calculateZoom);
+  solutionIntervalId = setInterval(() => {
+    remaining -= 0.5;
+    if (remaining <= 0) {
+      if (solutionTimer) solutionTimer.textContent = `⏱️ 0s`;
+      triggerAdvance();
+    } else {
+      if (solutionTimer) solutionTimer.textContent = `⏱️ ${remaining.toFixed(1)}s`;
+    }
+  }, 500);
+
+  solutionTimeoutId = setTimeout(() => {
+    triggerAdvance();
+  }, Math.round(remaining * 1000));
 }
 
 /**
@@ -714,60 +799,13 @@ function handleAdvancedOptionClick(selectedOption, clickedButton) {
     currentStreakEl.textContent = '🔥 0';
   }
 
-  // Révélations post-réponse pour les duels comparatifs
-  let advanceDelay = 850;
-
-  if (currentQ.category === 'surface') {
-    // Révéler les silhouettes à l'échelle et les superficies en km²
-    document.getElementById('silhouette-left')?.classList.remove('hidden');
-    document.getElementById('silhouette-right')?.classList.remove('hidden');
-    document.getElementById('area-reveal-left')?.classList.add('visible');
-    document.getElementById('area-reveal-right')?.classList.add('visible');
-    advanceDelay = 1800;
-  } else if (currentQ.category === 'population') {
-    // Révéler la population exacte du pays de droite
-    const rightValEl = document.getElementById('right-country-value');
-    if (rightValEl && currentQ.rightPopulationText) {
-      rightValEl.innerHTML = `<strong style="color: #fbbf24; font-size: 0.8rem;">${currentQ.rightPopulationText}</strong>`;
-    }
-    advanceDelay = 1700;
-  } else if (currentQ.category === 'pib') {
-    // Révéler le PIB par habitant exact du pays de droite
-    const rightValEl = document.getElementById('right-country-value');
-    if (rightValEl && currentQ.rightGdpPerCapitaText) {
-      rightValEl.innerHTML = `<strong style="color: #fbbf24; font-size: 0.8rem;">${currentQ.rightGdpPerCapitaText}</strong>`;
-    }
-    advanceDelay = 1700;
-  } else if (currentQ.category in SOCIAL_METRICS) {
-    // Révéler la valeur sociale exacte du pays de gauche
-    const leftValEl = document.getElementById('left-country-value');
-    if (leftValEl && currentQ.leftValueText) {
-      leftValEl.innerHTML = `<strong style="color: #fbbf24; font-size: 0.8rem;">${currentQ.leftValueText}</strong>`;
-    }
-    advanceDelay = 1800;
-  }
-
-  // Pour les questions frontière : afficher la carte vectorielle avant d'enchaîner
-  if (currentQ.category === 'frontiere') {
-    setTimeout(() => {
-      showBorderMapModal(currentQ, () => {
-        if (advancedEngine.isGameOver) {
-          showEndModal();
-        } else {
-          renderQuestion();
-        }
-      });
-    }, 600);
-    return;
-  }
-
-  setTimeout(() => {
+  showSystematicSolution(currentQ, isCorrect, 'advanced', () => {
     if (advancedEngine.isGameOver) {
       showEndModal();
     } else {
       renderQuestion();
     }
-  }, advanceDelay);
+  });
 }
 
 /**
@@ -922,6 +960,13 @@ const categoryDefs = [
 function openSettingsModal() {
   const currentDiffs = getCategoryDifficulties();
   renderSettingsSliders(currentDiffs);
+
+  const delay = getRevealDelay();
+  if (rangeRevealDelay && badgeRevealDelay) {
+    rangeRevealDelay.value = delay.toString();
+    badgeRevealDelay.textContent = `${delay.toFixed(1)} s`;
+  }
+
   settingsModal.showModal();
 }
 
@@ -932,7 +977,7 @@ function renderSettingsSliders(diffs) {
     const row = document.createElement('div');
     row.className = 'setting-row';
 
-    const val = diffs[cat.id] ?? 1;
+    const val = diffs[cat.id] ?? 10;
 
     row.innerHTML = `
       <div class="setting-row-top">
@@ -944,7 +989,7 @@ function renderSettingsSliders(diffs) {
         class="setting-range"
         id="range-${cat.id}"
         min="1"
-        max="20"
+        max="50"
         value="${val}"
         aria-label="Poids de la catégorie ${cat.label}"
       />
@@ -972,11 +1017,22 @@ function saveAndCloseSettings() {
   });
 
   saveCategoryDifficulties(newValues);
+
+  if (rangeRevealDelay) {
+    saveRevealDelay(parseFloat(rangeRevealDelay.value));
+  }
+
   settingsModal.close();
 
   if (currentMode === 'advanced' && advancedEngine && advancedEngine.currentQuestion) {
     renderQuestion();
   }
+}
+
+if (rangeRevealDelay && badgeRevealDelay) {
+  rangeRevealDelay.addEventListener('input', () => {
+    badgeRevealDelay.textContent = `${parseFloat(rangeRevealDelay.value).toFixed(1)} s`;
+  });
 }
 
 // Événements - Paramètres
@@ -986,6 +1042,11 @@ settingsSaveBtn.addEventListener('click', saveAndCloseSettings);
 settingsResetBtn.addEventListener('click', () => {
   const defaults = resetCategoryDifficulties();
   renderSettingsSliders(defaults);
+  saveRevealDelay(3.0);
+  if (rangeRevealDelay && badgeRevealDelay) {
+    rangeRevealDelay.value = '3';
+    badgeRevealDelay.textContent = '3.0 s';
+  }
 });
 
 // Événements - Switcher de Mode

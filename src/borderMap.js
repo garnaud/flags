@@ -84,17 +84,18 @@ export function getCountryPathD(svgText, countryCode) {
 }
 
 /**
- * Calcule deux viewboxes carrées de même dimension pour afficher deux silhouettes
+ * Calcule deux viewboxes de même dimension pour afficher deux silhouettes
  * de pays à la même échelle relative (1:1).
  *
  * @param {{x: number, y: number, width: number, height: number}} b1
  * @param {{x: number, y: number, width: number, height: number}} b2
  * @param {number} [paddingRatio=0.20]
- * @returns {{ viewBox1: string, viewBox2: string, scaleSize: number }}
+ * @param {number} [containerAspect=1] - Ratio largeur / hauteur (ex: 2.2 pour format horizontal)
+ * @returns {{ viewBox1: string, viewBox2: string, scaleSize: number, scaleWidth: number, scaleHeight: number }}
  */
-export function computeSameScaleViewBoxes(b1, b2, paddingRatio = 0.20) {
+export function computeSameScaleViewBoxes(b1, b2, paddingRatio = 0.20, containerAspect = 1) {
   if (!b1 || !b2 || typeof b1.x !== 'number' || typeof b2.x !== 'number') {
-    return { viewBox1: '0 0 100 100', viewBox2: '0 0 100 100', scaleSize: 100 };
+    return { viewBox1: '0 0 100 100', viewBox2: '0 0 100 100', scaleSize: 100, scaleWidth: 100, scaleHeight: 100 };
   }
 
   const w1 = b1.width || 20;
@@ -102,21 +103,48 @@ export function computeSameScaleViewBoxes(b1, b2, paddingRatio = 0.20) {
   const w2 = b2.width || 20;
   const h2 = b2.height || 20;
 
-  const maxDim = Math.max(w1, h1, w2, h2, 20);
-  const sizeWithPadding = Math.round(maxDim * (1 + paddingRatio));
+  if (containerAspect === 1) {
+    const maxDim = Math.max(w1, h1, w2, h2, 20);
+    const sizeWithPadding = Math.round(maxDim * (1 + paddingRatio));
+
+    const cx1 = b1.x + w1 / 2;
+    const cy1 = b1.y + h1 / 2;
+
+    const cx2 = b2.x + w2 / 2;
+    const cy2 = b2.y + h2 / 2;
+
+    const vb1 = `${Math.round(cx1 - sizeWithPadding / 2)} ${Math.round(cy1 - sizeWithPadding / 2)} ${sizeWithPadding} ${sizeWithPadding}`;
+    const vb2 = `${Math.round(cx2 - sizeWithPadding / 2)} ${Math.round(cy2 - sizeWithPadding / 2)} ${sizeWithPadding} ${sizeWithPadding}`;
+
+    return {
+      viewBox1: vb1,
+      viewBox2: vb2,
+      scaleSize: sizeWithPadding,
+      scaleWidth: sizeWithPadding,
+      scaleHeight: sizeWithPadding,
+    };
+  }
+
+  const maxW = Math.max(w1, w2, 20);
+  const maxH = Math.max(h1, h2, 20);
+
+  let boxW = Math.max(maxW, maxH * containerAspect);
+  boxW = Math.round(boxW * (1 + paddingRatio));
+  const boxH = Math.round(boxW / containerAspect);
 
   const cx1 = b1.x + w1 / 2;
   const cy1 = b1.y + h1 / 2;
-
   const cx2 = b2.x + w2 / 2;
   const cy2 = b2.y + h2 / 2;
 
-  const vb1 = `${Math.round(cx1 - sizeWithPadding / 2)} ${Math.round(cy1 - sizeWithPadding / 2)} ${sizeWithPadding} ${sizeWithPadding}`;
-  const vb2 = `${Math.round(cx2 - sizeWithPadding / 2)} ${Math.round(cy2 - sizeWithPadding / 2)} ${sizeWithPadding} ${sizeWithPadding}`;
+  const vb1 = `${Math.round(cx1 - boxW / 2)} ${Math.round(cy1 - boxH / 2)} ${boxW} ${boxH}`;
+  const vb2 = `${Math.round(cx2 - boxW / 2)} ${Math.round(cy2 - boxH / 2)} ${boxW} ${boxH}`;
 
   return {
     viewBox1: vb1,
     viewBox2: vb2,
-    scaleSize: sizeWithPadding,
+    scaleSize: boxW,
+    scaleWidth: boxW,
+    scaleHeight: boxH,
   };
 }

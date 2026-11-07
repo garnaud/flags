@@ -114,5 +114,22 @@ describe('Module Carte Vectorielle SVG des Frontières (borderMap)', () => {
       expect(fallback.scaleSize).toBe(100);
       expect(fallback.viewBox1).toBe('0 0 100 100');
     });
+
+    it('calcule correctement des viewboxes rectangulaires pour la disposition verticale mobile (aspect ratio 2.4)', () => {
+      const b1 = { x: 50, y: 50, width: 40, height: 30 };
+      const b2 = { x: 200, y: 200, width: 80, height: 40 };
+
+      const result = computeSameScaleViewBoxes(b1, b2, 0.20, 2.4);
+      expect(result.scaleWidth).toBeGreaterThan(result.scaleHeight);
+      expect(result.scaleWidth).toBe(Math.round(Math.max(80, 40 * 2.4) * 1.2));
+
+      const p1 = result.viewBox1.split(' ').map(Number);
+      const p2 = result.viewBox2.split(' ').map(Number);
+
+      expect(p1[2]).toBe(result.scaleWidth);
+      expect(p2[2]).toBe(result.scaleWidth);
+      expect(p1[3]).toBe(result.scaleHeight);
+      expect(p2[3]).toBe(result.scaleHeight);
+    });
   });
 });

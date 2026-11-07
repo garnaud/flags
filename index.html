@@ -110,6 +110,18 @@
           >
             <!-- Boutons de réponse générés dynamiquement -->
           </div>
+
+          <!-- Bannière de solution automatique avec délai configurable -->
+          <div id="solution-banner" class="solution-banner hidden" aria-live="polite" title="Cliquez pour passer immédiatement">
+            <div class="solution-header">
+              <span id="solution-text" class="solution-text"></span>
+              <span id="solution-timer" class="solution-timer">⏱️ 3s</span>
+            </div>
+            <!-- Carte des frontières intégrée automatiquement sans confirmation -->
+            <div id="inline-border-map" class="inline-border-map hidden">
+              <div id="inline-map-svg-container" class="inline-map-svg-container"></div>
+            </div>
+          </div>
         </section>
       </main>
 
@@ -162,8 +174,26 @@
             <button id="settings-close-x" class="btn-close-icon" type="button" aria-label="Fermer les paramètres">✕</button>
           </div>
           <p class="modal-message">
-            Ajustez les points attribués à chaque catégorie pour personnaliser la difficulté du Mode Avancé.
+            Ajustez les points attribués à chaque catégorie et le délai de révélation de la solution.
           </p>
+
+          <!-- Réglage du délai d'affichage de la solution -->
+          <div class="setting-row setting-delay-row">
+            <div class="setting-row-top">
+              <span class="setting-cat-label">⏱️ Délai d'affichage de la solution</span>
+              <span class="setting-val-badge" id="badge-reveal-delay">3.0 s</span>
+            </div>
+            <input
+              type="range"
+              class="setting-range"
+              id="range-reveal-delay"
+              min="1"
+              max="6"
+              step="0.5"
+              value="3"
+              aria-label="Délai d'affichage de la solution en secondes"
+            />
+          </div>
 
           <div id="settings-sliders-container" class="settings-sliders-list">
             <!-- Sliders générés dynamiquement -->

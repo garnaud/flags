@@ -28,8 +28,8 @@ describe('Module Métriques Sociales & Culturelles (socialMetrics)', () => {
   });
 
   describe('Algorithme de répartition en K catégories (assignMetricTiers)', () => {
-    it('répartit équitablement les pays en 10 déciles (K = 10)', () => {
-      const tiersMap = assignMetricTiers(advancedCountries, 'lifeExpectancy', 10);
+    it('répartit équitablement les pays en 5 quintiles par défaut (K = 5)', () => {
+      const tiersMap = assignMetricTiers(advancedCountries, 'lifeExpectancy', 5);
       expect(tiersMap.size).toBe(advancedCountries.length);
 
       const counts = {};
@@ -37,58 +37,58 @@ describe('Module Métriques Sociales & Culturelles (socialMetrics)', () => {
         counts[tier] = (counts[tier] || 0) + 1;
       });
 
-      // 10 catégories bien créées
-      expect(Object.keys(counts).length).toBe(10);
-      // Chaque décile contient environ 19 ou 20 pays
-      for (let t = 1; t <= 10; t++) {
-        expect(counts[t]).toBeGreaterThanOrEqual(18);
-        expect(counts[t]).toBeLessThanOrEqual(22);
+      // 5 catégories bien créées
+      expect(Object.keys(counts).length).toBe(5);
+      // Chaque quintile contient environ 39 pays (37 à 41)
+      for (let t = 1; t <= 5; t++) {
+        expect(counts[t]).toBeGreaterThanOrEqual(37);
+        expect(counts[t]).toBeLessThanOrEqual(41);
       }
     });
 
-    it('permet de tuner facilement le nombre de catégories (ex: K = 5 quintiles)', () => {
-      const tiersMap5 = assignMetricTiers(advancedCountries, 'hdi', 5);
-      const counts5 = {};
-      tiersMap5.forEach((tier) => {
-        counts5[tier] = (counts5[tier] || 0) + 1;
+    it('permet de tuner facilement le nombre de catégories (ex: K = 10 déciles)', () => {
+      const tiersMap10 = assignMetricTiers(advancedCountries, 'hdi', 10);
+      const counts10 = {};
+      tiersMap10.forEach((tier) => {
+        counts10[tier] = (counts10[tier] || 0) + 1;
       });
 
-      expect(Object.keys(counts5).length).toBe(5);
-      for (let t = 1; t <= 5; t++) {
-        expect(counts5[t]).toBeGreaterThanOrEqual(37);
-        expect(counts5[t]).toBeLessThanOrEqual(41);
+      expect(Object.keys(counts10).length).toBe(10);
+      for (let t = 1; t <= 10; t++) {
+        expect(counts10[t]).toBeGreaterThanOrEqual(18);
+        expect(counts10[t]).toBeLessThanOrEqual(22);
       }
     });
 
     it('respecte l ordre de grandeur croissant des valeurs selon les tiers', () => {
-      const tiersMap = assignMetricTiers(advancedCountries, 'medianAge', 10);
+      const tiersMap = assignMetricTiers(advancedCountries, 'medianAge', 5);
       const tier1Countries = advancedCountries.filter((c) => tiersMap.get(c.code) === 1);
-      const tier10Countries = advancedCountries.filter((c) => tiersMap.get(c.code) === 10);
+      const tier5Countries = advancedCountries.filter((c) => tiersMap.get(c.code) === 5);
 
       const maxTier1 = Math.max(...tier1Countries.map((c) => c.medianAge));
-      const minTier10 = Math.min(...tier10Countries.map((c) => c.medianAge));
+      const minTier5 = Math.min(...tier5Countries.map((c) => c.medianAge));
 
-      expect(maxTier1).toBeLessThan(minTier10);
+      expect(maxTier1).toBeLessThan(minTier5);
     });
   });
 
   describe('Calcul du bonus d écart de catégorie (calculateCategoryGapBonus)', () => {
     it('accorde un bonus élevé pour un écart faible (très serré/difficile) et faible pour un grand écart', () => {
-      const bonusGap1 = calculateCategoryGapBonus(5, 6, 10); // gap = 1
-      const bonusGap5 = calculateCategoryGapBonus(2, 7, 10); // gap = 5
-      const bonusGap9 = calculateCategoryGapBonus(1, 10, 10); // gap = 9
+      const bonusGap1 = calculateCategoryGapBonus(1, 2, 5, 2.5); // gap = 1 -> (5 - 1)*2.5 = 10
+      const bonusGap2 = calculateCategoryGapBonus(1, 3, 5, 2.5); // gap = 2 -> (5 - 2)*2.5 = 7.5 -> 8
+      const bonusGap4 = calculateCategoryGapBonus(1, 5, 5, 2.5); // gap = 4 -> (5 - 4)*2.5 = 2.5 -> 3
 
-      expect(bonusGap1).toBe(9); // (10 - 1) = 9
-      expect(bonusGap5).toBe(5); // (10 - 5) = 5
-      expect(bonusGap9).toBe(1); // (10 - 9) = 1
-      expect(bonusGap1).toBeGreaterThan(bonusGap5);
-      expect(bonusGap5).toBeGreaterThan(bonusGap9);
+      expect(bonusGap1).toBe(10);
+      expect(bonusGap2).toBe(8);
+      expect(bonusGap4).toBe(3);
+      expect(bonusGap1).toBeGreaterThan(bonusGap2);
+      expect(bonusGap2).toBeGreaterThan(bonusGap4);
     });
   });
 
   describe('Générateur unifié generateSocialMetricQuestion (DRY)', () => {
     it('génère un duel pour l espérance de vie avec la valeur connue à droite', () => {
-      const q = generateSocialMetricQuestion(france, advancedCountries, 'lifeExpectancy', 10);
+      const q = generateSocialMetricQuestion(france, advancedCountries, 'lifeExpectancy', 5);
 
       expect(q.category).toBe('lifeExpectancy');
       expect(q.options).toEqual(['Oui', 'Non']);
@@ -98,7 +98,9 @@ describe('Module Métriques Sociales & Culturelles (socialMetrics)', () => {
       // Les pays comparés doivent OBLIGATOIREMENT être de catégories différentes
       expect(q.tierLeft).not.toBe(q.tierRight);
       expect(q.gap).toBeGreaterThanOrEqual(1);
-      expect(q.gapBonus).toBe(10 - q.gap);
+      expect(q.gapBonus).toBe(calculateCategoryGapBonus(q.tierLeft, q.tierRight, 5, 2.5));
+      expect(q.gapBonus).toBeGreaterThanOrEqual(3);
+      expect(q.gapBonus).toBeLessThanOrEqual(10);
 
       // Valeur connue à droite dans la question
       expect(q.questionText).toContain(q.rightValueText);
@@ -112,16 +114,16 @@ describe('Module Métriques Sociales & Culturelles (socialMetrics)', () => {
     });
 
     it('génère des duels pour les 3 autres métriques : IDH, âge médian et scolarisation', () => {
-      const qHdi = generateSocialMetricQuestion(espagne, advancedCountries, 'hdi', 10);
+      const qHdi = generateSocialMetricQuestion(espagne, advancedCountries, 'hdi', 5);
       expect(qHdi.category).toBe('hdi');
       expect(qHdi.options).toEqual(['Oui', 'Non']);
       expect(qHdi.questionText).toContain('IDH');
 
-      const qAge = generateSocialMetricQuestion(france, advancedCountries, 'medianAge', 10);
+      const qAge = generateSocialMetricQuestion(france, advancedCountries, 'medianAge', 5);
       expect(qAge.category).toBe('medianAge');
       expect(qAge.questionText).toContain('âge médian');
 
-      const qSchool = generateSocialMetricQuestion(espagne, advancedCountries, 'schoolingYears', 10);
+      const qSchool = generateSocialMetricQuestion(espagne, advancedCountries, 'schoolingYears', 5);
       expect(qSchool.category).toBe('schoolingYears');
       expect(qSchool.questionText).toContain('scolarisation');
     });

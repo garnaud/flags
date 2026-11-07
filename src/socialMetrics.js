@@ -43,15 +43,15 @@ export const SOCIAL_METRICS = {
 };
 
 /**
- * Répartit les pays en K catégories équitablement réparties (quantiles / déciles).
+ * Répartit les pays en K catégories équitablement réparties (5 quintiles par défaut).
  * L'algorithme trie les pays selon la métrique et attribue un tier de 1 à K.
  *
  * @param {Array<Object>} countries - Liste des pays
  * @param {string} metricKey - Clé de la métrique ('lifeExpectancy', 'hdi', 'medianAge', 'schoolingYears')
- * @param {number} [k=10] - Nombre de catégories (déciles par défaut, facilement tunable)
+ * @param {number} [k=5] - Nombre de catégories (5 quintiles par défaut)
  * @returns {Map<string, number>} Map associant chaque code de pays à son tier (1 à k)
  */
-export function assignMetricTiers(countries, metricKey, k = 10) {
+export function assignMetricTiers(countries, metricKey, k = 5) {
   const sorted = [...countries].sort((a, b) => a[metricKey] - b[metricKey]);
   const n = sorted.length;
   const tiersMap = new Map();
@@ -66,19 +66,19 @@ export function assignMetricTiers(countries, metricKey, k = 10) {
 }
 
 /**
- * Calcule le bonus de difficulté selon l'écart de catégorie entre deux pays.
- * Un écart de 1 catégorie (très proche) donne le bonus maximal (très difficile à départager).
- * Un écart de (k - 1) catégories (très éloigné) donne le bonus minimal (très facile).
+ * Calcule le bonus de difficulté selon l'écart de catégorie entre deux pays sur l'échelle 100.
+ * Un écart de 1 catégorie (très proche) donne le bonus maximal (+10 pts).
+ * Un écart de 4 catégories (opposés) donne le bonus minimal (+3 pts).
  *
  * @param {number} tier1 - Catégorie du premier pays (1 à k)
  * @param {number} tier2 - Catégorie du second pays (1 à k)
- * @param {number} [k=10] - Nombre total de catégories
- * @param {number} [bonusMultiplier=1] - Facteur d'amplification
+ * @param {number} [k=5] - Nombre total de catégories
+ * @param {number} [bonusMultiplier=2.5] - Facteur d'échelle
  * @returns {number} Points de bonus de difficulté
  */
-export function calculateCategoryGapBonus(tier1, tier2, k = 10, bonusMultiplier = 1) {
+export function calculateCategoryGapBonus(tier1, tier2, k = 5, bonusMultiplier = 2.5) {
   const gap = Math.abs(tier1 - tier2);
-  return Math.max(1, (k - gap) * bonusMultiplier);
+  return Math.round(Math.max(1, (k - gap) * bonusMultiplier));
 }
 
 /**
@@ -89,7 +89,7 @@ export function calculateCategoryGapBonus(tier1, tier2, k = 10, bonusMultiplier 
  * @param {Object} country - Pays cible (affiché à gauche)
  * @param {Array<Object>} allCountries - Liste de tous les pays
  * @param {string} metricKey - Identifiant de la métrique
- * @param {number} [k=10] - Nombre de catégories pour la répartition
+ * @param {number} [k=5] - Nombre de catégories pour la répartition
  * @param {Object} [weights] - Pondérations configurables
  * @returns {Object} Question de duel générée
  */
@@ -97,7 +97,7 @@ export function generateSocialMetricQuestion(
   country,
   allCountries,
   metricKey,
-  k = 10,
+  k = 5,
   weights = DEFAULT_WEIGHTS
 ) {
   const metricDef = SOCIAL_METRICS[metricKey];
@@ -131,7 +131,7 @@ export function generateSocialMetricQuestion(
   }
 
   const tierB = tiersMap.get(candidate.code) || 1;
-  const gapBonus = calculateCategoryGapBonus(tierA, tierB, k, 1);
+  const gapBonus = calculateCategoryGapBonus(tierA, tierB, k, 2.5);
 
   const isSuperior = country[metricKey] > candidate[metricKey];
   const leftValueFormatted = metricDef.format(country[metricKey]);

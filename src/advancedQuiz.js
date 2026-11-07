@@ -15,23 +15,62 @@ export const DEFAULT_WEIGHTS = {
 };
 
 export const STORAGE_KEY_CATEGORY_DIFFICULTIES = 'flags_quiz_category_difficulties';
+export const STORAGE_KEY_REVEAL_DELAY = 'flags_quiz_reveal_delay';
+export const DEFAULT_REVEAL_DELAY = 3.0; // secondes
 
 /**
- * Valeurs par défaut des difficultés par catégorie (points doublés pour un lissage optimal).
- * Les métriques sociales sont par défaut au même niveau que le PIB (12).
+ * Récupère le délai de révélation de la solution en secondes (défaut: 3.0s).
+ */
+export function getRevealDelay(storage = null) {
+  const store = storage || (typeof window !== 'undefined' ? window.localStorage : null);
+  if (!store) return DEFAULT_REVEAL_DELAY;
+  try {
+    const raw = store.getItem(STORAGE_KEY_REVEAL_DELAY);
+    if (!raw) return DEFAULT_REVEAL_DELAY;
+    const parsed = parseFloat(raw);
+    return !isNaN(parsed) && parsed >= 0.5 && parsed <= 10 ? parsed : DEFAULT_REVEAL_DELAY;
+  } catch {
+    return DEFAULT_REVEAL_DELAY;
+  }
+}
+
+/**
+ * Enregistre le délai de révélation de la solution en secondes.
+ */
+export function saveRevealDelay(seconds, storage = null) {
+  const store = storage || (typeof window !== 'undefined' ? window.localStorage : null);
+  const val = Math.max(0.5, Math.min(10, Number(seconds) || DEFAULT_REVEAL_DELAY));
+  if (store) {
+    try {
+      store.setItem(STORAGE_KEY_REVEAL_DELAY, val.toString());
+    } catch (e) {
+      console.warn('Erreur sauvegarde délai', e);
+    }
+  }
+  return val;
+}
+
+/**
+ * Valeurs par défaut des difficultés par catégorie sur l'échelle 100 points :
+ * - Drapeau / Capitale : 10 pts
+ * - Frontière : 10 pts (bonus même continent : +10 pts)
+ * - Monnaie : 15 pts
+ * - Population : 20 pts
+ * - Superficie : 25 pts
+ * - PIB et Métriques sociales : 30 pts
  */
 export const DEFAULT_CATEGORY_DIFFICULTY = {
-  drapeau: 2,
-  capitale: 2,
-  frontiere: 4,
-  monnaie: 6,
-  population: 8,
-  surface: 10,
-  pib: 12,
-  lifeExpectancy: 12,
-  hdi: 12,
-  medianAge: 12,
-  schoolingYears: 12,
+  drapeau: 10,
+  capitale: 10,
+  frontiere: 10,
+  monnaie: 15,
+  population: 20,
+  surface: 25,
+  pib: 30,
+  lifeExpectancy: 30,
+  hdi: 30,
+  medianAge: 30,
+  schoolingYears: 30,
 };
 
 /**
@@ -108,11 +147,11 @@ export function resetCategoryDifficulties(storage) {
 }
 
 /**
- * Calcule la difficulté d'une question selon l'échelle doublée (8 à 40 points) :
- * - Pays : Tier (2 à 10 pts) + 8 pts si petit pays (< 5M habitants)
- * - Catégorie : drapeau (2), capitale (2), frontiere (4), monnaie (6), population (8), surface (10), pib (12)
- * - Choix multiples : 2 choix -> 2 pts, 3 choix -> 4 pts, 4 choix -> 6 pts
- * - Indices : 2 indices -> 2 pts, 3 indices -> 4 pts, 4 indices -> 6 pts
+ * Calcule la difficulté d'une question selon l'échelle 100 points :
+ * - Pays : Tier (5 à 25 pts) + bonus population (< 1M: +25 pts, < 3M: +12 pts)
+ * - Catégorie : drapeau (10), capitale (10), frontière (10), monnaie (15), population (20), surface (25), PIB & social (30)
+ * - Choix multiples : 2 choix -> 5 pts, 3 choix -> 10 pts, 4 choix -> 15 pts
+ * - Indices : 2 indices -> 5 pts, 3 indices -> 10 pts, 4 indices -> 15 pts
  *
  * @param {Object|number} countryOrTier - Objet pays ou tier numérique (1 à 5)
  * @param {string} category - Catégorie de la question
@@ -120,7 +159,7 @@ export function resetCategoryDifficulties(storage) {
  * @param {number} [hintsCount=2] - Nombre d'indices (2, 3, 4)
  * @param {typeof DEFAULT_WEIGHTS} [weights] - Pondérations configurables
  * @param {Object} [categoryDifficulties] - Poids personnalisés optionnels
- * @returns {number} Score total de difficulté (entre 8 et 40)
+ * @returns {number} Score total de difficulté (entre 25 et 100)
  */
 export function calculateQuestionDifficulty(
   countryOrTier,
@@ -135,30 +174,30 @@ export function calculateQuestionDifficulty(
   const optWeight = weights.optionsWeight ?? 1;
   const hWeight = weights.hintsWeight ?? 1;
 
-  let countryPoints = 2;
+  let countryPoints = 5;
   let popBonus = 0;
   if (typeof countryOrTier === 'object' && countryOrTier !== null) {
-    countryPoints = (countryOrTier.tier || 1) * 2;
-    // Bonus petits pays : +10 pts si < 1M hab, +5 pts si < 3M hab
+    countryPoints = (countryOrTier.tier || 1) * 5;
+    // Bonus petits pays : +25 pts si < 1M hab, +12 pts si < 3M hab
     if (countryOrTier.population < 1000000) {
-      popBonus = 10;
+      popBonus = 25;
     } else if (countryOrTier.population < 3000000) {
-      popBonus = 5;
+      popBonus = 12;
     }
   } else {
-    countryPoints = (Number(countryOrTier) || 1) * 2;
+    countryPoints = (Number(countryOrTier) || 1) * 5;
   }
   countryPoints += popBonus;
 
   const activeCatDifficulties = categoryDifficulties || CATEGORY_DIFFICULTY;
-  const catPoints = activeCatDifficulties[category] ?? 2;
+  const catPoints = activeCatDifficulties[category] ?? 10;
 
-  // 2 choix -> 2 pts, 3 choix -> 4 pts, 4 choix -> 6 pts
-  const optionsPoints = Math.max(1, optionsCount - 1) * 2;
-  // 2 indices -> 2 pts, 3 indices -> 4 pts, 4 indices -> 6 pts
-  const hintsPoints = Math.max(1, hintsCount - 1) * 2;
+  // 2 choix -> 5 pts, 3 choix -> 10 pts, 4 choix -> 15 pts
+  const optionsPoints = Math.max(1, optionsCount - 1) * 5;
+  // 2 indices -> 5 pts, 3 indices -> 10 pts, 4 indices -> 15 pts
+  const hintsPoints = Math.max(1, hintsCount - 1) * 5;
 
-  return (
+  return Math.round(
     (countryPoints * cWeight) +
     (catPoints * catWeight) +
     (optionsPoints * optWeight) +
@@ -326,8 +365,8 @@ export function generateBorderQuestion(country, allCountries) {
 
   const isNeighbor = country.borders.includes(candidate.code);
   const sameContinent = country.continent && candidate.continent && country.continent === candidate.continent;
-  // Bonus de frontière doublé à +6 points si même continent
-  const difficulty = calculateQuestionDifficulty(country, 'frontiere', 2, 2) + (sameContinent ? 6 : 0);
+  // Bonus de frontière à +10 points sur l'échelle 100 si même continent
+  const difficulty = calculateQuestionDifficulty(country, 'frontiere', 2, 2) + (sameContinent ? 10 : 0);
 
   return {
     category: 'frontiere',
@@ -498,7 +537,7 @@ export function generateAdvancedQuestion(country, category, optionsCount, hintsC
     case 'hdi':
     case 'medianAge':
     case 'schoolingYears':
-      return generateSocialMetricQuestion(country, allCountries, category, 10, DEFAULT_WEIGHTS);
+      return generateSocialMetricQuestion(country, allCountries, category, 5, DEFAULT_WEIGHTS);
     default:
       return generateCapitalQuestion(country, allCountries, optionsCount);
   }
@@ -506,8 +545,9 @@ export function generateAdvancedQuestion(country, category, optionsCount, hintsC
 
 /**
  * Moteur du Mode Avancé (Survie & Culture)
- * Fonctionne sur une échelle lissée de 8 à 40 points :
- * Score Cible = Math.min(40, Math.floor(10 + streak * 1.5))
+ * Fonctionne sur une échelle lissée de 25 à 100 points :
+ * Progression continue de la question 1 à la question 100 :
+ * Score Cible = Math.min(100, Math.round(25 + streak * 0.75))
  */
 export class AdvancedQuizEngine {
   /**
@@ -527,7 +567,7 @@ export class AdvancedQuizEngine {
   }
 
   getTargetDifficulty(streak) {
-    return Math.min(40, Math.floor(10 + streak * 1.5));
+    return Math.min(100, Math.round(25 + streak * 0.75));
   }
 
   getNextQuestion() {
@@ -558,7 +598,7 @@ export class AdvancedQuizEngine {
     let bestCandidate = null;
     let minDiff = Infinity;
 
-    for (let attempt = 0; attempt < 50; attempt++) {
+    for (let attempt = 0; attempt < 100; attempt++) {
       const category = categories[Math.floor(Math.random() * categories.length)];
 
       let eligible = this.allCountries;
@@ -566,6 +606,14 @@ export class AdvancedQuizEngine {
         eligible = this.allCountries.filter((c) => !c.isIsland && c.borders.length > 0);
       }
 
+      // Lissage adaptatif de difficulté sur 100
+      if (target <= 38 && Math.random() < 0.75) {
+        eligible = eligible.filter((c) => c.tier <= 2 && c.population >= 3000000);
+      } else if (target >= 75 && Math.random() < 0.75) {
+        eligible = eligible.filter((c) => c.tier >= 4 || c.population < 3000000);
+      }
+
+      if (eligible.length === 0) eligible = this.allCountries;
       const country = eligible[Math.floor(Math.random() * eligible.length)] || this.allCountries[0];
       const qKey = `${country.code}_${category}`;
 
@@ -583,8 +631,14 @@ export class AdvancedQuizEngine {
       const optionsCount = isTwoChoicesOnly ? 2 : choiceOptions[Math.floor(Math.random() * choiceOptions.length)];
       const hintsCount = hintOptions[Math.floor(Math.random() * hintOptions.length)];
 
-      const score = calculateQuestionDifficulty(country, category, optionsCount, hintsCount, this.weights);
-      const diff = Math.abs(score - target);
+      let estScore = calculateQuestionDifficulty(country, category, optionsCount, hintsCount, this.weights);
+      if (category === 'frontiere') {
+        estScore += 10; // estimation bonus continent
+      } else if (category in SOCIAL_METRICS) {
+        estScore += 6; // estimation bonus d'écart
+      }
+
+      const diff = Math.abs(estScore - target);
 
       if (diff < minDiff) {
         minDiff = diff;
