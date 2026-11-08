@@ -11,6 +11,7 @@ import {
   saveRevealDelay,
   DEFAULT_REVEAL_DELAY,
   calculateQuestionDifficulty,
+  calculatePopulationGapBonus,
   generateFlagQuestion,
   generateCapitalQuestion,
   generateCurrencyQuestion,
@@ -120,9 +121,9 @@ describe('Mode Avancé - Logique Métier & TDD', () => {
       expect(getCategoryDifficulties(mockStorage)).toEqual(DEFAULT_CATEGORY_DIFFICULTY);
     });
 
-    it('devrait lire et enregistrer le délai configurable d affichage de la solution (défaut: 3s)', () => {
+    it('devrait lire et enregistrer le délai configurable d affichage de la solution (défaut: 1.5s)', () => {
       expect(getRevealDelay(mockStorage)).toBe(DEFAULT_REVEAL_DELAY);
-      expect(getRevealDelay(mockStorage)).toBe(3.0);
+      expect(getRevealDelay(mockStorage)).toBe(1.5);
 
       saveRevealDelay(4.5, mockStorage);
       expect(getRevealDelay(mockStorage)).toBe(4.5);
@@ -133,6 +134,19 @@ describe('Mode Avancé - Logique Métier & TDD', () => {
 
       saveRevealDelay(15, mockStorage);
       expect(getRevealDelay(mockStorage)).toBe(10.0);
+    });
+
+    it('devrait calculer le bonus d écart de population entre pays comparés', () => {
+      // Moins de 1M : +10 pts
+      expect(calculatePopulationGapBonus(5000000, 5600000)).toBe(10); // écart 600k < 1M
+      // Moins de 5M : +5 pts
+      expect(calculatePopulationGapBonus(10000000, 13000000)).toBe(5); // écart 3M < 5M
+      // Moins de 10M : +3 pts
+      expect(calculatePopulationGapBonus(20000000, 27000000)).toBe(3); // écart 7M < 10M
+      // Moins de 20M : +1 pt
+      expect(calculatePopulationGapBonus(30000000, 45000000)).toBe(1); // écart 15M < 20M
+      // 20M ou plus : 0 pt
+      expect(calculatePopulationGapBonus(10000000, 60000000)).toBe(0); // écart 50M
     });
   });
 
@@ -196,8 +210,9 @@ describe('Mode Avancé - Logique Métier & TDD', () => {
       const areNeighbors = france.borders.includes(q.secondCountry.code);
       expect(q.correctAnswer).toBe(areNeighbors ? 'Oui' : 'Non');
 
-      // Bonus +10 si les deux pays sont sur le même continent
-      const baseDiff = calculateQuestionDifficulty(france, 'frontiere', 2, 2);
+      // Bonus +10 si même continent + bonus écart de population
+      const popBonus = calculatePopulationGapBonus(france.population, q.secondCountry.population);
+      const baseDiff = calculateQuestionDifficulty(france, 'frontiere', 2, 2) + popBonus;
       if (france.continent === q.secondCountry.continent) {
         expect(q.difficulty).toBe(baseDiff + 10);
       } else {
@@ -215,6 +230,8 @@ describe('Mode Avancé - Logique Métier & TDD', () => {
       expect(q.leftPopulationText).toBeDefined();
       expect(q.rightPopulationText).toBeDefined();
       expect(q.visualComparison).toContain('>');
+      expect(q.popGapBonus).toBe(calculatePopulationGapBonus(espagne.population, q.secondCountry.population));
+      expect(q.difficulty).toBe(calculateQuestionDifficulty(espagne, 'population', 2, 2) + q.popGapBonus);
 
       // Vérifier la validité de la réponse
       const isSuperior = espagne.population > q.secondCountry.population;
@@ -231,6 +248,8 @@ describe('Mode Avancé - Logique Métier & TDD', () => {
       expect(q.leftAreaText).toContain('km²');
       expect(q.rightAreaText).toContain('km²');
       expect(q.visualComparison).toContain('>');
+      expect(q.popGapBonus).toBe(calculatePopulationGapBonus(espagne.population, q.secondCountry.population));
+      expect(q.difficulty).toBe(calculateQuestionDifficulty(espagne, 'surface', 2, 2) + q.popGapBonus);
 
       // Vérifier la validité de la réponse
       const isLarger = espagne.area > q.secondCountry.area;
@@ -247,6 +266,8 @@ describe('Mode Avancé - Logique Métier & TDD', () => {
       expect(q.leftGdpPerCapitaText).toContain('$ / hab');
       expect(q.rightGdpPerCapitaText).toContain('$ / hab');
       expect(q.visualComparison).toContain('>');
+      expect(q.popGapBonus).toBe(calculatePopulationGapBonus(espagne.population, q.secondCountry.population));
+      expect(q.difficulty).toBe(calculateQuestionDifficulty(espagne, 'pib', 2, 2) + q.popGapBonus);
 
       // Vérifier la validité de la réponse
       const isSuperior = espagne.gdpPerCapita > q.secondCountry.gdpPerCapita;

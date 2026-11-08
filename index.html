@@ -79,6 +79,23 @@
 
       <main class="quiz-main">
         <section class="card question-card" aria-labelledby="question-instruction">
+          <!-- Overlay de solution superposé directement au centre de la question -->
+          <div id="solution-banner" class="solution-overlay hidden" aria-live="polite" title="Touchez pour continuer immédiatement">
+            <div class="solution-header">
+              <span id="solution-text" class="solution-text"></span>
+              <span id="solution-timer" class="solution-timer">⏱️ 1.5s</span>
+            </div>
+            <!-- Carte des frontières intégrée dans l'overlay -->
+            <div id="inline-border-map" class="inline-border-map hidden">
+              <div id="inline-map-svg-container" class="inline-map-svg-container"></div>
+            </div>
+            <!-- Silhouettes de superficie superposées -->
+            <div id="inline-surface-media" class="inline-surface-media hidden">
+              <!-- Rempli dynamiquement avec les silhouettes à l'échelle -->
+            </div>
+            <span class="solution-skip-hint">Touchez l'écran pour passer ➔</span>
+          </div>
+
           <!-- Badge de catégorie pour le mode avancé -->
           <div id="category-badge" class="category-badge hidden">🏛️ Capitale</div>
 
@@ -109,18 +126,6 @@
             aria-label="Options de réponse"
           >
             <!-- Boutons de réponse générés dynamiquement -->
-          </div>
-
-          <!-- Bannière de solution automatique avec délai configurable -->
-          <div id="solution-banner" class="solution-banner hidden" aria-live="polite" title="Cliquez pour passer immédiatement">
-            <div class="solution-header">
-              <span id="solution-text" class="solution-text"></span>
-              <span id="solution-timer" class="solution-timer">⏱️ 3s</span>
-            </div>
-            <!-- Carte des frontières intégrée automatiquement sans confirmation -->
-            <div id="inline-border-map" class="inline-border-map hidden">
-              <div id="inline-map-svg-container" class="inline-map-svg-container"></div>
-            </div>
           </div>
         </section>
       </main>
@@ -180,8 +185,8 @@
           <!-- Réglage du délai d'affichage de la solution -->
           <div class="setting-row setting-delay-row">
             <div class="setting-row-top">
-              <span class="setting-cat-label">⏱️ Délai d'affichage de la solution</span>
-              <span class="setting-val-badge" id="badge-reveal-delay">3.0 s</span>
+              <span class="setting-cat-label">⏱️ Pause d'affichage de la solution</span>
+              <span class="setting-val-badge" id="badge-reveal-delay">1.5 s</span>
             </div>
             <input
               type="range"
@@ -190,7 +195,7 @@
               min="1"
               max="6"
               step="0.5"
-              value="3"
+              value="1.5"
               aria-label="Délai d'affichage de la solution en secondes"
             />
           </div>

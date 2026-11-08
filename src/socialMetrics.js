@@ -1,4 +1,4 @@
-import { calculateQuestionDifficulty, DEFAULT_WEIGHTS } from './advancedQuiz.js';
+import { calculateQuestionDifficulty, calculatePopulationGapBonus, DEFAULT_WEIGHTS } from './advancedQuiz.js';
 
 /**
  * Registre déclaratif et unifié des 4 métriques sociales & culturelles (DRY).
@@ -132,14 +132,15 @@ export function generateSocialMetricQuestion(
 
   const tierB = tiersMap.get(candidate.code) || 1;
   const gapBonus = calculateCategoryGapBonus(tierA, tierB, k, 2.5);
+  const popGapBonus = calculatePopulationGapBonus(country.population, candidate.population);
 
   const isSuperior = country[metricKey] > candidate[metricKey];
   const leftValueFormatted = metricDef.format(country[metricKey]);
   const rightValueFormatted = metricDef.format(candidate[metricKey]);
 
-  // Difficulté de base de la catégorie (même niveau que le PIB par défaut : 12) + bonus d'écart
+  // Difficulté de base de la catégorie + bonus d'écart + bonus d'écart de population
   const baseDiff = calculateQuestionDifficulty(country, metricKey, 2, 2, weights);
-  const difficulty = baseDiff + gapBonus;
+  const difficulty = baseDiff + gapBonus + popGapBonus;
 
   return {
     category: metricKey,
@@ -153,6 +154,7 @@ export function generateSocialMetricQuestion(
     tierRight: tierB,
     gap: Math.abs(tierA - tierB),
     gapBonus,
+    popGapBonus,
     questionText: metricDef.questionText(country, candidate, rightValueFormatted),
     leftValueText: leftValueFormatted,
     rightValueText: rightValueFormatted,

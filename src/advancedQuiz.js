@@ -16,10 +16,32 @@ export const DEFAULT_WEIGHTS = {
 
 export const STORAGE_KEY_CATEGORY_DIFFICULTIES = 'flags_quiz_category_difficulties';
 export const STORAGE_KEY_REVEAL_DELAY = 'flags_quiz_reveal_delay';
-export const DEFAULT_REVEAL_DELAY = 3.0; // secondes
+export const DEFAULT_REVEAL_DELAY = 1.5; // secondes
 
 /**
- * Récupère le délai de révélation de la solution en secondes (défaut: 3.0s).
+ * Calcule le bonus de difficulté selon l'écart de population entre deux pays comparés :
+ * - Moins de 1 million d'habitants d'écart : +10 pts
+ * - Moins de 5 millions d'habitants d'écart : +5 pts
+ * - Moins de 10 millions d'habitants d'écart : +3 pts
+ * - Moins de 20 millions d'habitants d'écart : +1 pt
+ * - 20 millions ou plus : 0 pt
+ *
+ * @param {number} pop1 - Population du premier pays
+ * @param {number} pop2 - Population du second pays
+ * @returns {number} Points de bonus de difficulté
+ */
+export function calculatePopulationGapBonus(pop1, pop2) {
+  if (typeof pop1 !== 'number' || typeof pop2 !== 'number') return 0;
+  const gap = Math.abs(pop1 - pop2);
+  if (gap < 1000000) return 10;
+  if (gap < 5000000) return 5;
+  if (gap < 10000000) return 3;
+  if (gap < 20000000) return 1;
+  return 0;
+}
+
+/**
+ * Récupère le délai de révélation de la solution en secondes (défaut: 1.5s).
  */
 export function getRevealDelay(storage = null) {
   const store = storage || (typeof window !== 'undefined' ? window.localStorage : null);
@@ -365,13 +387,15 @@ export function generateBorderQuestion(country, allCountries) {
 
   const isNeighbor = country.borders.includes(candidate.code);
   const sameContinent = country.continent && candidate.continent && country.continent === candidate.continent;
-  // Bonus de frontière à +10 points sur l'échelle 100 si même continent
-  const difficulty = calculateQuestionDifficulty(country, 'frontiere', 2, 2) + (sameContinent ? 10 : 0);
+  const popGapBonus = calculatePopulationGapBonus(country.population, candidate.population);
+  // Bonus de frontière (+10 si même continent) + bonus écart de population
+  const difficulty = calculateQuestionDifficulty(country, 'frontiere', 2, 2) + (sameContinent ? 10 : 0) + popGapBonus;
 
   return {
     category: 'frontiere',
     country,
     secondCountry: candidate,
+    popGapBonus,
     questionText: `Ces deux pays partagent-ils une frontière terrestre : ${country.name} et ${candidate.name} ?`,
     flagCode: country.code,
     secondFlagCode: candidate.code,
@@ -415,11 +439,13 @@ export function generatePopulationQuestion(country, allCountries) {
 
   const leftPopulationText = formatPop(country.population);
   const rightPopulationText = formatPop(candidate.population);
+  const popGapBonus = calculatePopulationGapBonus(country.population, candidate.population);
 
   return {
     category: 'population',
     country,
     secondCountry: candidate,
+    popGapBonus,
     questionText: `La population de ${country.name} (${leftPopulationText}) est-elle supérieure à celle de ${candidate.name} ?`,
     leftPopulationText,
     rightPopulationText,
@@ -428,7 +454,7 @@ export function generatePopulationQuestion(country, allCountries) {
     secondFlagCode: candidate.code,
     correctAnswer: isSuperior ? 'Oui' : 'Non',
     options: ['Oui', 'Non'],
-    difficulty: calculateQuestionDifficulty(country, 'population', 2, 2),
+    difficulty: calculateQuestionDifficulty(country, 'population', 2, 2) + popGapBonus,
   };
 }
 
@@ -453,11 +479,13 @@ export function generateSurfaceQuestion(country, allCountries) {
   const isLarger = country.area > candidate.area;
   const leftAreaText = `${formatNumber(country.area)} km²`;
   const rightAreaText = `${formatNumber(candidate.area)} km²`;
+  const popGapBonus = calculatePopulationGapBonus(country.population, candidate.population);
 
   return {
     category: 'surface',
     country,
     secondCountry: candidate,
+    popGapBonus,
     questionText: `${country.name} est-il plus grand que ${candidate.name} ?`,
     visualComparison: `${country.name} > ${candidate.name}`,
     leftAreaText,
@@ -466,7 +494,7 @@ export function generateSurfaceQuestion(country, allCountries) {
     secondFlagCode: candidate.code,
     correctAnswer: isLarger ? 'Oui' : 'Non',
     options: ['Oui', 'Non'],
-    difficulty: calculateQuestionDifficulty(country, 'surface', 2, 2),
+    difficulty: calculateQuestionDifficulty(country, 'surface', 2, 2) + popGapBonus,
   };
 }
 
@@ -497,11 +525,13 @@ export function generateGdpQuestion(country, allCountries) {
   const isSuperior = country.gdpPerCapita > candidate.gdpPerCapita;
   const leftGdpPerCapitaText = `${formatNumber(country.gdpPerCapita)} $ / hab`;
   const rightGdpPerCapitaText = `${formatNumber(candidate.gdpPerCapita)} $ / hab`;
+  const popGapBonus = calculatePopulationGapBonus(country.population, candidate.population);
 
   return {
     category: 'pib',
     country,
     secondCountry: candidate,
+    popGapBonus,
     questionText: `Le PIB par habitant de ${country.name} (${leftGdpPerCapitaText}) est-il supérieur à celui de ${candidate.name} ?`,
     leftGdpPerCapitaText,
     rightGdpPerCapitaText,
@@ -510,7 +540,7 @@ export function generateGdpQuestion(country, allCountries) {
     secondFlagCode: candidate.code,
     correctAnswer: isSuperior ? 'Oui' : 'Non',
     options: ['Oui', 'Non'],
-    difficulty: calculateQuestionDifficulty(country, 'pib', 2, 2),
+    difficulty: calculateQuestionDifficulty(country, 'pib', 2, 2) + popGapBonus,
   };
 }
 

@@ -100,6 +100,7 @@ const solutionText = document.getElementById('solution-text');
 const solutionTimer = document.getElementById('solution-timer');
 const inlineBorderMap = document.getElementById('inline-border-map');
 const inlineMapSvgContainer = document.getElementById('inline-map-svg-container');
+const inlineSurfaceMedia = document.getElementById('inline-surface-media');
 
 // État de l'application
 let currentMode = 'classic'; // 'classic' | 'advanced'
@@ -212,6 +213,9 @@ function renderQuestion() {
   }
   if (inlineBorderMap) {
     inlineBorderMap.classList.add('hidden');
+  }
+  if (inlineSurfaceMedia) {
+    inlineSurfaceMedia.classList.add('hidden');
   }
 
   if (currentMode === 'classic') {
@@ -334,34 +338,6 @@ function renderAdvancedQuestion() {
           </div>
         </div>
       `;
-    } else if (q.category === 'surface') {
-      const formatArea = (num) => new Intl.NumberFormat('fr-FR').format(num);
-      flagWrapper.innerHTML = `
-        <div class="surface-duel-vertical">
-          <!-- Pays 1 (en haut) -->
-          <div class="surface-card">
-            <div class="surface-card-header">
-              <img class="flag-image-sm loading" src="https://flagcdn.com/w160/${q.flagCode.toLowerCase()}.png" alt="${q.country.name}" />
-              <span class="surface-card-name">${q.country.name}</span>
-              <span class="surface-area-badge hidden" id="area-reveal-left">${q.leftAreaText || formatArea(q.country.area) + ' km²'}</span>
-            </div>
-            <div class="surface-silhouette-wrapper hidden" id="silhouette-left" title="Silhouette de ${q.country.name} à l'échelle"></div>
-          </div>
-
-          <div class="surface-operator-separator">&gt;</div>
-
-          <!-- Pays 2 (en bas) -->
-          <div class="surface-card">
-            <div class="surface-card-header">
-              <img class="flag-image-sm loading" src="https://flagcdn.com/w160/${q.secondFlagCode.toLowerCase()}.png" alt="${q.secondCountry.name}" />
-              <span class="surface-card-name">${q.secondCountry.name}</span>
-              <span class="surface-area-badge hidden" id="area-reveal-right">${q.rightAreaText || formatArea(q.secondCountry.area) + ' km²'}</span>
-            </div>
-            <div class="surface-silhouette-wrapper hidden" id="silhouette-right" title="Silhouette de ${q.secondCountry.name} à l'échelle"></div>
-          </div>
-        </div>
-      `;
-      loadSurfaceSilhouettes(q.flagCode, q.secondFlagCode);
     } else {
       flagWrapper.innerHTML = `
         <div class="duel-flags-container">
@@ -524,18 +500,15 @@ async function getWorldSvgText() {
 }
 
 /**
- * Charge et affiche les silhouettes vectorielles des deux pays à la même échelle relative (1:1).
+ * Affiche les silhouettes vectorielles des deux pays à la même échelle relative (1:1) superposées dans la solution.
  */
-async function loadSurfaceSilhouettes(code1, code2) {
+async function renderInlineSurfaceSilhouettes(q) {
+  if (!inlineSurfaceMedia) return;
   const svgText = await getWorldSvgText();
   if (!svgText) return;
 
-  const boxLeft = document.getElementById('silhouette-left');
-  const boxRight = document.getElementById('silhouette-right');
-  if (!boxLeft || !boxRight) return;
-
-  const d1 = getCountryPathD(svgText, code1);
-  const d2 = getCountryPathD(svgText, code2);
+  const d1 = getCountryPathD(svgText, q.flagCode);
+  const d2 = getCountryPathD(svgText, q.secondFlagCode);
   if (!d1 || !d2) return;
 
   const tempSvg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
@@ -565,18 +538,36 @@ async function loadSurfaceSilhouettes(code1, code2) {
 
   const { viewBox1, viewBox2 } = computeSameScaleViewBoxes(b1, b2, 0.20, 2.4);
 
-  boxLeft.innerHTML = `
-    <svg viewBox="${viewBox1}" preserveAspectRatio="xMidYMid meet">
-      <path d="${d1}" class="silhouette-path-left" />
-    </svg>
-    <span class="silhouette-scale-label">ÉCHELLE 1:1</span>
-  `;
+  inlineSurfaceMedia.innerHTML = `
+    <div class="surface-card">
+      <div class="surface-card-header">
+        <img class="flag-image-sm" src="https://flagcdn.com/w80/${q.flagCode.toLowerCase()}.png" alt="${q.country.name}" />
+        <span class="surface-card-name">${q.country.name}</span>
+        <span class="surface-area-badge">${q.leftAreaText}</span>
+      </div>
+      <div class="surface-silhouette-wrapper">
+        <svg viewBox="${viewBox1}" preserveAspectRatio="xMidYMid meet">
+          <path d="${d1}" class="silhouette-path-left" />
+        </svg>
+        <span class="silhouette-scale-label">ÉCHELLE 1:1</span>
+      </div>
+    </div>
 
-  boxRight.innerHTML = `
-    <svg viewBox="${viewBox2}" preserveAspectRatio="xMidYMid meet">
-      <path d="${d2}" class="silhouette-path-right" />
-    </svg>
-    <span class="silhouette-scale-label">ÉCHELLE 1:1</span>
+    <div class="surface-operator-separator">&gt;</div>
+
+    <div class="surface-card">
+      <div class="surface-card-header">
+        <img class="flag-image-sm" src="https://flagcdn.com/w80/${q.secondFlagCode.toLowerCase()}.png" alt="${q.secondCountry.name}" />
+        <span class="surface-card-name">${q.secondCountry.name}</span>
+        <span class="surface-area-badge">${q.rightAreaText}</span>
+      </div>
+      <div class="surface-silhouette-wrapper">
+        <svg viewBox="${viewBox2}" preserveAspectRatio="xMidYMid meet">
+          <path d="${d2}" class="silhouette-path-right" />
+        </svg>
+        <span class="silhouette-scale-label">ÉCHELLE 1:1</span>
+      </div>
+    </div>
   `;
 }
 
@@ -649,7 +640,7 @@ function clearSolutionTimer() {
 }
 
 /**
- * Affiche systématiquement la solution pour toutes les questions avec délai configurable (3s par défaut).
+ * Affiche systématiquement la solution pour toutes les questions avec délai configurable (1.5s par défaut).
  * Un tap/clic sur la bannière ou la touche Espace/Entrée permet d'avancer immédiatement.
  */
 function showSystematicSolution(currentQ, isCorrect, mode, onAdvance) {
@@ -661,6 +652,7 @@ function showSystematicSolution(currentQ, isCorrect, mode, onAdvance) {
 
   let text = '';
   let isBorderQuestion = false;
+  let isSurfaceQuestion = false;
 
   if (mode === 'classic') {
     text = `${isCorrect ? '✅ Exact !' : '❌ Réponse :'} Drapeau de : <strong>${currentQ.correctAnswer}</strong>`;
@@ -679,12 +671,9 @@ function showSystematicSolution(currentQ, isCorrect, mode, onAdvance) {
         : `❌ <strong>${currentQ.country.name}</strong> et <strong>${currentQ.secondCountry.name}</strong> ne partagent aucune frontière`;
       isBorderQuestion = true;
     } else if (cat === 'surface') {
-      document.getElementById('silhouette-left')?.classList.remove('hidden');
-      document.getElementById('silhouette-right')?.classList.remove('hidden');
-      document.getElementById('area-reveal-left')?.classList.remove('hidden');
-      document.getElementById('area-reveal-right')?.classList.remove('hidden');
       const op = currentQ.correctAnswer === 'Oui' ? '>' : '<';
       text = `📐 Superficie : <strong>${currentQ.country.name}</strong> (${currentQ.leftAreaText}) ${op} <strong>${currentQ.secondCountry.name}</strong> (${currentQ.rightAreaText})`;
+      isSurfaceQuestion = true;
     } else if (cat === 'population') {
       const rightValEl = document.getElementById('right-country-value');
       if (rightValEl && currentQ.rightPopulationText) {
@@ -718,6 +707,13 @@ function showSystematicSolution(currentQ, isCorrect, mode, onAdvance) {
     inlineBorderMap?.classList.add('hidden');
   }
 
+  if (isSurfaceQuestion && currentQ.secondCountry) {
+    renderInlineSurfaceSilhouettes(currentQ);
+    inlineSurfaceMedia?.classList.remove('hidden');
+  } else {
+    inlineSurfaceMedia?.classList.add('hidden');
+  }
+
   solutionBanner.classList.remove('hidden');
 
   let remaining = getRevealDelay();
@@ -732,6 +728,7 @@ function showSystematicSolution(currentQ, isCorrect, mode, onAdvance) {
     clearSolutionTimer();
     solutionBanner.classList.add('hidden');
     inlineBorderMap?.classList.add('hidden');
+    inlineSurfaceMedia?.classList.add('hidden');
     solutionBanner.removeEventListener('click', triggerAdvance);
     window.removeEventListener('keydown', keydownAdvance);
     onAdvance();

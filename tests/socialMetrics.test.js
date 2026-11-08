@@ -1,5 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import { advancedCountries } from '../src/data/advancedCountries.js';
+import { calculateQuestionDifficulty } from '../src/advancedQuiz.js';
 import {
   SOCIAL_METRICS,
   assignMetricTiers,
@@ -107,6 +108,11 @@ describe('Module Métriques Sociales & Culturelles (socialMetrics)', () => {
       expect(q.questionText).toContain(france.name);
       expect(q.questionText).toContain(q.secondCountry.name);
       expect(q.leftValueText).toBeDefined();
+
+      // Bonus d'écart de population et difficulté totale
+      expect(q.popGapBonus).toBeDefined();
+      const baseDiff = calculateQuestionDifficulty(france, 'lifeExpectancy', 2, 2);
+      expect(q.difficulty).toBe(baseDiff + q.gapBonus + q.popGapBonus);
 
       // Vérification de la réponse
       const expectedAns = france.lifeExpectancy > q.secondCountry.lifeExpectancy ? 'Oui' : 'Non';
